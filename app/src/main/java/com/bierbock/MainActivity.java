@@ -1,5 +1,6 @@
 package com.bierbock;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -41,12 +42,9 @@ public class MainActivity extends AppCompatActivity {
         //appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+        binding.fab.setOnClickListener(e -> {
+            startActivity(new Intent(this, ScannActivity.class));
+            finish();
         });
     }
 
