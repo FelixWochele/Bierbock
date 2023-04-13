@@ -14,6 +14,15 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_fragment_left"
+            app:destination="@id/fragment_left" />
+        <action
+            android:id="@+id/action_FirstFragment_to_fragment_right"
+            app:destination="@id/fragment_right" />
+        <action
+            android:id="@+id/action_FirstFragment_to_fragment_settings"
+            app:destination="@id/fragment_settings" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -24,13 +33,19 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
-        <action
-            android:id="@+id/action_SecondFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.bierbock.ui.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        android:id="@+id/fragment_left"
+        android:name="com.bierbock.fragment_left"
+        android:label="fragment_left"
+        tools:layout="@layout/fragment_left" />
+    <fragment
+        android:id="@+id/fragment_right"
+        android:name="com.bierbock.fragment_right"
+        android:label="fragment_right"
+        tools:layout="@layout/fragment_right" />
+    <fragment
+        android:id="@+id/fragment_settings"
+        android:name="com.bierbock.fragment_settings"
+        android:label="fragment_settings" />
 </navigation>

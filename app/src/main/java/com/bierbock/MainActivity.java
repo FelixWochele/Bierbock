@@ -1,6 +1,8 @@
 package com.bierbock;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -9,8 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -43,11 +49,32 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         binding.fab.setOnClickListener(e -> {
+
+            //AsyncTask be = new Backend().execute();
             startActivity(new Intent(this, ScannActivity.class));
             finish();
         });
 
+        binding.bottomNavigationView.setOnItemSelectedListener(e -> {
 
+            Fragment one = new LeftFragment();
+            Fragment two = new FirstFragment();
+            Fragment three = new RightFragment();
+
+            switch (e.getItemId()) {
+                case R.id.challanges:
+                    replaceFragment(one);
+                    break;
+                case R.id.map:
+                    replaceFragment(two);
+                    break;
+                case R.id.home:
+                    replaceFragment(three);
+                    break;
+            }
+
+            return false;
+        });
     }
 
     @Override
@@ -67,7 +94,18 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.challanges) {
+
+
+
+        } else if (id == R.id.home) {
+
+        } else if (id == R.id.map) {
+
         }
+
+
+        System.out.println("ID: " + id);
 
         return super.onOptionsItemSelected(item);
     }
@@ -77,5 +115,16 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+
+    @SuppressLint("ResourceType")
+    private void replaceFragment(Fragment fragment){
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.FirstFragment, fragment);
+        fragmentTransaction.commit();
+
     }
 }

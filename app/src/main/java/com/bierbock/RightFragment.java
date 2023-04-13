@@ -1,6 +1,12 @@
 package com.bierbock;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -8,15 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
 import com.bierbock.databinding.FragmentSecondBinding;
 
-public class SecondFragment extends Fragment {
 
+public class RightFragment extends Fragment {
     private FragmentSecondBinding binding;
 
     @Override
@@ -50,21 +51,6 @@ public class SecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
-            }
-        });
-
-        binding.buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
 
     }
 
@@ -73,5 +59,4 @@ public class SecondFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }
