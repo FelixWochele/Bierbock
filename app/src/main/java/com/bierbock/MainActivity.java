@@ -40,12 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
+        getSupportActionBar().setTitle("Bierbock");
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
 
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.SecondFragment,
-                R.id.FirstFragment
+                R.id.homeFragment, R.layout.fragment_challange, R.id.heatMapFragment, R.id.action_settings
         ).build();
+
+
 
         //appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -59,9 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
         binding.bottomNavigationView.setOnItemSelectedListener(e -> {
 
-            Fragment one = new LeftFragment();
-            Fragment two = new FirstFragment();
-            Fragment three = new RightFragment();
+            Fragment one = new ChallangeFragment();
+            Fragment two = new HomeFragment();
+            Fragment three = new HeatMapFragment();
+            Fragment maps = new MapsFragment();
 
             switch (e.getItemId()) {
                 case R.id.challanges:
@@ -74,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.heatmap:
                     System.out.println("Test3");
-                    replaceFragment(three);
+                    replaceFragment(maps);
                     break;
             }
 
@@ -89,11 +93,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -103,8 +109,10 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("ID: " + id);
 
+
         return super.onOptionsItemSelected(item);
     }
+    */
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -114,13 +122,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @SuppressLint("ResourceType")
     private void replaceFragment(Fragment fragment){
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.nav_host_fragment_content_main, fragment);
-        fragmentTransaction.commit();
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, fragment).commit();
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <item
         android:id="@+id/challanges"
@@ -8,7 +9,8 @@
     <item
         android:id="@+id/homeMenue"
         android:title="Home"
-        android:icon="@drawable/baseline_home_24"/>
+        android:icon="@drawable/baseline_home_24"
+        android:state_checked="true"/>
     <item
         android:id="@+id/heatmap"
         android:title="Heatmap"
