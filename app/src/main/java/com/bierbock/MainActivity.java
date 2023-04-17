@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.SecondFragment,
                 R.id.FirstFragment
         ).build();
+
         //appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
@@ -63,12 +65,15 @@ public class MainActivity extends AppCompatActivity {
 
             switch (e.getItemId()) {
                 case R.id.challanges:
+                    System.out.println("Test1");
                     replaceFragment(one);
                     break;
-                case R.id.map:
+                case R.id.homeMenue:
+                    System.out.println("Test2");
                     replaceFragment(two);
                     break;
-                case R.id.home:
+                case R.id.heatmap:
+                    System.out.println("Test3");
                     replaceFragment(three);
                     break;
             }
@@ -94,16 +99,7 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        } else if (id == R.id.challanges) {
-
-
-
-        } else if (id == R.id.home) {
-
-        } else if (id == R.id.map) {
-
         }
-
 
         System.out.println("ID: " + id);
 
@@ -123,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.FirstFragment, fragment);
+        fragmentTransaction.replace(R.id.nav_host_fragment_content_main, fragment);
         fragmentTransaction.commit();
 
     }
