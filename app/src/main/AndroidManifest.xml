@@ -44,7 +44,7 @@
             android:value="AIzaSyAO3QLsIwZTyQWa3ybeuivKzZuojk-NZOA" />
 
         <activity
-            android:name=".ScannActivity"
+            android:name=".ScanActivity"
             android:exported="false"/>
         <activity
             android:name=".LoginActivity"

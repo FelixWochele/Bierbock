@@ -1,29 +1,17 @@
 package com.bierbock;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.bierbock.databinding.ActivityMainBinding;
-
 import android.view.Menu;
-import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
 
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.homeFragment, R.layout.fragment_challange, R.id.heatMapFragment, R.id.action_settings
+                R.id.homeFragment, R.layout.fragment_challenge, R.id.heatMapFragment, R.id.action_settings
         ).build();
 
 
@@ -56,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(e -> {
 
             //AsyncTask be = new Backend().execute();
-            startActivity(new Intent(this, ScannActivity.class));
+            startActivity(new Intent(this, ScanActivity.class));
             finish();
         });
 
         binding.bottomNavigationView.setOnItemSelectedListener(e -> {
 
-            Fragment one = new ChallangeFragment();
+            Fragment one = new ChallengeFragment();
             Fragment two = new HomeFragment();
             Fragment three = new HeatMapFragment();
             Fragment maps = new MapsFragment();

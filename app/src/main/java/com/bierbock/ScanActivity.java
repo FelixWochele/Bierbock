@@ -7,14 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bierbock.databinding.ActivityLoginBinding;
 import com.bierbock.databinding.ActivityScannBinding;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
-public class ScannActivity extends AppCompatActivity {
+public class ScanActivity extends AppCompatActivity {
 
     private ActivityScannBinding binding;
 
@@ -36,7 +35,7 @@ public class ScannActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(ScannActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ScanActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

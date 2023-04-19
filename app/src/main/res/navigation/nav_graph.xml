@@ -6,9 +6,9 @@
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/challangeFragment"
-        android:name="com.bierbock.ChallangeFragment"
+        android:name="com.bierbock.ChallengeFragment"
         android:label="fragment_challange"
-        tools:layout="@layout/fragment_challange" />
+        tools:layout="@layout/fragment_challenge" />
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.bierbock.HomeFragment"
