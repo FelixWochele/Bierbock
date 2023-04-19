@@ -1,22 +1,17 @@
 package com.bierbock;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.bierbock.databinding.ActivityMainBinding;
-
 import android.view.Menu;
-import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,25 +23,54 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
 
+        getSupportActionBar().setTitle("Bierbock");
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
 
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.SecondFragment,
-                R.id.FirstFragment
+                R.id.homeFragment, R.layout.fragment_challenge, R.id.heatMapFragment, R.id.action_settings
         ).build();
+
+
+
         //appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+        binding.fab.setOnClickListener(e -> {
+
+            //AsyncTask be = new Backend().execute();
+            startActivity(new Intent(this, ScanActivity.class));
+            finish();
+        });
+
+        binding.bottomNavigationView.setOnItemSelectedListener(e -> {
+
+            Fragment one = new ChallengeFragment();
+            Fragment two = new HomeFragment();
+            Fragment three = new HeatMapFragment();
+            Fragment maps = new MapsFragment();
+
+            switch (e.getItemId()) {
+                case R.id.challanges:
+                    System.out.println("Test1");
+                    replaceFragment(one);
+                    break;
+                case R.id.homeMenue:
+                    System.out.println("Test2");
+                    replaceFragment(two);
+                    break;
+                case R.id.heatmap:
+                    System.out.println("Test3");
+                    replaceFragment(maps);
+                    break;
             }
+
+            return false;
         });
     }
 
@@ -57,11 +81,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -69,13 +95,22 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        System.out.println("ID: " + id);
+
+
         return super.onOptionsItemSelected(item);
     }
+    */
 
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+
+    private void replaceFragment(Fragment fragment){
+        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, fragment).commit();
     }
 }
