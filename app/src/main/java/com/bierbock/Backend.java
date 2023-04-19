@@ -36,7 +36,7 @@ public class Backend extends AsyncTask<Void,Void,Void> {
         String url = "https://www.beerbock.de/swagger/security/createToken";
 
         // Body der Anfrage
-        String body = "{\"userName\": \"mustimax\", \"password\": \"Password123\"}";
+        String body = "{\"userName\": \"mustimax\", \"password\": \"Password1sdsf23\"}";
 
         // URL-Objekt erstellen
         URL obj = null;
@@ -63,7 +63,6 @@ public class Backend extends AsyncTask<Void,Void,Void> {
 
         // Content-Type Header setzen
         connection.setRequestProperty("Content-Type", "application/json");
-
 
         // Body in den Request schreiben
         connection.setDoOutput(true);
@@ -100,10 +99,14 @@ public class Backend extends AsyncTask<Void,Void,Void> {
 
         // Response lesen
         BufferedReader in = null;
-        try {
-            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            try {
+                in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
         }
         String inputLine;
         StringBuffer response = new StringBuffer();
@@ -120,19 +123,19 @@ public class Backend extends AsyncTask<Void,Void,Void> {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         // Response ausgeben
         System.out.println("Response: " + response.toString());
 
 
 
+/*
 
-        /*
         try {
 
             URL url = new URL("https://www.beerbock.de/swagger/security/createToken");
 
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
 
             //HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try {
@@ -144,7 +147,7 @@ public class Backend extends AsyncTask<Void,Void,Void> {
                 PrintWriter pw = new PrintWriter(out);
                 pw.println("{\n" +
                         "  \"userName\": \"mustimax\",\n" +
-                        "  \"password\": \"Password1sdsf23\"\n" +
+                        "  \"password\": \"Password123\"\n" +
                         "}");
 
                 int responseCode = con.getResponseCode();
@@ -193,7 +196,6 @@ public class Backend extends AsyncTask<Void,Void,Void> {
             throw new RuntimeException(e);
         }
         */
-
 
         return null;
 
