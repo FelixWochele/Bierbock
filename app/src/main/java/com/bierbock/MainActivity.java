@@ -13,6 +13,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.view.Menu;
 
+import com.bierbock.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
