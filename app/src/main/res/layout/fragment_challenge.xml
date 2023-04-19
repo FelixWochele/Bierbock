@@ -7,9 +7,16 @@
     android:background="#FFFFFF">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Chalanges" />
+        android:text="Challenges" /> -->
+
+    <ListView
+        android:id="@+id/challenge_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp" />
 
 </FrameLayout>

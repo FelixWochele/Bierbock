@@ -2,11 +2,21 @@ package com.bierbock;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.bierbock.Challenge.Challenge;
+import com.bierbock.Challenge.ChallengeAdapter;
+import com.google.android.gms.maps.SupportMapFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +63,7 @@ public class ChallengeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -61,4 +72,36 @@ public class ChallengeFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_challenge, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState); //TODO: lookup if it should be changed
+
+        List<Challenge> challenges = new ArrayList<>();
+        // Add your challenge data here
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345)); challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+
+        ChallengeAdapter adapter = new ChallengeAdapter(this.getContext(), R.layout.challenge_item, challenges);
+
+        ListView listView = (ListView) getView().findViewById(R.id.challenge_list);
+        listView.setAdapter(adapter);
+
+    }
+
 }
+

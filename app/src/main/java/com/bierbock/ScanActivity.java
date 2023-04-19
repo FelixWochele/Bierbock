@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bierbock.databinding.ActivityScannBinding;
+import com.bierbock.databinding.ActivityScanBinding;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
@@ -15,7 +15,7 @@ import com.google.zxing.Result;
 
 public class ScanActivity extends AppCompatActivity {
 
-    private ActivityScannBinding binding;
+    private ActivityScanBinding binding;
 
     private CodeScanner mCodeScanner;
 
@@ -24,7 +24,7 @@ public class ScanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        binding = ActivityScannBinding.inflate(getLayoutInflater());
+        binding = ActivityScanBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
