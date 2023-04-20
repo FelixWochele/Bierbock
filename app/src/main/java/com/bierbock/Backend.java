@@ -22,15 +22,19 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class Backend extends AsyncTask<Void,Void,Void> {
+public class Backend extends AsyncTask<String,String,Void> {
 
     String data ="";
     String dataParsed = "";
     String singleParsed ="";
 
+    boolean test;
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected Void doInBackground(String... in) {
+
+        //String url = in[0];
+        //String body = in[1];
 
         // URL der REST-API
         String url = "https://www.beerbock.de/security/createToken";
