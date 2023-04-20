@@ -1,6 +1,7 @@
 package com.bierbock;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
 
         binding.fab.setOnClickListener(e -> {
 
-            //AsyncTask be = new Backend().execute();
-            startActivity(new Intent(this, ScanActivity.class));
-            finish();
+            AsyncTask be = new Backend().execute();
+            //startActivity(new Intent(this, ScanActivity.class));
+            //finish();
         });
 
         binding.bottomNavigationView.setOnItemSelectedListener(e -> {

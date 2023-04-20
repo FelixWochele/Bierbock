@@ -1,15 +1,20 @@
 package com.bierbock;
 
 import android.os.AsyncTask;
+import android.util.Xml;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -27,52 +32,13 @@ public class Backend extends AsyncTask<Void,Void,Void> {
     @Override
     protected Void doInBackground(Void... voids) {
 
-        try {
+        // URL der REST-API
+        String url = "https://www.beerbock.de/security/createToken";
 
-            URL url = new URL("https://h2910896.stratoserver.net/BierBock/ownUserData");
+        // Body der Anfrage
+        String body = "{\"userName\": \"mustimax\", \"password\": \"Password123\"}";
 
-            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
-
-            con.setRequestMethod("GET");
-            con.setRequestProperty("token", "123456");
-
-            //TODO: WHY THE FUCK ERROR
-            int responseCode = con.getResponseCode();
-
-            System.out.println("GET Response Code :: " + responseCode);
-
-            if (responseCode == HttpURLConnection.HTTP_OK) { // success
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-
-                in.close();
-
-                // print result
-                System.out.println(response.toString());
-
-            } else {
-                System.out.println("GET request did not work.");
-            }
-
-        }
-        catch (ProtocolException e) {
-            System.out.println("fuck1");
-            throw new RuntimeException(e);
-        }
-        catch (MalformedURLException e) {
-            System.out.println("fuck2");
-            throw new RuntimeException(e);
-        }
-        catch (IOException e) {
-            System.out.println("fuck3");
-            throw new RuntimeException(e);
-        }
-
+        apiCall(url, body);
 
         return null;
     }
@@ -81,5 +47,54 @@ public class Backend extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
+    }
+
+
+    protected String apiCall(String url, String body){
+
+        try{
+            // HttpURLConnection-Objekt erstellen
+            HttpsURLConnection connection = (HttpsURLConnection) new URL(url).openConnection();
+
+            // Anfrage-Methode setzen
+            connection.setRequestMethod("POST");
+
+            // Content-Type Header setzen
+            connection.setRequestProperty("Content-Type", "application/json");
+
+            // Body in den Request schreiben
+            connection.setDoOutput(true);
+            OutputStream os = connection.getOutputStream();
+            os.write(body.getBytes());
+            os.flush();
+            os.close();
+
+            // Response-Code abrufen
+            int responseCode = connection.getResponseCode();
+            System.out.println("Response Code: " + responseCode);
+
+            // Response lesen
+            BufferedReader in = null;
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            } else {
+                in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+            }
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+            // Response ausgeben
+            System.out.println(response);
+
+            return response.toString();
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return null;
     }
 }
