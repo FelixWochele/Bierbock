@@ -1,12 +1,29 @@
 package com.bierbock;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.bierbock.Challenge.Challenge;
+import com.bierbock.Challenge.ChallengeAdapter;
+import com.bierbock.Challenge.ChallengeItemDecoration;
+import com.bierbock.databinding.FragmentChallengeBinding;
+import com.google.android.gms.maps.SupportMapFragment;
+
+import java.time.chrono.ChronoLocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +31,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ChallengeFragment extends Fragment {
+
+    //bindings for properties of fragment_challenge (maybe Challenges, but mostly different statistics):
+    private FragmentChallengeBinding binding;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,12 +74,59 @@ public class ChallengeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_challenge, container, false);
+        binding = FragmentChallengeBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        //View view = inflater.inflate(R.layout.fragment_challenge, container, false);
+
+        List<Challenge> challenges = new ArrayList<>();
+        // Add your challenge data here
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+
+        //Get current context of the Fragment
+        Context currentContext = requireContext();
+
+        ChallengeAdapter adapter = new ChallengeAdapter(currentContext, challenges);
+
+        binding.challengeRecyclerView.setLayoutManager(new LinearLayoutManager(currentContext));
+        binding.challengeRecyclerView.setAdapter(adapter);
+        binding.challengeRecyclerView.addItemDecoration(new ChallengeItemDecoration(10));
+        //Setup recyclerView
+        //RecyclerView recyclerView = view.findViewById(R.id.challenge_recycler_view);
+        //RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.challenge_recycler_view);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(currentContext));
+        //recyclerView.setAdapter(adapter);
+        //recyclerView.addItemDecoration(new ChallengeItemDecoration(10));
+
+        return view;
+        //return inflater.inflate(R.layout.fragment_challenge, container, false);
+    }
+
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+        binding = null;
     }
 }
+
