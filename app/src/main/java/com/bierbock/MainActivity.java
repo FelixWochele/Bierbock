@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(e -> {
 
             AsyncTask be = new Backend().execute();
-            //startActivity(new Intent(this, ScanActivity.class));
-            //finish();
+            startActivity(new Intent(this, ScanActivity.class));
+            finish();
         });
 
         binding.bottomNavigationView.setOnItemSelectedListener(e -> {
