@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, fragment).commit();
     }
 
-    public static void animateBubble(Context context, ImageView bubble) {
+    /*public static void animateBubble(Context context, ImageView bubble) {
         int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
         ObjectAnimator anim = ObjectAnimator.ofFloat(bubble, "translationY", 0, -screenHeight);
         anim.setDuration(2000); // Adjust duration as desired
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         anim.start();
-    }
+    } */
 
 
     // private NavController navController;

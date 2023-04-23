@@ -14,6 +14,8 @@ public class BeerProgressBar extends FrameLayout {
     private FrameLayout progressContainer;
     private ImageView bubble;
 
+    private double maxProgress = 1.0;
+
     public BeerProgressBar(Context context) {
         super(context);
         init(context);
@@ -36,13 +38,27 @@ public class BeerProgressBar extends FrameLayout {
     }
 
     public void setProgress(double progress) {
+        if (progress < 0 || progress > maxProgress) {
+            throw new IllegalArgumentException("Progress must be between 0 and maxProgress");
+        }
+        float percentage = (float) (progress / maxProgress);
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) progressContainer.getLayoutParams();
-        layoutParams.width = (int) (progress * getResources().getDisplayMetrics().widthPixels);
+        layoutParams.width = (int) (percentage * getResources().getDisplayMetrics().widthPixels);
         progressContainer.setLayoutParams(layoutParams);
+        //FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) progressContainer.getLayoutParams();
+        //layoutParams.width = (int) (progress * getResources().getDisplayMetrics().widthPixels);
+        //progressContainer.setLayoutParams(layoutParams);
     }
 
     public void animateBubble() {
-        MainActivity.animateBubble(getContext(), bubble);
+        //MainActivity.animateBubble(getContext(), bubble);
     }
 
+    public double getMaxProgress() {
+        return maxProgress;
+    }
+
+    public void setMaxProgress(double maxProgress) {
+        this.maxProgress = maxProgress;
+    }
 }
