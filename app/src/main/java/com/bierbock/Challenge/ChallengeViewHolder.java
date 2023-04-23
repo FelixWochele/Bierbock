@@ -12,7 +12,7 @@ import com.bierbock.R;
 public class ChallengeViewHolder extends RecyclerView.ViewHolder {
     TextView description;
     TextView points;
-    ProgressBar progressBar;
+    BeerProgressBar progressBar;
 
     public ChallengeViewHolder(@NonNull View itemView) {
         super(itemView);

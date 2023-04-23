@@ -1,5 +1,7 @@
 package com.bierbock;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -13,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.bierbock.Challenge.Challenge;
@@ -35,6 +40,8 @@ public class ChallengeFragment extends Fragment {
 
     //bindings for properties of fragment_challenge (maybe Challenges, but mostly different statistics):
     private FragmentChallengeBinding binding;
+
+    private FrameLayout progressContainer;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -94,8 +101,8 @@ public class ChallengeFragment extends Fragment {
         List<Challenge> challenges = new ArrayList<>();
         // Add your challenge data here
         challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 40, 345));
+        challenges.add(new Challenge("Challenge description", 10, 100, 345));
         challenges.add(new Challenge("Challenge description", 10, 20, 345));
         challenges.add(new Challenge("Challenge description", 10, 20, 345));
         challenges.add(new Challenge("Challenge description", 10, 20, 345));
@@ -119,6 +126,7 @@ public class ChallengeFragment extends Fragment {
         binding.challengeRecyclerView.setLayoutManager(new LinearLayoutManager(currentContext));
         binding.challengeRecyclerView.setAdapter(adapter);
         binding.challengeRecyclerView.addItemDecoration(new ChallengeItemDecoration(10));
+
 
         return view;
     }

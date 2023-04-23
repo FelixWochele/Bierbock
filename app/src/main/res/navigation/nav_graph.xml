@@ -7,16 +7,19 @@
     <fragment
         android:id="@+id/challangeFragment"
         android:name="com.bierbock.ChallengeFragment"
-        android:label="fragment_challange"
-        tools:layout="@layout/fragment_challenge" />
+        android:label="Challenge"
+        tools:layout="@layout/fragment_challenge" >
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.bierbock.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+    </fragment>
     <fragment
         android:id="@+id/heatMapFragment"
         android:name="com.bierbock.HeatMapFragment"
-        android:label="fragment_heat_map"
-        tools:layout="@layout/fragment_heat_map" />
+        android:label="Heat map"
+        tools:layout="@layout/fragment_heat_map" >
+    </fragment>
 </navigation>

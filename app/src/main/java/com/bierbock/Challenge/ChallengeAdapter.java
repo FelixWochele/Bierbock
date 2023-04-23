@@ -33,8 +33,16 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeViewHolder> 
         Challenge challenge = challenges.get(position);
         holder.description.setText(challenge.getDescription());
         holder.points.setText(String.valueOf(challenge.getPoints()));
-        holder.progressBar.setMax(challenge.getMaxProgress());
-        holder.progressBar.setProgress(challenge.getProgress());
+
+        double maxProgress = (double) challenge.getMaxProgress();
+
+        double progress = challenge.getProgress() / maxProgress; // Calculate progress as a value between 0 and 1 based on your challenge data
+        //holder.progressBar.setMax(challenge.getMaxProgress());
+        holder.progressBar.setProgress(progress);
+        holder.progressBar.animateBubble();
+
+
+       // holder.progressBar.setProgress(challenge.getProgress());
     }
 
     @Override
