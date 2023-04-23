@@ -52,7 +52,7 @@
             android:indeterminate="false"
             android:progressDrawable="@drawable/custom_progressbar"
             />
-
+        <!--android:progressDrawable="@drawable/custom_progressbar" -->
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
