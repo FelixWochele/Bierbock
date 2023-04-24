@@ -1,4 +1,4 @@
-package com.bierbock;
+package com.bierbock.BackendFolder;
 
 import android.os.AsyncTask;
 import android.util.Xml;
@@ -22,31 +22,39 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class Backend extends AsyncTask<Void,Void,Void> {
+public class Backend extends AsyncTask<String,String,String> {
 
     String data ="";
     String dataParsed = "";
     String singleParsed ="";
 
+    //declare a delegate with type of protocol declared in this task
+    private TaskDelegate delegate;
+
+
+    public Backend(TaskDelegate taskDelegate){
+        delegate = taskDelegate;
+    }
+
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected String doInBackground(String... in) {
 
-        // URL der REST-API
-        String url = "https://www.beerbock.de/security/createToken";
+        String url = in[0];
+        String body = in[1];
 
-        // Body der Anfrage
-        String body = "{\"userName\": \"mustimax\", \"password\": \"Password123\"}";
+        String res = apiCall(url, body);
 
-        apiCall(url, body);
-
-        return null;
+        return res;
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-
+    protected void onPostExecute(String res) {
+        try {
+            delegate.onTaskFinishGettingData(res);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
