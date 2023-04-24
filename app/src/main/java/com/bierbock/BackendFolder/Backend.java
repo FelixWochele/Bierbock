@@ -50,7 +50,11 @@ public class Backend extends AsyncTask<String,String,String> {
 
     @Override
     protected void onPostExecute(String res) {
-        delegate.onTaskFinishGettingData(res);
+        try {
+            delegate.onTaskFinishGettingData(res);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

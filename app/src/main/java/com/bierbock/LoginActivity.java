@@ -29,21 +29,20 @@ public class LoginActivity extends AppCompatActivity{
 
         binding.login.setOnClickListener(e -> {
 
+            String usr = binding.username.getText().toString();
 
+            String pwd = binding.password.getText().toString();
 
-            Login l = new Login("mustimax", "Password123", this);
-
-            //startActivity(new Intent(this, MainActivity.class));
-            //finish();
-            System.out.println(binding.username.getText().toString());
+            Login l = new Login(usr, pwd, this);
         });
     }
 
     public void nexActivity(){
-
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     public void errorMsg(){
-
+        binding.errorMsg.setText("Falsche Anmeldeinformationen!!!");
     }
 }

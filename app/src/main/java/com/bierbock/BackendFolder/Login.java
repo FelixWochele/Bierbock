@@ -4,6 +4,9 @@ import android.os.AsyncTask;
 
 import com.bierbock.LoginActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.concurrent.ExecutionException;
 
 public class Login {
@@ -20,9 +23,17 @@ public class Login {
 
         AsyncTask<String, String, String> be = new Backend(new TaskDelegate() {
             @Override
-            public void onTaskFinishGettingData(String result) {
+            public void onTaskFinishGettingData(String result) throws JSONException {
 
-                System.out.println("FICKEN!");
+                JSONObject obj = null;
+
+                obj = new JSONObject(result);
+
+                if("Successful".equals(obj.getString("statusMessage"))){
+                    loginActivity.nexActivity();
+                }else {
+                    loginActivity.errorMsg();
+                }
             }
         }).execute(url, body);
     }
