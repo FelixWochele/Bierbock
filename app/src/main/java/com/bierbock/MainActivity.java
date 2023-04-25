@@ -51,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Make a photo button:
         binding.fab.setOnClickListener(e -> {
-
-            AsyncTask be = new Backend().execute();
+            //AsyncTask be = new Backend().execute();
             startActivity(new Intent(this, ScanActivity.class));
             finish();
         });
