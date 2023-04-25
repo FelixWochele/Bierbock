@@ -1,18 +1,31 @@
 package com.bierbock;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.NavHost;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.view.Menu;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
+
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 
 import com.bierbock.databinding.ActivityMainBinding;
 
@@ -31,50 +44,48 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
-        getSupportActionBar().setTitle("Bierbock");
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
 
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.homeFragment, R.layout.fragment_challenge, R.id.heatMapFragment, R.id.action_settings
         ).build();
 
-
-
-        //appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
+        //Make a photo button:
         binding.fab.setOnClickListener(e -> {
-
             //AsyncTask be = new Backend().execute();
             startActivity(new Intent(this, ScanActivity.class));
-            //finish();
+            finish();
         });
+
+        // Set the Home item as selected on the start of the application
+        binding.bottomNavigationView.setSelectedItemId(R.id.homeMenue);
 
         binding.bottomNavigationView.setOnItemSelectedListener(e -> {
 
-            Fragment one = new ChallengeFragment();
-            Fragment two = new HomeFragment();
-            Fragment three = new HeatMapFragment();
-            Fragment maps = new MapsFragment();
+            //Fragment one = new ChallengeFragment();
+            //Fragment two = new HomeFragment();
+            //Fragment three = new HeatMapFragment();
+            //Fragment maps = new MapsFragment();
 
             switch (e.getItemId()) {
                 case R.id.challanges:
                     System.out.println("Test1");
-                    replaceFragment(one);
+                    binding.toolbar.setTitle("Challenges");
+                    replaceFragment(new ChallengeFragment());
                     break;
                 case R.id.homeMenue:
                     System.out.println("Test2");
-                    replaceFragment(two);
+                    binding.toolbar.setTitle("Home");
+                    replaceFragment(new HomeFragment());
                     break;
                 case R.id.heatmap:
                     System.out.println("Test3");
-                    replaceFragment(maps);
+                    binding.toolbar.setTitle("Heat map");
+                    replaceFragment(new MapsFragment());
                     break;
             }
-
-            return false;
+            return true;
         });
+
     }
 
     @Override
@@ -84,6 +95,29 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void replaceFragment(Fragment fragment){
+        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, fragment).commit();
+    }
+
+    /*public static void animateBubble(Context context, ImageView bubble) {
+        int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
+        ObjectAnimator anim = ObjectAnimator.ofFloat(bubble, "translationY", 0, -screenHeight);
+        anim.setDuration(2000); // Adjust duration as desired
+        anim.setInterpolator(new LinearInterpolator());
+        anim.setRepeatCount(ObjectAnimator.INFINITE);
+        anim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                anim.start();
+            }
+        });
+        anim.start();
+    } */
+
+
+    // private NavController navController;
+    //appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+    //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
     /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -105,15 +139,38 @@ public class MainActivity extends AppCompatActivity {
     }
     */
 
-    @Override
+
+}
+
+
+/*@Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
+    } */
+//NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_content_main);
+//navController = navHostFragment.getNavController();
 
+//navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
 
-    private void replaceFragment(Fragment fragment){
-        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, fragment).commit();
-    }
-}
+//NavigationUI.setupWithNavController(binding.bottomAppBar, navController);
+
+        /*navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
+                String title="";
+                switch(navDestination.getId()){
+                    case R.id.challangeFragment:
+                        title = "Challenges";
+                        break;
+                    case R.id.heatMapFragment:
+                        title = "Heatmap";
+                        break;
+                    case R.id.homeFragment:
+                        title = "Home";
+                        break;
+                }
+                binding.toolbar.setTitle(title);
+            }
+        }); */

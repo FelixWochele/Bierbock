@@ -41,10 +41,17 @@
             android:value="${MAPS_API_KEY}" />
 
         <activity
+            android:name=".DisplayScannedBeerActivity"
+            android:exported="false"/>
+
+        <activity
             android:name=".ScanActivity"
             android:exported="false"/>
         <activity
             android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".SplashScreenActivity"

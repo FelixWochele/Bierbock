@@ -1,5 +1,7 @@
 package com.bierbock;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -13,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.bierbock.Challenge.Challenge;
@@ -20,6 +25,7 @@ import com.bierbock.Challenge.ChallengeAdapter;
 import com.bierbock.Challenge.ChallengeItemDecoration;
 import com.bierbock.databinding.FragmentChallengeBinding;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
@@ -34,6 +40,8 @@ public class ChallengeFragment extends Fragment {
 
     //bindings for properties of fragment_challenge (maybe Challenges, but mostly different statistics):
     private FragmentChallengeBinding binding;
+
+    private FrameLayout progressContainer;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -83,13 +91,18 @@ public class ChallengeFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentChallengeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-        //View view = inflater.inflate(R.layout.fragment_challenge, container, false);
+
+        //Statistics above the challenges:
+        MaterialTextView statistic1Title = binding.statistic1Title;
+        MaterialTextView statistic1Value = binding.statistic1Value;
+        MaterialTextView statistic2Title = binding.statistic2Title;
+        MaterialTextView statistic2Value = binding.statistic2Value;
 
         List<Challenge> challenges = new ArrayList<>();
         // Add your challenge data here
         challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 40, 345));
+        challenges.add(new Challenge("Challenge description", 10, 100, 345));
         challenges.add(new Challenge("Challenge description", 10, 20, 345));
         challenges.add(new Challenge("Challenge description", 10, 20, 345));
         challenges.add(new Challenge("Challenge description", 10, 20, 345));
@@ -109,18 +122,13 @@ public class ChallengeFragment extends Fragment {
 
         ChallengeAdapter adapter = new ChallengeAdapter(currentContext, challenges);
 
+        //Setup recyclerView
         binding.challengeRecyclerView.setLayoutManager(new LinearLayoutManager(currentContext));
         binding.challengeRecyclerView.setAdapter(adapter);
         binding.challengeRecyclerView.addItemDecoration(new ChallengeItemDecoration(10));
-        //Setup recyclerView
-        //RecyclerView recyclerView = view.findViewById(R.id.challenge_recycler_view);
-        //RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.challenge_recycler_view);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(currentContext));
-        //recyclerView.setAdapter(adapter);
-        //recyclerView.addItemDecoration(new ChallengeItemDecoration(10));
+
 
         return view;
-        //return inflater.inflate(R.layout.fragment_challenge, container, false);
     }
 
     @Override
@@ -130,3 +138,13 @@ public class ChallengeFragment extends Fragment {
     }
 }
 
+
+//View view = inflater.inflate(R.layout.fragment_challenge, container, false);
+
+//RecyclerView recyclerView = view.findViewById(R.id.challenge_recycler_view);
+//RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.challenge_recycler_view);
+//recyclerView.setLayoutManager(new LinearLayoutManager(currentContext));
+//recyclerView.setAdapter(adapter);
+//recyclerView.addItemDecoration(new ChallengeItemDecoration(10));
+
+//return inflater.inflate(R.layout.fragment_challenge, container, false);

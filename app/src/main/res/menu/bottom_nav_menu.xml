@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/challanges"
-        android:title="Challanges"
-        android:icon="@drawable/baseline_outlined_flag_24"/>
+        android:title="@string/challenges"
+        android:icon="@drawable/baseline_outlined_flag_24" />
     <item
         android:id="@+id/homeMenue"
-        android:title="Home"
-        android:icon="@drawable/baseline_home_24"
-        android:state_checked="true"/>
+        android:title="@string/home"
+        android:icon="@drawable/baseline_home_24" />
     <item
         android:id="@+id/heatmap"
-        android:title="Heatmap"
-        android:icon="@drawable/baseline_map_24"/>
+        android:title="@string/heatmap"
+        android:icon="@drawable/baseline_map_24" />
 </menu>

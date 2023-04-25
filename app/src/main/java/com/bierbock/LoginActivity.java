@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity{
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //TODO: add login logic here
         binding.login.setOnClickListener(e -> {
 
             String usr = binding.username.getText().toString();
@@ -34,6 +35,11 @@ public class LoginActivity extends AppCompatActivity{
             String pwd = binding.password.getText().toString();
 
             Login l = new Login(usr, pwd, this);
+        });
+        
+        binding.register.setOnClickListener(e -> {
+            startActivity(new Intent(this, RegisterActivity.class));
+            finish();
         });
     }
 

@@ -36,13 +36,23 @@
                 android:gravity="end" />
         </LinearLayout>
 
-        <ProgressBar
+        <!--
+        <com.bierbock.Challenge.BeerProgressBar
             android:id="@+id/challenge_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            style="?android:attr/progressBarStyleHorizontal" />
+            android:layout_marginTop="8dp" /> -->
 
+        <ProgressBar
+            android:id="@+id/challenge_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/custom_progressbar"
+            />
+        <!--android:progressDrawable="@drawable/custom_progressbar" -->
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
