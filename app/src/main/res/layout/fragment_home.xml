@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@+id/current_user_rating" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/user_rating_list"
+        android:id="@+id/user_data_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -70,7 +70,9 @@ public class HomeFragment extends Fragment {
         userRatings.add(new UserRating("User2", 900));
         userRatings.add(new UserRating("User3", 800));
 
-        userRatingList = binding.userRatingList;
+        //TODO: Setup Recycler View here
+
+        userRatingList = binding.userDataList;
         userRatingAdapter = new UserRatingAdapter(userRatings);
 
         userRatingList.setLayoutManager(new LinearLayoutManager(getContext()));
