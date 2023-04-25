@@ -6,6 +6,6 @@ import org.json.JSONException;
 public interface TaskDelegate {
 
     //define you method headers to override;
-    void onTaskFinishGettingData(String result) throws JSONException;
+    void onTaskFinishGettingData(String result) throws JSONException, InterruptedException;
 
 }
