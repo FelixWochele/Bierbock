@@ -7,8 +7,6 @@ import com.bierbock.LoginActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.concurrent.ExecutionException;
-
 public class Login {
 
     private String url = "https://www.beerbock.de/security/createToken";
@@ -30,7 +28,7 @@ public class Login {
                 obj = new JSONObject(result);
 
                 if("Successful".equals(obj.getString("statusMessage"))){
-                    loginActivity.nexActivity();
+                    loginActivity.nextActivity();
                 }else {
                     loginActivity.errorMsg();
                 }
