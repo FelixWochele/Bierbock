@@ -2,6 +2,7 @@ package com.bierbock;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,9 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bierbock.BeerHistory.BeerHistoryAdapter;
+import com.bierbock.BeerHistory.BeerHistoryItem;
 import com.bierbock.UserRating.UserRating;
 import com.bierbock.UserRating.UserRatingAdapter;
-import com.bierbock.databinding.FragmentChallengeBinding;
 import com.bierbock.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
@@ -28,9 +30,14 @@ public class HomeFragment extends Fragment {
     //bindings for properties of fragment_home
     private FragmentHomeBinding binding;
 
-    private RecyclerView userRatingList;
+    private RecyclerView homeRecyclerView;
     private UserRatingAdapter userRatingAdapter;
     private List<UserRating> userRatings;
+
+    private BeerHistoryAdapter beerHistoryAdapter;
+    private List<BeerHistoryItem> beerHistoryItems;
+
+
 
 
     public HomeFragment() {
@@ -58,7 +65,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -70,13 +77,40 @@ public class HomeFragment extends Fragment {
         userRatings.add(new UserRating("User2", 900));
         userRatings.add(new UserRating("User3", 800));
 
-        //TODO: Setup Recycler View here
+        //Sample data for beer history items
+        //TODO: add either URL for the image or the image itself
+        beerHistoryItems = new ArrayList<>();
+        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "23/01/2016", "URL1"));
+        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "23/01/2017", "URL2"));
+        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "23/01/2018", "URL3"));
+        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "23/01/2019", "URL4"));
 
-        userRatingList = binding.userDataList;
+        //initialize the recycler view
+        homeRecyclerView = binding.homeRecyclerView;
+        homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //Setup adapters:
+        beerHistoryAdapter = new BeerHistoryAdapter(beerHistoryItems);
         userRatingAdapter = new UserRatingAdapter(userRatings);
 
-        userRatingList.setLayoutManager(new LinearLayoutManager(getContext()));
-        userRatingList.setAdapter(userRatingAdapter);
+        //setup the initial adapter for the list
+        homeRecyclerView.setAdapter(beerHistoryAdapter);
+
+        //Setup the buttons on click listeners:
+        binding.beerHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                homeRecyclerView.setAdapter(beerHistoryAdapter);
+            }
+        });
+
+        binding.userRatingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                homeRecyclerView.setAdapter(userRatingAdapter);
+            }
+        });
+
 
         return view;
     }

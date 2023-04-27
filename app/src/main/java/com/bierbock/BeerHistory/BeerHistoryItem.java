@@ -6,12 +6,13 @@ public class BeerHistoryItem {
 
     private String beerName;
     private String dateTime; //When the beer was drank
-    private ImageView beerImage;
+    private String beerImageURL; //URL for the image of the beer
 
-    public BeerHistoryItem(String beerName, String dateTime, ImageView beerImage) {
+    public BeerHistoryItem(String beerName, String dateTime, String beerImageURL) {
         this.beerName = beerName;
         this.dateTime = dateTime;
-        this.beerImage = beerImage;
+        this.beerImageURL = beerImageURL;
+
     }
 
 
@@ -23,19 +24,19 @@ public class BeerHistoryItem {
         this.beerName = beerName;
     }
 
-    public ImageView getBeerImage() {
-        return beerImage;
-    }
-
-    public void setBeerImage(ImageView beerImage) {
-        this.beerImage = beerImage;
-    }
-
     public String getDateTime() {
         return dateTime;
     }
 
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public String getBeerImageURL() {
+        return beerImageURL;
+    }
+
+    public void setBeerImageURL(String beerImageURL) {
+        this.beerImageURL = beerImageURL;
     }
 }

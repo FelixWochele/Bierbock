@@ -52,6 +52,8 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="register">Sign Up</string>
+    <string name="beer_history">beer history</string>
+    <string name="user_ratings">User Ratings</string>
 
 
 </resources>

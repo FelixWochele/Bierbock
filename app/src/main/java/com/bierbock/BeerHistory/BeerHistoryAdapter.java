@@ -34,6 +34,7 @@ public class BeerHistoryAdapter extends RecyclerView.Adapter<BeerHistoryViewHold
         BeerHistoryItem beerHistoryItem = beerHistoryItems.get(position);
         holder.beerNameTextView.setText(String.valueOf(beerHistoryItem.getBeerName()));
         holder.dateOfDrinkingTextView.setText(String.valueOf(beerHistoryItem.getDateTime()));
+        //TODO: get the image from a URL here:....
        // holder.imageView = (AspectImageView) beerHistoryItem.getBeerImage(); //TODO: implement some logic here?
     }
     @Override
