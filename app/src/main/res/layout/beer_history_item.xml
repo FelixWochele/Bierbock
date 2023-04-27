@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="8dp">
 
-    <com.bierbock.AspectImageView
+    <ImageView
         android:id="@+id/drank_beer_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

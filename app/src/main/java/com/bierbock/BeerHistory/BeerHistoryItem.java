@@ -15,7 +15,6 @@ public class BeerHistoryItem {
 
     }
 
-
     public String getBeerName() {
         return beerName;
     }

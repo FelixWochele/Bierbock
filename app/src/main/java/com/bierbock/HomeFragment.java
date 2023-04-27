@@ -3,6 +3,8 @@ package com.bierbock;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.bierbock.BeerHistory.BeerHistoryAdapter;
 import com.bierbock.BeerHistory.BeerHistoryItem;
@@ -79,18 +82,19 @@ public class HomeFragment extends Fragment {
 
         //Sample data for beer history items
         //TODO: add either URL for the image or the image itself
+        //int beerHistoryItemsCount = 4;
         beerHistoryItems = new ArrayList<>();
-        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "23/01/2016", "URL1"));
-        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "23/01/2017", "URL2"));
-        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "23/01/2018", "URL3"));
-        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "23/01/2019", "URL4"));
+        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "23/01/2016", "https://images.openfoodfacts.org/images/products/311/978/025/9625/front_fr.84.400.jpg"));
+        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "23/01/2017", "https://images.openfoodfacts.org/images/products/311/978/025/9625/front_fr.84.400.jpg"));
+        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "23/01/2018", "https://images.openfoodfacts.org/images/products/311/978/025/9625/front_fr.84.400.jpg"));
+        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "23/01/2019", "https://images.openfoodfacts.org/images/products/311/978/025/9625/front_fr.84.400.jpg"));
 
         //initialize the recycler view
         homeRecyclerView = binding.homeRecyclerView;
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //Setup adapters:
-        beerHistoryAdapter = new BeerHistoryAdapter(beerHistoryItems);
+        beerHistoryAdapter = new BeerHistoryAdapter(beerHistoryItems, getContext(), this);
         userRatingAdapter = new UserRatingAdapter(userRatings);
 
         //setup the initial adapter for the list
@@ -111,7 +115,48 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //TODO:NEW stuff:
+        updateRecyclerViewData();
+        //TODO:NEW stuff end
+    }
+
+    private void updateRecyclerViewData() {
+
+        // Hide and disable view elements
+        toggleViewElements(false);
+
+        // Reset the imagesLoaded counter
+        beerHistoryAdapter.setImagesLoaded(0);
+    }
+
+    //Toggle the state of View Elements on the home view:
+    public void toggleViewElements(boolean state){
+
+        ProgressBar progressBar = binding.globalProgressBar;
+
+        int visibility = state ? View.VISIBLE : View.INVISIBLE;
+
+        binding.currentUserRating.setVisibility(visibility);
+        binding.otherStats.setVisibility(visibility);
+
+        binding.beerHistoryButton.setVisibility(visibility);
+        binding.beerHistoryButton.setEnabled(state);
+        binding.userRatingsButton.setVisibility(visibility);
+        binding.userRatingsButton.setEnabled(state);
+
+        binding.homeRecyclerView.setVisibility(visibility);
+
+        if(!state){
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        else{
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

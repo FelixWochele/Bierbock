@@ -1,6 +1,7 @@
 package com.bierbock.BeerHistory;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,7 +12,7 @@ import com.bierbock.R;
 
 public class BeerHistoryViewHolder extends RecyclerView.ViewHolder {
 
-    AspectImageView imageView;
+    ImageView imageView;
     TextView beerNameTextView;
     TextView dateOfDrinkingTextView;
 
