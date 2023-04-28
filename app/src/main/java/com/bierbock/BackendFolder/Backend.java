@@ -54,6 +54,8 @@ public class Backend extends AsyncTask<String,String,String> {
             delegate.onTaskFinishGettingData(res);
         } catch (JSONException e) {
             throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
