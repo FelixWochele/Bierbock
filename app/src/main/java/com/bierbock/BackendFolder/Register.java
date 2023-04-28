@@ -29,11 +29,16 @@ public class Register {
         this.lastname = lastname;
         this.email = email;
         this.password = password;
+        this.birthdate = birthdate;
+
 
         this.registerActivity = registerActivity;
 
         String body = "";
 
+        //TODO: lookup if this is correct?:
+        //String body = String.format("{\"userName\": \"%s\", \"vorname\": \"%s\", \"nachname\": \"%s\", \"password\": \"%s\", \"email\": \"%s\", \"birthdate\": \"%s\"}",
+        //        username, firstname, lastname, password, email, birthdate);
 
         AsyncTask<String, String, String> be = new Backend(new TaskDelegate() {
             @Override
