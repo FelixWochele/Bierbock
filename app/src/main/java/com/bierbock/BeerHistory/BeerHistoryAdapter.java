@@ -5,21 +5,18 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bierbock.AspectImageView;
 import com.bierbock.HomeFragment;
 import com.bierbock.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
@@ -30,7 +27,7 @@ public class BeerHistoryAdapter extends RecyclerView.Adapter<BeerHistoryViewHold
     private Fragment fragment;
     private List<BeerHistoryItem> beerHistoryItems;
 
-    private int imagesLoaded = 0;
+    //private int imagesLoaded = 0;
 
     private int targetWidth = 100;
     private int targetHeight = 100;
@@ -41,17 +38,10 @@ public class BeerHistoryAdapter extends RecyclerView.Adapter<BeerHistoryViewHold
         this.fragment = fragment;
     }
 
-    public int getImagesLoaded() {
-        return imagesLoaded;
-    }
-
-    public void setImagesLoaded(int imagesLoaded){
-        this.imagesLoaded = imagesLoaded;
-    }
     @NonNull
     @Override
     public BeerHistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.beer_history_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.beer_history_item, parent, false);
         return new BeerHistoryViewHolder(view);
     }
 
@@ -59,24 +49,28 @@ public class BeerHistoryAdapter extends RecyclerView.Adapter<BeerHistoryViewHold
     public void onBindViewHolder(@NonNull BeerHistoryViewHolder holder, int position) {
         BeerHistoryItem beerHistoryItem = beerHistoryItems.get(position);
 
-        //Get beer Name and dateOfDrinking:
+        //Get beer Name, Brand and dateOfDrinking:
         holder.beerNameTextView.setText(String.valueOf(beerHistoryItem.getBeerName()));
+        holder.beerBrandTextView.setText(String.valueOf(beerHistoryItem.getBeerBrand()));
         holder.dateOfDrinkingTextView.setText(String.valueOf(beerHistoryItem.getDateTime()));
+
+        //holder.imageView.setImageResource(R.drawable.beer_example_image);
 
         //TODO: NEW CODE FROM HERE:....
         String imageUrl = beerHistoryItem.getBeerImageURL();
+        targetWidth = holder.imageView.getWidth();
+        targetHeight = holder.imageView.getHeight();
 
-        //TODO: maybe check images in the home fragment...
-        //TODO: understand the callback?
- /*
+
+        //Disable elements while loading:
+        ((HomeFragment) fragment).toggleViewElements(false);
+
         loadImage(imageUrl, holder, () -> {
-            // Increment the counter and check if all images are loaded
-            imagesLoaded++;
-            if (imagesLoaded == beerHistoryItems.size()) {
-                // Show and enable other elements
-                ((HomeFragment) fragment).toggleViewElements(true);
-            }
-        }); */
+
+            //Enable elements after loading of the view
+            ((HomeFragment) fragment).toggleViewElements(true);
+        });
+
     }
     @Override
     public int getItemCount() {
@@ -99,7 +93,7 @@ public class BeerHistoryAdapter extends RecyclerView.Adapter<BeerHistoryViewHold
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         callback.onImageLoaded();
-                        return false;
+                        return false; //Return false to set the fallback image if the loading fails
                     }
 
                     @Override

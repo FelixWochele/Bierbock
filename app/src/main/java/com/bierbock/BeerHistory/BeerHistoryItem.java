@@ -1,18 +1,17 @@
 package com.bierbock.BeerHistory;
 
-import android.widget.ImageView;
-
 public class BeerHistoryItem {
 
     private String beerName;
+    private String beerBrand;
     private String dateTime; //When the beer was drank
     private String beerImageURL; //URL for the image of the beer
 
-    public BeerHistoryItem(String beerName, String dateTime, String beerImageURL) {
+    public BeerHistoryItem(String beerName, String beerBrand, String dateTime, String beerImageURL) {
         this.beerName = beerName;
+        this.beerBrand = beerBrand;
         this.dateTime = dateTime;
         this.beerImageURL = beerImageURL;
-
     }
 
     public String getBeerName() {
@@ -37,5 +36,13 @@ public class BeerHistoryItem {
 
     public void setBeerImageURL(String beerImageURL) {
         this.beerImageURL = beerImageURL;
+    }
+
+    public String getBeerBrand() {
+        return beerBrand;
+    }
+
+    public void setBeerBrand(String beerBrand) {
+        this.beerBrand = beerBrand;
     }
 }

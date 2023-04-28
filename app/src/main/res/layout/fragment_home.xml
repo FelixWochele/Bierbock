@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-
     <TextView
         android:id="@+id/current_user_rating"
         android:layout_width="wrap_content"
@@ -38,7 +37,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/other_stats" />
 
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/beer_history_button"
         android:layout_width="wrap_content"
@@ -49,10 +47,10 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.228"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/other_stats"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/user_ratings_button"
@@ -67,7 +65,7 @@
         app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/other_stats"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_recycler_view"

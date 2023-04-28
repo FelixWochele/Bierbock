@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
+//TODO: can remove this class, is not needed
 public class AspectImageView extends androidx.appcompat.widget.AppCompatImageView {
 
     public AspectImageView(Context context) {
