@@ -2,13 +2,11 @@ package com.bierbock;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bierbock.BackendFolder.Register;
-import com.bierbock.databinding.ActivityLoginBinding;
 import com.bierbock.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -25,7 +23,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.signUp.setOnClickListener(e -> {
-
             String username = binding.username.getText().toString();
             String firstname = binding.firstname.getText().toString();
             String lastname = binding.lastname.getText().toString();
@@ -36,8 +33,6 @@ public class RegisterActivity extends AppCompatActivity {
             Register r = new Register(username, firstname, lastname, birthdate, email, password, this);
         });
     }
-
-
     public void nexActivity() throws InterruptedException {
 
         Toast.makeText(this, "Erfolgreiche Anmeldung! Check Deine Emails!", Toast.LENGTH_SHORT).show();
@@ -49,5 +44,6 @@ public class RegisterActivity extends AppCompatActivity {
     public void errorMsg(){
         binding.errorMsg.setText("Falsche Anmeldeinformationen!!!");
     }
+
 
 }
