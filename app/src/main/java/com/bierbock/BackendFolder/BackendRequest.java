@@ -19,13 +19,20 @@ public abstract class BackendRequest {
     }
 
     public void execute(String... params) {
+        //Create new backend object
         Backend backend = new Backend(requestType, taskDelegate);
-        String[] parameters = new String[params.length + 1];
-        parameters[0] = url;
+
         //TODO: Check if working correctly:
-        parameters[1] = getToken(applicationContext); //get the token for the request
-        System.arraycopy(params, 0, parameters, 2, params.length);
-        backend.execute(parameters);
+        String authenticationToken = getToken(applicationContext);
+
+        backend.execute(url, authenticationToken, params[0]); //TODO: change params from String... to String?
     }
 }
 
+//Backend backend = new Backend(requestType, taskDelegate);
+//String[] parameters = new String[params.length + 2];
+//parameters[0] = url;
+
+//parameters[1] = getToken(applicationContext); //get the token for the request
+//System.arraycopy(params, 0, parameters, 2, params.length);
+//backend.execute(parameters);
