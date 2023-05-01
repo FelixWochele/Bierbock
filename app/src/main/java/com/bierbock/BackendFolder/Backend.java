@@ -45,17 +45,18 @@ public class Backend extends AsyncTask<String,String,String> {
         this.htmlRequestType = htmlRequestType;
         delegate = taskDelegate;
     }
-    public Backend(TaskDelegate taskDelegate){
-        delegate = taskDelegate;
-    }
+    //public Backend(TaskDelegate taskDelegate){
+    //    delegate = taskDelegate;
+    //}
 
 
     @Override
     protected String doInBackground(String... in) {
 
         String url = in[0];
+
         String token = in[1]; //Can also be empty, if action doesn't need it
-        String body = in[2]; //POST has body, GET doesn't
+        String body = in[2]; //POST has body, GET not always
 
         String res = apiCall(url, token, body);
         if(token.equals("")){
@@ -154,14 +155,14 @@ public class Backend extends AsyncTask<String,String,String> {
     public static String getToken(Context context) {
         try {
             SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
-                    "your_preference_name",
+                    "authentication_key",
                     MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
                     context,
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             );
 
-            String token = sharedPreferences.getString("token_key", null);
+            String token = sharedPreferences.getString("token_key", ""); //Default value: ""
             return token;
         } catch (GeneralSecurityException | IOException e) {
             e.printStackTrace();

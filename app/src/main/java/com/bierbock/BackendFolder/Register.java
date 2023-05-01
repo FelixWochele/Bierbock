@@ -8,8 +8,13 @@ import com.bierbock.RegisterActivity;
 import org.json.JSONObject;
 public class Register extends BackendRequest{
 
+
+    //TODO: change so that it doesn't use the backendRequest class, because that class gets a token
+
     public Register(String username, String firstname, String lastname, String birthdate, String email, String password, RegisterActivity registerActivity){
-        super("POST", "https://www.beerbock.de/security/register", result -> {
+        super(registerActivity.getApplicationContext(),
+                "POST", "https://www.beerbock.de/security/register",
+                result -> {
 
             JSONObject obj;
 

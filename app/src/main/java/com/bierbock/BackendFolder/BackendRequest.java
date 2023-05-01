@@ -1,11 +1,18 @@
 package com.bierbock.BackendFolder;
+
+import static com.bierbock.BackendFolder.Backend.getToken;
+
+import android.content.Context;
+
 public abstract class BackendRequest {
 
+    protected Context applicationContext;
     protected String requestType;
     protected String url;
     protected TaskDelegate taskDelegate;
 
-    public BackendRequest(String requestType, String url, TaskDelegate taskDelegate) {
+    public BackendRequest(Context context, String requestType, String url, TaskDelegate taskDelegate) {
+        this.applicationContext = context;
         this.requestType = requestType;
         this.url = url;
         this.taskDelegate = taskDelegate;
@@ -15,9 +22,10 @@ public abstract class BackendRequest {
         Backend backend = new Backend(requestType, taskDelegate);
         String[] parameters = new String[params.length + 1];
         parameters[0] = url;
-        System.arraycopy(params, 0, parameters, 1, params.length);
+        //TODO: Check if working correctly:
+        parameters[1] = getToken(applicationContext); //get the token for the request
+        System.arraycopy(params, 0, parameters, 2, params.length);
         backend.execute(parameters);
     }
-
 }
 

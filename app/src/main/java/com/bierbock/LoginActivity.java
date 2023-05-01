@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity{
         binding.login.setOnClickListener(e -> {
 
             String usr = binding.username.getText().toString();
-
             String pwd = binding.password.getText().toString();
 
             Login l = new Login(usr, pwd, this);
@@ -32,8 +31,6 @@ public class LoginActivity extends AppCompatActivity{
 
         binding.register.setOnClickListener(e -> {
             nextActivity();
-            //startActivity(new Intent(this, RegisterActivity.class));
-            //finish();
         });
     }
 

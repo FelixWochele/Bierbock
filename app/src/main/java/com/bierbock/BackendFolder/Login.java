@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.lang.ref.Cleaner;
 import java.security.GeneralSecurityException;
 
-public class Login {
+public class Login{
 
     private String url = "https://www.beerbock.de/security/createToken";
 
@@ -37,10 +37,10 @@ public class Login {
                 //Save the token here:
                 String authToken = obj.getString("result");
 
-                //Encrypt the token
+                //Encrypt the token and save it in sharedPreferences file
                 try {
                     SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
-                            "your_preference_name",
+                            "authentication_key",
                             MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
                             loginActivity,
                             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,

@@ -7,7 +7,9 @@ import org.json.JSONObject;
 public class AllDrinkActions extends BackendRequest{
 
     public AllDrinkActions(String searchString, String fromTime, String toTime, MainActivity activity) {
-        super("GET", "https://www.beerbock.de/BierBock/allDrinkActions", result -> {
+        super(activity.getApplicationContext(),
+                "GET", "https://www.beerbock.de/BierBock/allDrinkActions",
+                result -> {
             JSONObject obj;
 
             obj = new JSONObject(result);
