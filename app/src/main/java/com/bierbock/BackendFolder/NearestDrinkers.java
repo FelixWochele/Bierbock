@@ -4,6 +4,7 @@ import com.bierbock.MainActivity;
 
 import org.json.JSONObject;
 
+/*
 public class NearestDrinkers extends BackendRequest{
 
     public NearestDrinkers(String latitude, String longitude, String altitude, String beerCode, MainActivity activity) {
@@ -24,4 +25,4 @@ public class NearestDrinkers extends BackendRequest{
 
         execute(body);
     }
-}
+} */

@@ -4,6 +4,7 @@ import com.bierbock.MainActivity;
 
 import org.json.JSONObject;
 
+/*
 public class OwnRanking extends BackendRequest {
 
     public OwnRanking(MainActivity activity) {
@@ -23,4 +24,4 @@ public class OwnRanking extends BackendRequest {
 
         execute(body);
     }
-}
+} */

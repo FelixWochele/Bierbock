@@ -4,7 +4,7 @@ import com.bierbock.MainActivity;
 
 import org.json.JSONObject;
 
-public class AllDrinkActions extends BackendRequest{
+/*public class AllDrinkActions extends BackendRequest{
 
     public AllDrinkActions(String searchString, String fromTime, String toTime, MainActivity activity) {
         super(activity.getApplicationContext(),
@@ -26,4 +26,4 @@ public class AllDrinkActions extends BackendRequest{
 
         execute(body);
     }
-}
+} */

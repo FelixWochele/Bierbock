@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bierbock.BackendFolder.Register;
+//import com.bierbock.BackendFolder.Register;
 import com.bierbock.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
             String password = binding.password.getText().toString();
             String birthdate = binding.birthdate.getText().toString();
 
-            Register r = new Register(username, firstname, lastname, birthdate, email, password, this);
+            //Register r = new Register(username, firstname, lastname, birthdate, email, password, this);
         });
     }
     public void nexActivity() throws InterruptedException {

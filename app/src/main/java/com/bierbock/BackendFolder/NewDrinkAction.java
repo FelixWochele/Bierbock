@@ -4,6 +4,7 @@ import com.bierbock.MainActivity;
 
 import org.json.JSONObject;
 
+/*
 public class NewDrinkAction extends BackendRequest {
 
     public NewDrinkAction(String beercode, MainActivity activity) {
@@ -23,4 +24,4 @@ public class NewDrinkAction extends BackendRequest {
 
         execute(body);
     }
-}
+} */

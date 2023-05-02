@@ -4,6 +4,7 @@ import com.bierbock.MainActivity;
 
 import org.json.JSONObject;
 
+/*
 public class BarcodeData extends BackendRequest{
 
     public BarcodeData(String barcode, MainActivity activity) {
@@ -23,4 +24,4 @@ public class BarcodeData extends BackendRequest{
 
         execute(body);
     }
-}
+} */

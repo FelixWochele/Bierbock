@@ -6,6 +6,7 @@ import com.bierbock.MainActivity;
 import com.bierbock.RegisterActivity;
 
 import org.json.JSONObject;
+/*
 public class Register extends BackendRequest{
 
 
@@ -32,4 +33,4 @@ public class Register extends BackendRequest{
 
         execute(body);
     }
-}
+} */

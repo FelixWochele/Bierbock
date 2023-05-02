@@ -3,7 +3,7 @@ package com.bierbock.BackendFolder;
 import com.bierbock.MainActivity;
 
 import org.json.JSONObject;
-
+/*
 public class OwnUserData extends BackendRequest {
 
     public OwnUserData(MainActivity activity) {
@@ -23,4 +23,4 @@ public class OwnUserData extends BackendRequest {
 
         execute(body);
     }
-}
+} */

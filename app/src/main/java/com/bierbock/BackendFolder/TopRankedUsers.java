@@ -4,6 +4,7 @@ import com.bierbock.MainActivity;
 
 import org.json.JSONObject;
 
+/*
 public class TopRankedUsers extends BackendRequest {
 
     public TopRankedUsers(MainActivity activity) {
@@ -23,4 +24,4 @@ public class TopRankedUsers extends BackendRequest {
 
         execute(body);
     }
-}
+} */

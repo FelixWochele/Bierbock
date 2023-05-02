@@ -4,6 +4,7 @@ import com.bierbock.MainActivity;
 
 import org.json.JSONObject;
 
+/*
 public class OwnChallenges extends BackendRequest{
 
     public OwnChallenges(MainActivity activity) {
@@ -23,4 +24,4 @@ public class OwnChallenges extends BackendRequest{
 
         execute(body);
     }
-}
+} */

@@ -4,6 +4,7 @@ import com.bierbock.MainActivity;
 
 import org.json.JSONObject;
 
+/*
 public class OwnScore extends BackendRequest {
 
     public OwnScore(MainActivity activity) {
@@ -23,4 +24,4 @@ public class OwnScore extends BackendRequest {
 
         execute(body);
     }
-}
+} */

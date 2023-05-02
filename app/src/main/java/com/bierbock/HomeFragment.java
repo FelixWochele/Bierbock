@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+//import com.bierbock.BackendFolder.OwnDrinkProgress;
+import com.bierbock.BackendFolder.OwnDrinkProgress;
 import com.bierbock.BeerHistory.BeerHistoryAdapter;
 import com.bierbock.BeerHistory.BeerHistoryItem;
 import com.bierbock.UserRating.UserRating;
@@ -83,9 +84,9 @@ public class HomeFragment extends Fragment {
         //TODO: add either URL for the image or the image itself
         beerHistoryItems = new ArrayList<>();
         beerHistoryItems.add(new BeerHistoryItem("Beer 1", "Beer brand 1","23/01/2016", "https://images.openfoodfacts.org/images/products/311/978/025/9625/front_fr.84.400.jpg"));
-        beerHistoryItems.add(new BeerHistoryItem("Beer 2", "Beer brand 2", "23/01/2017", "https://images.openfoodfacts.org/images/products/501/437/900/7237/front_fr.4.400.jpg"));
-        beerHistoryItems.add(new BeerHistoryItem("Beer 3", "Beer brand 3", "23/01/2018", "https://images.openfoodfacts.org/images/products/311/978/025/0110/front_fr.38.400.jpg"));
-        beerHistoryItems.add(new BeerHistoryItem("Beer 4", "Beer brand 4","23/01/2019", "https://images.openfoodfacts.org/images/products/541/022/814/2218/front_en.67.400.jpg"));
+        //beerHistoryItems.add(new BeerHistoryItem("Beer 2", "Beer brand 2", "23/01/2017", "https://images.openfoodfacts.org/images/products/501/437/900/7237/front_fr.4.400.jpg"));
+        //beerHistoryItems.add(new BeerHistoryItem("Beer 3", "Beer brand 3", "23/01/2018", "https://images.openfoodfacts.org/images/products/311/978/025/0110/front_fr.38.400.jpg"));
+        //beerHistoryItems.add(new BeerHistoryItem("Beer 4", "Beer brand 4","23/01/2019", "https://images.openfoodfacts.org/images/products/541/022/814/2218/front_en.67.400.jpg"));
 
         //initialize the recycler view
         homeRecyclerView = binding.homeRecyclerView;
@@ -145,24 +146,19 @@ public class HomeFragment extends Fragment {
     }
 
 
-    /*
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //TODO:NEW stuff:
-        //updateRecyclerViewData();
-        //TODO:NEW stuff end
+
+        OwnDrinkProgress drinkProgress = new OwnDrinkProgress(this);
+
     }
 
-    //TODO: doesn't work, maybe fix or remove
-    private void updateRecyclerViewData() {
+    public void UpdateBeerHistory(List<BeerHistoryItem> beerHistoryItems){
+        this.beerHistoryItems = beerHistoryItems;
 
-        // Hide and disable view elements
-        toggleViewElements(false);
+        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
 
-        // Reset the imagesLoaded counter
-        beerHistoryAdapter.setImagesLoaded(0);
-    } */
-
+    }
 
 }

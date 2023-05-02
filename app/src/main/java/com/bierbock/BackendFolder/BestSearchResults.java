@@ -4,6 +4,7 @@ import com.bierbock.MainActivity;
 
 import org.json.JSONObject;
 
+/*
 public class BestSearchResults extends BackendRequest{
 
     public BestSearchResults(String searchString, MainActivity activity) {
@@ -23,4 +24,4 @@ public class BestSearchResults extends BackendRequest{
 
         execute(body);
     }
-}
+} */
