@@ -17,6 +17,8 @@ import android.widget.ProgressBar;
 
 //import com.bierbock.BackendFolder.OwnDrinkProgress;
 import com.bierbock.BackendFolder.OwnDrinkProgress;
+import com.bierbock.BackendFolder.OwnScore;
+import com.bierbock.BackendFolder.TopRankedUsers;
 import com.bierbock.BeerHistory.BeerHistoryAdapter;
 import com.bierbock.BeerHistory.BeerHistoryItem;
 import com.bierbock.UserRating.UserRating;
@@ -77,12 +79,11 @@ public class HomeFragment extends Fragment {
 
         // Sample data for user ratings
         userRatings = new ArrayList<>();
-        userRatings.add(new UserRating("User1", 1000));
-        userRatings.add(new UserRating("User2", 900));
-        userRatings.add(new UserRating("User3", 800));
+        userRatings.add(new UserRating("User1", 1000, 10));
+        userRatings.add(new UserRating("User2", 900, 10));
+        userRatings.add(new UserRating("User3", 800, 10));
 
         //Sample data for beer history items
-        //TODO: add either URL for the image or the image itself
         beerHistoryItems = new ArrayList<>();
         beerHistoryItems.add(new BeerHistoryItem("Beer 1", "Beer brand 1","23/01/2016", "https://images.openfoodfacts.org/images/products/311/978/025/9625/front_fr.84.400.jpg"));
         //beerHistoryItems.add(new BeerHistoryItem("Beer 2", "Beer brand 2", "23/01/2017", "https://images.openfoodfacts.org/images/products/501/437/900/7237/front_fr.4.400.jpg"));
@@ -109,8 +110,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 //If statement to not update the view on every button click
                 if(homeRecyclerView.getAdapter() != beerHistoryAdapter){
-                    callOwnDrinkProgress();
                     homeRecyclerView.setAdapter(beerHistoryAdapter);
+                    callOwnDrinkProgress();
                 }
             }
         });
@@ -121,6 +122,8 @@ public class HomeFragment extends Fragment {
                 //If statement to not update the view on every button click
                 if(homeRecyclerView.getAdapter() != userRatingAdapter){
                     homeRecyclerView.setAdapter(userRatingAdapter);
+                    callTopRankedUsers();
+                    //callOwnScore();
                 }
             }
         });
@@ -165,23 +168,45 @@ public class HomeFragment extends Fragment {
         //create ownDrinkProgress here and call the updateBeerHistory method:
         OwnDrinkProgress ownDrinkProgress = new OwnDrinkProgress(this);
     }
+
+    //private void callOwnScore(){
+   //     OwnScore ownScore = new OwnScore(this);
+   // }
+
+    private void callTopRankedUsers(){
+        TopRankedUsers topRankedUsers = new TopRankedUsers(this);
+    }
     @SuppressLint("NotifyDataSetChanged")
     public void updateBeerHistory(List<BeerHistoryItem> beerHistoryItems){
-        //TODO: Check if working correctly
         this.beerHistoryItems.clear();
         this.beerHistoryItems.addAll(beerHistoryItems);
-
-        //TODO: Maybe change to the notifyItemChanged (to change only one item or so)?
 
         beerHistoryAdapter.notifyDataSetChanged();
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateUserRatings(List<UserRating> userRatings){
+    public void updateUserRatings(List<UserRating> userRatings, String ownUserName, int ownRank, int ownPoints){
+
+        boolean ownUserInTop25 = false;
+
         this.userRatings.clear();
-        this.userRatings.addAll(userRatings);
+        //Add all user ratings and set the ownUser property, if own user is in the top 25
+        for (UserRating userRating : userRatings) {
+            if (userRating.getUsername().equals(ownUserName)) {
+                userRating.setOwnUser(true);
+                ownUserInTop25 = true;
+            }
+            this.userRatings.add(userRating);
+        }
+
+        if (!ownUserInTop25) {
+            UserRating ownRanking = new UserRating(ownUserName, ownRank, ownPoints);
+            ownRanking.setOwnUser(true); //to set own user property
+            this.userRatings.add(ownRanking);
+        }
 
         userRatingAdapter.notifyDataSetChanged();
     }
+
 
 }

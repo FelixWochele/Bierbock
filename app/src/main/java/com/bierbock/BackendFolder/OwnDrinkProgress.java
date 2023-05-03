@@ -46,14 +46,6 @@ public class OwnDrinkProgress extends BackendRequest {
 
                     homeFragment.updateBeerHistory(beerHistoryItems);
 
-                    //System.out.println("PRODUCT NAME TEST: ");
-                    //System.out.println(obj.getString("productName"));
-                    // Parse the JSON object
-                    //LinkedHashMap<String, Object> resultMap = parseJsonObject(obj);
-
-
-                    // Process the LinkedHashMap, e.g., update UI or data in the HomeFragment
-                    // ...
 
                 } else {
                     // TODO: Implement
@@ -63,26 +55,6 @@ public class OwnDrinkProgress extends BackendRequest {
             }
 
         });
-
-        /*super(fragment.requireActivity().getApplicationContext(), //For the Auth. Token
-                "GET",
-                "https://www.beerbock.de/BierBock/ownDrinkProgress",
-                result -> {
-
-            JSONObject obj;
-
-            obj = new JSONObject(result);
-
-            if ("Successful".equals(obj.getString("statusMessage"))) {
-
-                LinkedHashMap<String, Object> resultMap = parseJsonObject(obj);
-                //get the data from the jsonObject....
-                //Call the method in the home fragment to fill the beer history items list
-                //Call the method to refresh the fragment
-            } else {
-                // TODO: Implement
-            }
-        }); */
 
         String body = ""; //Empty body
         execute(body);

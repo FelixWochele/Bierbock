@@ -1,10 +1,12 @@
 package com.bierbock.UserRating;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bierbock.R;
@@ -31,6 +33,16 @@ public class UserRatingAdapter extends RecyclerView.Adapter<UserRatingViewHolder
         UserRating userRating = userRatings.get(position);
         holder.ratingTextView.setText(String.valueOf(userRating.getRating()));
         holder.usernameTextView.setText(userRating.getUsername());
+        holder.pointsTextView.setText(String.valueOf(userRating.getPoints()));
+
+        //Highlight own user
+        if (userRating.isOwnUser()) {
+            // Apply the highlight to the view holder's views, e.g., set the background color
+            holder.itemView.setBackgroundColor(Color.parseColor("#FBBC05")); //yellow color
+        } else {
+            // Reset the background color for non-highlighted items
+            holder.itemView.setBackgroundColor(Color.parseColor("#666666"));
+        }
     }
 
     @Override
