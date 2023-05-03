@@ -44,7 +44,7 @@ public class OwnDrinkProgress extends BackendRequest {
                         System.out.println(jsonArray.getJSONObject(i).getString("productName"));
                     }
 
-                    homeFragment.UpdateBeerHistory(beerHistoryItems);
+                    homeFragment.updateBeerHistory(beerHistoryItems);
 
                     //System.out.println("PRODUCT NAME TEST: ");
                     //System.out.println(obj.getString("productName"));

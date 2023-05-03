@@ -1,5 +1,6 @@
 package com.bierbock;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -106,14 +107,21 @@ public class HomeFragment extends Fragment {
         binding.beerHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeRecyclerView.setAdapter(beerHistoryAdapter);
+                //If statement to not update the view on every button click
+                if(homeRecyclerView.getAdapter() != beerHistoryAdapter){
+                    callOwnDrinkProgress();
+                    homeRecyclerView.setAdapter(beerHistoryAdapter);
+                }
             }
         });
 
         binding.userRatingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeRecyclerView.setAdapter(userRatingAdapter);
+                //If statement to not update the view on every button click
+                if(homeRecyclerView.getAdapter() != userRatingAdapter){
+                    homeRecyclerView.setAdapter(userRatingAdapter);
+                }
             }
         });
 
@@ -150,15 +158,30 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        OwnDrinkProgress drinkProgress = new OwnDrinkProgress(this);
-
+        callOwnDrinkProgress();
     }
 
-    public void UpdateBeerHistory(List<BeerHistoryItem> beerHistoryItems){
-        this.beerHistoryItems = beerHistoryItems;
+    private void callOwnDrinkProgress(){
+        //create ownDrinkProgress here and call the updateBeerHistory method:
+        OwnDrinkProgress ownDrinkProgress = new OwnDrinkProgress(this);
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateBeerHistory(List<BeerHistoryItem> beerHistoryItems){
+        //TODO: Check if working correctly
+        this.beerHistoryItems.clear();
+        this.beerHistoryItems.addAll(beerHistoryItems);
 
-        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        //TODO: Maybe change to the notifyItemChanged (to change only one item or so)?
 
+        beerHistoryAdapter.notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateUserRatings(List<UserRating> userRatings){
+        this.userRatings.clear();
+        this.userRatings.addAll(userRatings);
+
+        userRatingAdapter.notifyDataSetChanged();
     }
 
 }
