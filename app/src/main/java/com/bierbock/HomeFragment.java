@@ -138,8 +138,8 @@ public class HomeFragment extends Fragment {
 
         int visibility = state ? View.VISIBLE : View.INVISIBLE;
 
-        binding.currentUserRating.setVisibility(visibility);
-        binding.otherStats.setVisibility(visibility);
+        //binding.currentUserRating.setVisibility(visibility);
+        //binding.otherStats.setVisibility(visibility);
 
         binding.beerHistoryButton.setVisibility(visibility);
         binding.beerHistoryButton.setEnabled(state);
