@@ -1,15 +1,21 @@
 package com.bierbock.BackendFolder;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
 
 import com.bierbock.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.concurrent.ExecutionException;
+import java.io.IOException;
+import java.lang.ref.Cleaner;
+import java.security.GeneralSecurityException;
 
-public class Login {
+public class Login{
 
     private String url = "https://www.beerbock.de/security/createToken";
 
@@ -21,20 +27,37 @@ public class Login {
 
         String body = String.format("{\"userName\": \"%s\", \"password\": \"%s\"}", username, password);
 
-        AsyncTask<String, String, String> be = new Backend(new TaskDelegate() {
-            @Override
-            public void onTaskFinishGettingData(String result) throws JSONException {
+        AsyncTask<String, String, String> be = new Backend("POST", result -> {
 
-                JSONObject obj = null;
+            JSONObject obj;
 
-                obj = new JSONObject(result);
+            obj = new JSONObject(result);
 
-                if("Successful".equals(obj.getString("statusMessage"))){
-                    loginActivity.nexActivity();
-                }else {
-                    loginActivity.errorMsg();
+            if("Successful".equals(obj.getString("statusMessage"))){
+                //Save the token here:
+                String authToken = obj.getString("result");
+
+                //Encrypt the token and save it in sharedPreferences file
+                try {
+                    SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
+                            "authentication_key",
+                            MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC),
+                            loginActivity,
+                            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+                    );
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("token_key", authToken);
+                    editor.apply();
+
+                    loginActivity.nextActivity(); // here start the next activity
+                } catch (GeneralSecurityException | IOException e) {
+                    e.printStackTrace();
                 }
+            }else {
+                loginActivity.errorMsg();
             }
-        }).execute(url, body);
+        }).execute(url, "", body);
     }
 }

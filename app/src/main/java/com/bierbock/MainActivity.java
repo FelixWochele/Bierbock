@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -20,6 +22,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
@@ -28,6 +31,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 
 import com.bierbock.databinding.ActivityMainBinding;
+
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -99,6 +104,36 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, fragment).commit();
     }
 
+    //TODO: Check, if needed, maybe a simple load method is enough
+    //Private class to load the images needed for the beer history?
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
+}
+
+
     /*public static void animateBubble(Context context, ImageView bubble) {
         int screenHeight = context.getResources().getDisplayMetrics().heightPixels;
         ObjectAnimator anim = ObjectAnimator.ofFloat(bubble, "translationY", 0, -screenHeight);
@@ -140,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
     */
 
 
-}
+
 
 
 /*@Override

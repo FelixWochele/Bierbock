@@ -128,6 +128,7 @@ public class ChallengeFragment extends Fragment {
         binding.challengeRecyclerView.addItemDecoration(new ChallengeItemDecoration(10));
 
 
+
         return view;
     }
 
