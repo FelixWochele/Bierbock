@@ -1,8 +1,6 @@
 package com.bierbock.UserRating;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,17 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bierbock.R;
 
-import java.util.List;
-
-public class UserRatingViewHolder extends RecyclerView.ViewHolder {
-    TextView ratingTextView;
+public class UserRankingViewHolder extends RecyclerView.ViewHolder {
+    TextView rankingTextView;
 
     TextView pointsTextView;
     TextView usernameTextView;
 
-    public UserRatingViewHolder(@NonNull View itemView) {
+    public UserRankingViewHolder(@NonNull View itemView) {
         super(itemView);
-        ratingTextView = itemView.findViewById(R.id.rating_text);
+        rankingTextView = itemView.findViewById(R.id.ranking_text);
         pointsTextView = itemView.findViewById(R.id.points_text);
         usernameTextView = itemView.findViewById(R.id.username_text);
     }

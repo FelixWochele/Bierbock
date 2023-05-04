@@ -1,8 +1,7 @@
 package com.bierbock.BackendFolder;
 
 import com.bierbock.HomeFragment;
-import com.bierbock.MainActivity;
-import com.bierbock.UserRating.UserRating;
+import com.bierbock.UserRating.UserRanking;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,30 +26,31 @@ public class TopRankedUsers extends BackendRequest {
                 obj = new JSONObject(result);
 
                 if ("Successful".equals(obj.getString("statusMessage"))) {
+                    JSONObject objectResult = obj.getJSONObject("result");
 
-                    List<UserRating> userRatings = new ArrayList<>();
+                    List<UserRanking> userRankings = new ArrayList<>();
 
                     // Get the top 25 values
-                    JSONArray top25Array = obj.getJSONArray("top25");
+                    JSONArray top25Array = objectResult.getJSONArray("top25");
                     for (int i = 0; i < top25Array.length(); i++) {
                         JSONObject userObject = top25Array.getJSONObject(i);
                         int rank = userObject.getInt("rank");
                         String userName = userObject.getString("userName");
                         int points = userObject.getInt("points");
 
-                        userRatings.add(new UserRating(userName, rank, points)); //TODO: add points to the model class
+                        userRankings.add(new UserRanking(userName, rank, points)); //TODO: add points to the model class
                         System.out.println("Rank: " + rank + ", Username: " + userName + ", Points: " + points);
                     }
 
                     // Get the own values
-                    JSONObject ownObject = obj.getJSONObject("own");
+                    JSONObject ownObject = objectResult.getJSONObject("own");
                     int ownRank = ownObject.getInt("rank");
                     int ownPoints = ownObject.getInt("points");
                     String ownUserName = ownObject.getString("userName");
 
-                    //System.out.println("Own Rank: " + ownRank + ", Own Username: " + ownUserName + ", Own Points: " + ownPoints);
+                    System.out.println("Own Rank: " + ownRank + ", Own Username: " + ownUserName + ", Own Points: " + ownPoints);
 
-                    homeFragment.updateUserRatings(userRatings, ownUserName, ownRank, ownPoints);
+                    homeFragment.updateUserRatings(userRankings, ownUserName, ownRank, ownPoints);
 
                 } else {
                     // TODO: Implement

@@ -19,12 +19,11 @@ import android.widget.ProgressBar;
 
 //import com.bierbock.BackendFolder.OwnDrinkProgress;
 import com.bierbock.BackendFolder.OwnDrinkProgress;
-import com.bierbock.BackendFolder.OwnScore;
 import com.bierbock.BackendFolder.TopRankedUsers;
 import com.bierbock.BeerHistory.BeerHistoryAdapter;
 import com.bierbock.BeerHistory.BeerHistoryItem;
-import com.bierbock.UserRating.UserRating;
-import com.bierbock.UserRating.UserRatingAdapter;
+import com.bierbock.UserRating.UserRanking;
+import com.bierbock.UserRating.UserRankingAdapter;
 import com.bierbock.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
@@ -41,8 +40,8 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
 
     private RecyclerView homeRecyclerView;
-    private UserRatingAdapter userRatingAdapter;
-    private List<UserRating> userRatings;
+    private UserRankingAdapter userRankingAdapter;
+    private List<UserRanking> userRankings;
 
     private BeerHistoryAdapter beerHistoryAdapter;
     private List<BeerHistoryItem> beerHistoryItems;
@@ -72,7 +71,6 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,10 +79,10 @@ public class HomeFragment extends Fragment {
         View view = binding.getRoot();
 
         // Sample data for user ratings
-        userRatings = new ArrayList<>();
-        userRatings.add(new UserRating("User1", 1000, 10));
-        userRatings.add(new UserRating("User2", 900, 10));
-        userRatings.add(new UserRating("User3", 800, 10));
+        userRankings = new ArrayList<>();
+        userRankings.add(new UserRanking("User1", 1000, 10));
+        userRankings.add(new UserRanking("User2", 900, 10));
+        userRankings.add(new UserRanking("User3", 800, 10));
 
         //Sample data for beer history items
         beerHistoryItems = new ArrayList<>();
@@ -102,10 +100,11 @@ public class HomeFragment extends Fragment {
 
         //Setup adapters:
         beerHistoryAdapter = new BeerHistoryAdapter(beerHistoryItems, currentContext, this);
-        userRatingAdapter = new UserRatingAdapter(userRatings);
+        userRankingAdapter = new UserRankingAdapter(userRankings);
 
         //setup the initial adapter for the list
         homeRecyclerView.setAdapter(beerHistoryAdapter);
+
 
         binding.heading.setText("Beer history");
 
@@ -131,9 +130,9 @@ public class HomeFragment extends Fragment {
                                     && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
                                 System.out.println("Right to Left");
 
-                                if(homeRecyclerView.getAdapter() != userRatingAdapter){
+                                if(homeRecyclerView.getAdapter() != userRankingAdapter){
                                     binding.heading.setText("User Ranking");
-                                    homeRecyclerView.setAdapter(userRatingAdapter);
+                                    homeRecyclerView.setAdapter(userRankingAdapter);
                                     callTopRankedUsers();
                                     //callOwnScore();
                                 }
@@ -194,8 +193,8 @@ public class HomeFragment extends Fragment {
     }
 
     //private void callOwnScore(){
-    //     OwnScore ownScore = new OwnScore(this);
-    // }
+   //     OwnScore ownScore = new OwnScore(this);
+   // }
 
     private void callTopRankedUsers(){
         TopRankedUsers topRankedUsers = new TopRankedUsers(this);
@@ -208,28 +207,29 @@ public class HomeFragment extends Fragment {
         beerHistoryAdapter.notifyDataSetChanged();
     }
 
+    //Method to update the user Ranking list:
     @SuppressLint("NotifyDataSetChanged")
-    public void updateUserRatings(List<UserRating> userRatings, String ownUserName, int ownRank, int ownPoints){
+    public void updateUserRatings(List<UserRanking> userRankings, String ownUserName, int ownRank, int ownPoints){
 
         boolean ownUserInTop25 = false;
 
-        this.userRatings.clear();
+        this.userRankings.clear();
         //Add all user ratings and set the ownUser property, if own user is in the top 25
-        for (UserRating userRating : userRatings) {
-            if (userRating.getUsername().equals(ownUserName)) {
-                userRating.setOwnUser(true);
+        for (UserRanking userRanking : userRankings) {
+            if (userRanking.getUsername().equals(ownUserName)) {
+                userRanking.setOwnUser(true);
                 ownUserInTop25 = true;
             }
-            this.userRatings.add(userRating);
+            this.userRankings.add(userRanking);
         }
 
         if (!ownUserInTop25) {
-            UserRating ownRanking = new UserRating(ownUserName, ownRank, ownPoints);
+            UserRanking ownRanking = new UserRanking(ownUserName, ownRank, ownPoints);
             ownRanking.setOwnUser(true); //to set own user property
-            this.userRatings.add(ownRanking);
+            this.userRankings.add(ownRanking);
         }
 
-        userRatingAdapter.notifyDataSetChanged();
+        userRankingAdapter.notifyDataSetChanged();
     }
 
 

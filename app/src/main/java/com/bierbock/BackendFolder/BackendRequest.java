@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class BackendRequest {
 
@@ -26,20 +27,47 @@ public abstract class BackendRequest {
         this.url = url;
     }
 
+    public void addUrlParameters(String[] parameterNames, String[] parameterValues) {
+        if (parameterNames == null || parameterValues == null || parameterNames.length != parameterValues.length) {
+            throw new IllegalArgumentException("Invalid parameter names or values");
+        }
+
+        if (parameterNames.length == 0) {
+            return;
+        }
+
+        StringBuilder urlBuilder = new StringBuilder(url);
+        urlBuilder.append("?");
+
+        for (int i = 0; i < parameterNames.length; i++) {
+            if (i > 0) { //first url doesn't need this
+                urlBuilder.append("&");
+            }
+            urlBuilder.append(parameterNames[i]);
+            urlBuilder.append("=");
+            urlBuilder.append(parameterValues[i]);
+        }
+
+        url = urlBuilder.toString();
+    }
+
+    //Set Task delegate callback here:
     public void setTaskDelegate(TaskDelegate taskDelegate) {
         this.taskDelegate = taskDelegate;
     }
 
-    public void execute(String... params) {
+    public void execute(String body) {
         //Create new backend object
         Backend backend = new Backend(requestType, taskDelegate);
 
-        //TODO: Check if working correctly:
+        //Get authenticationToken:
         String authenticationToken = getToken(applicationContext);
 
-        backend.execute(url, authenticationToken, params[0]); //TODO: change params from String... to String?
+        backend.execute(url, authenticationToken, body);
     }
 
+
+    /*
     public LinkedHashMap<String, Object> parseJsonObject(JSONObject object) throws JSONException {
 
         LinkedHashMap<String, Object> resultMap = new LinkedHashMap<>();
@@ -101,12 +129,6 @@ public abstract class BackendRequest {
         return map;
     }
 
+*/
+
 }
-
-//Backend backend = new Backend(requestType, taskDelegate);
-//String[] parameters = new String[params.length + 2];
-//parameters[0] = url;
-
-//parameters[1] = getToken(applicationContext); //get the token for the request
-//System.arraycopy(params, 0, parameters, 2, params.length);
-//backend.execute(parameters);

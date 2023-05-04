@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bierbock.BackendFolder.ImageLoader;
 import com.bierbock.HomeFragment;
 import com.bierbock.R;
 import com.bumptech.glide.Glide;
@@ -23,19 +24,18 @@ import java.util.List;
 
 public class BeerHistoryAdapter extends RecyclerView.Adapter<BeerHistoryViewHolder> {
 
-    private Context context;
-    private Fragment fragment;
-    private List<BeerHistoryItem> beerHistoryItems;
-
-    //private int imagesLoaded = 0;
-
-    private int targetWidth = 100;
-    private int targetHeight = 100;
+    private final Context context;
+    private final Fragment fragment;
+    private final List<BeerHistoryItem> beerHistoryItems;
+    private int targetWidth;
+    private int targetHeight;
 
     public BeerHistoryAdapter(List<BeerHistoryItem> beerHistoryItems, Context context, Fragment fragment) {
         this.beerHistoryItems = beerHistoryItems;
         this.context = context;
         this.fragment = fragment;
+        targetWidth = 100; //Default width
+        targetHeight = 100; //Default height
     }
 
     @NonNull
@@ -54,8 +54,7 @@ public class BeerHistoryAdapter extends RecyclerView.Adapter<BeerHistoryViewHold
         holder.beerBrandTextView.setText(String.valueOf(beerHistoryItem.getBeerBrand()));
         holder.dateOfDrinkingTextView.setText(String.valueOf(beerHistoryItem.getDateTime()));
 
-
-        //TODO: NEW CODE FROM HERE:....
+        //Get image data
         String imageUrl = beerHistoryItem.getBeerImageURL();
         targetWidth = holder.imageView.getWidth();
         targetHeight = holder.imageView.getHeight();
@@ -64,17 +63,38 @@ public class BeerHistoryAdapter extends RecyclerView.Adapter<BeerHistoryViewHold
         //Disable elements while loading:
         ((HomeFragment) fragment).toggleViewElements(false);
 
+        //Set the callback:
+        ImageLoader.ImageLoadCallback callback = () -> {
+
+            //Enable elements after loading of the view
+            ((HomeFragment) fragment).toggleViewElements(true);
+        };
+
+        //load the image:
+        ImageLoader.loadImage(
+                fragment,
+                imageUrl,
+                holder.imageView,
+                targetWidth,
+                targetHeight,
+                R.drawable.beer_example_image,
+                callback
+        );
+
+        /*
         loadImage(imageUrl, holder, () -> {
 
             //Enable elements after loading of the view
             ((HomeFragment) fragment).toggleViewElements(true);
-        });
+        }); */
 
     }
     @Override
     public int getItemCount() {
         return beerHistoryItems.size();
     }
+
+
 
     //interface for the image load callback
     interface ImageLoadCallback {
