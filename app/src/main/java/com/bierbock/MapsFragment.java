@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -44,6 +45,9 @@ public class MapsFragment extends Fragment {
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
              */
+
+
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(48.44543782910548, 8.696831606441847), 1500));
 
             Gradient gradient = new Gradient(colors, startpoints);
             HeatmapTileProvider heatmapTileProvider = new HeatmapTileProvider.Builder()
@@ -81,8 +85,8 @@ public class MapsFragment extends Fragment {
     private ArrayList addheatmap() {
         ArrayList<WeightedLatLng> arr = new ArrayList<>();
 
-        arr.add(new WeightedLatLng(new LatLng(9.9252, 78.119),10)); //madurai
-        arr.add(new WeightedLatLng(new LatLng(10.7905, 78.7047),60)); //trichy
+        arr.add(new WeightedLatLng(new LatLng(48.44543782910548, 8.696831606441847),180)); //madurai
+        arr.add(new WeightedLatLng(new LatLng(48.446372343732975, 8.698487270888112),70));
         arr.add(new WeightedLatLng(new LatLng(13.0827, 80.2707),180)); //chennai
         arr.add(new WeightedLatLng(new LatLng(11.0168, 76.9558),270)); //coimbatore
         arr.add(new WeightedLatLng(new LatLng(11.7863, 77.8008),380));
