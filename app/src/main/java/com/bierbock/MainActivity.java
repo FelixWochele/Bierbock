@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-
 
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.homeFragment, R.layout.fragment_challenge, R.id.heatMapFragment, R.id.action_settings

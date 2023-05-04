@@ -7,7 +7,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -37,7 +40,8 @@ public class OwnDrinkProgress extends BackendRequest {
                         String brands = jsonArray.getJSONObject(i).getString("brands");
                         String imageUrl = jsonArray.getJSONObject(i).getString("imageUrl");
 
-                        BeerHistoryItem item = new BeerHistoryItem(time, productName, brands, imageUrl);
+
+                        BeerHistoryItem item = new BeerHistoryItem(time.substring(0,9), productName, brands, imageUrl);
 
                         beerHistoryItems.add(item);
 
