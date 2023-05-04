@@ -18,7 +18,6 @@ import java.security.GeneralSecurityException;
 public class Login{
 
     private String url = "https://www.beerbock.de/security/createToken";
-
     private LoginActivity loginActivity;
 
     public Login(String username, String password, LoginActivity loginActivity) {

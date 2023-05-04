@@ -127,8 +127,6 @@ public class ChallengeFragment extends Fragment {
         binding.challengeRecyclerView.setAdapter(adapter);
         binding.challengeRecyclerView.addItemDecoration(new ChallengeItemDecoration(10));
 
-
-
         return view;
     }
 
@@ -139,13 +137,3 @@ public class ChallengeFragment extends Fragment {
     }
 }
 
-
-//View view = inflater.inflate(R.layout.fragment_challenge, container, false);
-
-//RecyclerView recyclerView = view.findViewById(R.id.challenge_recycler_view);
-//RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.challenge_recycler_view);
-//recyclerView.setLayoutManager(new LinearLayoutManager(currentContext));
-//recyclerView.setAdapter(adapter);
-//recyclerView.addItemDecoration(new ChallengeItemDecoration(10));
-
-//return inflater.inflate(R.layout.fragment_challenge, container, false);

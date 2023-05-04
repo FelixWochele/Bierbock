@@ -38,7 +38,7 @@ public class TopRankedUsers extends BackendRequest {
                         String userName = userObject.getString("userName");
                         int points = userObject.getInt("points");
 
-                        userRankings.add(new UserRanking(userName, rank, points)); //TODO: add points to the model class
+                        userRankings.add(new UserRanking(userName, rank, points));
                         System.out.println("Rank: " + rank + ", Username: " + userName + ", Points: " + points);
                     }
 
@@ -53,7 +53,8 @@ public class TopRankedUsers extends BackendRequest {
                     homeFragment.updateUserRatings(userRankings, ownUserName, ownRank, ownPoints);
 
                 } else {
-                    // TODO: Implement
+                    // TODO: Implement ErrorMessage that is going to be used in an interface
+                    // TODO: call fragment.errorMessage
                 }
             } catch (JSONException e){
                 e.printStackTrace();

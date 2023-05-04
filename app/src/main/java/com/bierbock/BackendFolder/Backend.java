@@ -3,50 +3,31 @@ package com.bierbock.BackendFolder;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Xml;
 
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
-import java.util.Map;
-import java.util.Objects;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class Backend extends AsyncTask<String,String,String> {
-
-    //String data ="";
-    //String dataParsed = "";
-    //String singleParsed ="";
-//public Backend(TaskDelegate taskDelegate){
-    //    delegate = taskDelegate;
-    //}
-
     private final String htmlRequestType;
 
     //declare a delegate with type of protocol declared in this task
     private final TaskDelegate delegate;
 
-    public Backend(String htmlRequestType, TaskDelegate taskDelegate){
+    public Backend(String htmlRequestType, TaskDelegate delegate){
         this.htmlRequestType = htmlRequestType;
-        delegate = taskDelegate;
+        this.delegate = delegate;
     }
 
 
@@ -78,6 +59,7 @@ public class Backend extends AsyncTask<String,String,String> {
     }
 
 
+    //Main method of the backend
     protected String apiCall(String url, String token, String body){
 
         try{
@@ -155,6 +137,7 @@ public class Backend extends AsyncTask<String,String,String> {
         }
     }
 
+    /*
     public static String createJsonString(Map<String, String> parameters) {
         StringBuilder body = new StringBuilder("{");
         int tempCounter = 0;
@@ -170,4 +153,6 @@ public class Backend extends AsyncTask<String,String,String> {
 
         return body.toString();
     }
+
+    */
 }

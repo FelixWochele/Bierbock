@@ -26,7 +26,6 @@ public abstract class BackendRequest {
         this.requestType = requestType;
         this.url = url;
     }
-
     public void addUrlParameters(String[] parameterNames, String[] parameterValues) {
         if (parameterNames == null || parameterValues == null || parameterNames.length != parameterValues.length) {
             throw new IllegalArgumentException("Invalid parameter names or values");
