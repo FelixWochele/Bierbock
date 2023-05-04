@@ -40,7 +40,7 @@ public class UserRankingAdapter extends RecyclerView.Adapter<UserRankingViewHold
             holder.itemView.setBackgroundColor(Color.parseColor("#FBBC05")); //yellow color
         } else {
             // Reset the background color for non-highlighted items
-            holder.itemView.setBackgroundColor(Color.parseColor("#FFFFF"));
+            holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
         }
     }
 
