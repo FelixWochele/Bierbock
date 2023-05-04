@@ -59,12 +59,9 @@ public class Backend extends AsyncTask<String,String,String> {
 
         String url = in[0];
         String token = in[1]; //Can also be empty, if action doesn't need it
-        String body = in[2]; //POST has body, GET not always
+        String body = in[2]; //POST has body, GET doesn't
 
         String res = apiCall(url, token, body);
-        //if(token.equals("")){
-        //    res = apiCall(url, "", body);
-       // }
 
         return res;
     }

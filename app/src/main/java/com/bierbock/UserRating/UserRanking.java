@@ -1,12 +1,12 @@
 package com.bierbock.UserRating;
 
-public class UserRating {
+public class UserRanking {
     private String username;
     private int rating;
     private int points;
     private boolean isOwnUser;
 
-    public UserRating(String username, int rating, int points) {
+    public UserRanking(String username, int rating, int points) {
         this.username = username;
         this.rating = rating;
         this.points = points;
