@@ -107,34 +107,9 @@ public class HomeFragment extends Fragment {
         //setup the initial adapter for the list
         homeRecyclerView.setAdapter(beerHistoryAdapter);
 
-        //Setup the buttons on click listeners:
-        binding.beerHistoryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //If statement to not update the view on every button click
-                if(homeRecyclerView.getAdapter() != beerHistoryAdapter){
-                    homeRecyclerView.setAdapter(beerHistoryAdapter);
-                    callOwnDrinkProgress();
-                }
-            }
-        });
+        binding.heading.setText("Beer history");
 
-        binding.userRatingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //If statement to not update the view on every button click
-                if(homeRecyclerView.getAdapter() != userRatingAdapter){
-                    homeRecyclerView.setAdapter(userRatingAdapter);
-                    callTopRankedUsers();
-                    //callOwnScore();
-                }
-            }
-        });
-
-
-
-
-
+        //Gesture
         final GestureDetector gesture = new GestureDetector(getActivity(),
                 new GestureDetector.SimpleOnGestureListener() {
 
@@ -146,7 +121,6 @@ public class HomeFragment extends Fragment {
                     @Override
                     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                            float velocityY) {
-                        System.out.println("onFling has been called!");
                         final int SWIPE_MIN_DISTANCE = 120;
                         final int SWIPE_MAX_OFF_PATH = 250;
                         final int SWIPE_THRESHOLD_VELOCITY = 200;
@@ -158,6 +132,7 @@ public class HomeFragment extends Fragment {
                                 System.out.println("Right to Left");
 
                                 if(homeRecyclerView.getAdapter() != userRatingAdapter){
+                                    binding.heading.setText("User Ranking");
                                     homeRecyclerView.setAdapter(userRatingAdapter);
                                     callTopRankedUsers();
                                     //callOwnScore();
@@ -169,6 +144,7 @@ public class HomeFragment extends Fragment {
 
                                 //If statement to not update the view on every button click
                                 if(homeRecyclerView.getAdapter() != beerHistoryAdapter){
+                                    binding.heading.setText("Beer History");
                                     homeRecyclerView.setAdapter(beerHistoryAdapter);
                                     callOwnDrinkProgress();
                                 }
@@ -181,11 +157,8 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
-        homeRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-                                 @Override
-                                 public boolean onTouch(View v, MotionEvent event) {
-                                     return gesture.onTouchEvent(event);
-                                 }});
+        //Call gesture on touch
+        homeRecyclerView.setOnTouchListener((v, event) -> gesture.onTouchEvent(event));
 
         return view;
     }
@@ -196,14 +169,6 @@ public class HomeFragment extends Fragment {
         ProgressBar progressBar = binding.globalProgressBar;
 
         int visibility = state ? View.VISIBLE : View.INVISIBLE;
-
-        //binding.currentUserRating.setVisibility(visibility);
-        //binding.otherStats.setVisibility(visibility);
-
-        binding.beerHistoryButton.setVisibility(visibility);
-        binding.beerHistoryButton.setEnabled(state);
-        binding.userRatingsButton.setVisibility(visibility);
-        binding.userRatingsButton.setEnabled(state);
 
         binding.homeRecyclerView.setVisibility(visibility);
 

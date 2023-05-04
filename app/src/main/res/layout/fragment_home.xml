@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -37,36 +37,4 @@
         app:layout_constraintTop_toBottomOf="@+id/heading"
         tools:layout_editor_absoluteX="0dp" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foregroundGravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/user_ratings_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="2dp"
-            android:background="@drawable/custom_button_secondary"
-            android:text="@string/user_ratings"
-            android:textColor="@android:color/white" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/beer_history_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/custom_button_secondary"
-            android:text="@string/beer_history"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
-
-</TableLayout>
+</LinearLayout>
