@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -70,6 +72,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -128,6 +131,62 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
+
+
+
+        final GestureDetector gesture = new GestureDetector(getActivity(),
+                new GestureDetector.SimpleOnGestureListener() {
+
+                    @Override
+                    public boolean onDown(MotionEvent e) {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+                                           float velocityY) {
+                        System.out.println("onFling has been called!");
+                        final int SWIPE_MIN_DISTANCE = 120;
+                        final int SWIPE_MAX_OFF_PATH = 250;
+                        final int SWIPE_THRESHOLD_VELOCITY = 200;
+                        try {
+                            if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
+                                return false;
+                            if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE
+                                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                                System.out.println("Right to Left");
+
+                                if(homeRecyclerView.getAdapter() != userRatingAdapter){
+                                    homeRecyclerView.setAdapter(userRatingAdapter);
+                                    callTopRankedUsers();
+                                    //callOwnScore();
+                                }
+
+                            } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
+                                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                                System.out.println("Left to Right");
+
+                                //If statement to not update the view on every button click
+                                if(homeRecyclerView.getAdapter() != beerHistoryAdapter){
+                                    homeRecyclerView.setAdapter(beerHistoryAdapter);
+                                    callOwnDrinkProgress();
+                                }
+
+                            }
+                        } catch (Exception e) {
+                            // nothing
+                        }
+                        return super.onFling(e1, e2, velocityX, velocityY);
+                    }
+                });
+
+        homeRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+                                 @Override
+                                 public boolean onTouch(View v, MotionEvent event) {
+                                     return gesture.onTouchEvent(event);
+                                 }});
+
         return view;
     }
 
@@ -170,8 +229,8 @@ public class HomeFragment extends Fragment {
     }
 
     //private void callOwnScore(){
-   //     OwnScore ownScore = new OwnScore(this);
-   // }
+    //     OwnScore ownScore = new OwnScore(this);
+    // }
 
     private void callTopRankedUsers(){
         TopRankedUsers topRankedUsers = new TopRankedUsers(this);

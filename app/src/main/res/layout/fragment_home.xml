@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment"
-    android:background="#555555"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <!-- Global progress bar for loading the images for the beer history-->
@@ -14,25 +14,49 @@
         android:id="@+id/global_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="181dp"
+        tools:layout_editor_absoluteY="746dp" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="20dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/global_progress_bar"
+        app:layout_constraintTop_toBottomOf="@+id/heading"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:foregroundGravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/user_ratings_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
+            android:layout_marginTop="2dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/custom_button_secondary"
             android:text="@string/user_ratings"
-            android:background="@drawable/custom_button_primary"
-            android:textColor="@color/black"/>
+            android:textColor="@android:color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/beer_history_button"
@@ -40,17 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginLeft="10dp"
+            android:background="@drawable/custom_button_secondary"
             android:text="@string/beer_history"
-            android:background="@drawable/custom_button_primary"
-            android:textColor="@color/black"/>
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/home_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginRight="20dp" />
-
-</LinearLayout>
+</TableLayout>
