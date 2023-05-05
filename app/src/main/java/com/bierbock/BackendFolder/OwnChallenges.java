@@ -65,9 +65,9 @@ public class OwnChallenges extends BackendRequest{
                         }
 
                         //TODO: look into implementing this method, right now it doesn't work, because different date lengths
-                        //boolean isAvailableDate = checkIfAvailableDate(startDate, endDate);
+                        boolean isAvailableDate = checkIfAvailableDate(startDate, endDate);
 
-                        boolean isAvailableDate = true; //Hardcoded here for testing...
+                        //boolean isAvailableDate = true; //Hardcoded here for testing...
 
                         //Only add challenges that are still active and not overdue:
                         if(isActive && isAvailableDate){
@@ -96,16 +96,30 @@ public class OwnChallenges extends BackendRequest{
 
     private boolean checkIfAvailableDate(String startDate, String endDate){
         // Step 1: Parse the input string into a Date object
+
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US);
         try {
             // Parse startTime and create a Calendar instance for it
-            Date parsedStartDate = dateFormat.parse(startDate.substring(0, 23));
+            Date parsedStartDate;
+            if(startDate.length() > 20){
+                parsedStartDate = dateFormat.parse(startDate.substring(0, 20));
+            }
+            else{
+                parsedStartDate = dateFormat.parse(startDate);
+            }
             Calendar startTimeCalendar = Calendar.getInstance();
             assert parsedStartDate != null;
             startTimeCalendar.setTime(parsedStartDate);
 
             // Parse endTime and create a Calendar instance for it
-            Date parsedEndDate = dateFormat.parse(endDate.substring(0, 23));
+            Date parsedEndDate;
+            if(startDate.length() > 20){
+                parsedEndDate = dateFormat.parse(startDate.substring(0, 20));
+            }
+            else{
+                parsedEndDate = dateFormat.parse(startDate);
+            }
             Calendar endTimeCalendar = Calendar.getInstance();
             assert parsedEndDate != null;
             endTimeCalendar.setTime(parsedEndDate);
