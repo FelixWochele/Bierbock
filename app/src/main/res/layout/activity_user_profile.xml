@@ -126,23 +126,6 @@
             android:textColorHint="@color/white" />
 
         <!-- password -->
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Password"
-            android:textColor="@color/white" />
-
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:text="loading..."
-            android:textColor="@color/white"
-            android:textColorHint="@color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
