@@ -4,11 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,7 +27,9 @@ import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.google.maps.android.heatmaps.WeightedLatLng;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapsFragment extends Fragment {
 
@@ -58,7 +64,7 @@ public class MapsFragment extends Fragment {
             TileOverlayOptions tileoverlayoptions = new TileOverlayOptions().tileProvider(heatmapTileProvider);
             TileOverlay tileoverlay = googleMap.addTileOverlay(tileoverlayoptions);
             tileoverlay.clearTileCache();
-        }
+            }
     };
 
     @Nullable
