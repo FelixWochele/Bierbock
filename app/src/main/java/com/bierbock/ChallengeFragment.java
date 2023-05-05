@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.bierbock.BackendFolder.OwnChallenges;
 import com.bierbock.Challenge.Challenge;
 import com.bierbock.Challenge.ChallengeAdapter;
 import com.bierbock.Challenge.ChallengeItemDecoration;
@@ -110,6 +111,12 @@ public class ChallengeFragment extends Fragment {
         binding.challengeRecyclerView.addItemDecoration(new ChallengeItemDecoration(10));
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        OwnChallenges ownChallenges = new OwnChallenges(this);
     }
 
     @Override

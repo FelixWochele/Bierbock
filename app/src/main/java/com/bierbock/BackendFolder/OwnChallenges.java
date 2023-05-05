@@ -33,7 +33,7 @@ public class OwnChallenges extends BackendRequest{
 
                 if ("Successful".equals(obj.getString("statusMessage"))) {
 
-                    JSONArray resultArray = new JSONArray(obj.getJSONArray("result"));
+                    JSONArray resultArray = obj.getJSONArray("result");
 
                     List<Challenge> challenges = new ArrayList<>();
 
@@ -64,8 +64,10 @@ public class OwnChallenges extends BackendRequest{
                             partialProgresses.add(allPartialProgresses.getString(j));
                         }
 
+                        //TODO: look into implementing this method, right now it doesn't work, because different date lengths
+                        //boolean isAvailableDate = checkIfAvailableDate(startDate, endDate);
 
-                        boolean isAvailableDate = checkIfAvailableDate(startDate, endDate);
+                        boolean isAvailableDate = true; //Hardcoded here for testing...
 
                         //Only add challenges that are still active and not overdue:
                         if(isActive && isAvailableDate){
