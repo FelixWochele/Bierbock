@@ -26,10 +26,15 @@ public class BarcodeData extends BackendRequest{
                 if ("Successful".equals(obj.getString("statusMessage"))) {
                     JSONObject objectResult = obj.getJSONObject("result");
 
+                    String product_name = objectResult.getString("product_name");
+                    String brands = objectResult.getString("brands");
                     String imageUrl = objectResult.getString("image_url");
+                    String quantity = objectResult.getString("quantity");
 
+                    //load the image
                     activity.loadImageFromURL(imageUrl);
-
+                    //Update beer description:
+                    activity.updateBeerDescription(product_name, brands, quantity);
                 } else {
                     // TODO: Implement
                 }

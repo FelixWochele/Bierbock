@@ -32,11 +32,17 @@ public class LoginActivity extends AppCompatActivity{
         });
 
         binding.register.setOnClickListener(e -> {
-            nextActivity();
+            moveToRegisterActivity();
         });
     }
 
-    public void nextActivity(){
+    public void moveToRegisterActivity(){
+        startActivity(new Intent(this, DisplayScannedBeerActivity.class));
+        //startActivity(new Intent(this, RegisterActivity.class));
+        finish();
+    }
+
+    public void moveToMainActivity(){
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }

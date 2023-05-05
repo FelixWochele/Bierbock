@@ -8,11 +8,9 @@ import androidx.security.crypto.MasterKeys;
 
 import com.bierbock.LoginActivity;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.ref.Cleaner;
 import java.security.GeneralSecurityException;
 
 public class Login{
@@ -50,7 +48,7 @@ public class Login{
                     editor.putString("token_key", authToken);
                     editor.apply();
 
-                    loginActivity.nextActivity(); // here start the next activity
+                    loginActivity.moveToMainActivity(); // here start the next activity
                 } catch (GeneralSecurityException | IOException e) {
                     e.printStackTrace();
                 }

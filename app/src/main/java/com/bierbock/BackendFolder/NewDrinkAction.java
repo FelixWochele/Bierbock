@@ -1,5 +1,6 @@
 package com.bierbock.BackendFolder;
 
+import com.bierbock.DisplayScannedBeerActivity;
 import com.bierbock.MainActivity;
 import com.bierbock.ScanActivity;
 
@@ -11,7 +12,7 @@ import java.util.Locale;
 
 public class NewDrinkAction extends BackendRequest {
 
-    public NewDrinkAction(String beercode, String latitude, String longitude, String altitude, ScanActivity activity) {
+    public NewDrinkAction(String beercode, double[] userLocation, DisplayScannedBeerActivity activity) {
         super(activity.getApplicationContext(),
                 "POST",
                 "https://www.beerbock.de/BierBock/newDrinkAction");
@@ -44,7 +45,11 @@ public class NewDrinkAction extends BackendRequest {
         //important method for adding the parameters to the url:
         super.addUrlParameters(parameterNames, parameterValues);
 
-        String body = String.format("{\"latitude\": \"%s\", \"longitude\": \"%s\", \"altitude\": \"%s\"}", latitude, longitude, altitude);
+        int latitudeInt = (int) userLocation[0];
+        int longitudeInt = (int) userLocation[1];
+        int altitudeInt = (int) userLocation[2];
+
+        String body = String.format("{\"latitude\": \"%d\", \"longitude\": \"%d\", \"altitude\": \"%d\"}", latitudeInt, longitudeInt, altitudeInt);
 
         execute(body); // empty body
     }

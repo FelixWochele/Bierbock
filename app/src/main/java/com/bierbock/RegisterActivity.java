@@ -31,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
             String password = binding.password.getText().toString();
             String birthdate = binding.birthdate.getText().toString();
 
+            //call backend here
             Register r = new Register(username, firstname, lastname, birthdate, email, password, this);
         });
     }

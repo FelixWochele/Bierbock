@@ -22,8 +22,11 @@ public class OwnChallenges extends BackendRequest{
                 obj = new JSONObject(result);
 
                 if ("Successful".equals(obj.getString("statusMessage"))) {
-                    // TODO: Implement update UI
-                    // TODO: Update the challenges (like in the other fragment)
+
+                    JSONObject objectResult = obj.getJSONObject("result");
+
+
+
                 } else {
                     // TODO: Implement
                 }

@@ -1,42 +1,36 @@
 package com.bierbock;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bierbock.BackendFolder.BarcodeData;
 import com.bierbock.BackendFolder.ImageLoader;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
+import com.bierbock.BackendFolder.NewDrinkAction;
 
 public class DisplayScannedBeerActivity extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_scannedbeer);
 
-        ImageView imageView = findViewById(R.id.beerImageView);
+        //initialize buttons:
         Button scanAgainButton = findViewById(R.id.scan_again_button);
         Button okButton = findViewById(R.id.ok_button);
-        String scannedBeerURL = startBackendRequest(); //TODO: change to Image?
 
-        // Load the image corresponding to the scanned data
-        // For now, just using a placeholder image
-        // You can replace this with code to load an image based on the scanned data
+        //initialize imageView:
+        ImageView imageView = findViewById(R.id.beerImageView);
         imageView.setImageResource(R.drawable.beer_example_image);
+
+        //Most important call: backend request to get the beer data
+        startBackendRequestForBarcode();
+
 
         scanAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,18 +48,23 @@ public class DisplayScannedBeerActivity extends AppCompatActivity {
 
     }
 
-    private String startBackendRequest(){
-        String rawBarcodeData = getIntent().getStringExtra("scanned_data");
+    private void startBackendRequestForBarcode(){
+        String rawBarcodeData = getIntent().getStringExtra("raw_barcode");
 
         //Start barcode backend request
         BarcodeData barcodeData = new BarcodeData(rawBarcodeData, this);
-        //ImageView image = (ImageView) findViewById(R.id.beerImageView);
 
-        System.out.println(rawBarcodeData);
-
-        return rawBarcodeData;
     }
 
+    //Very important method that is getting called after the OK Button is clicked:
+    private void backendRequestNewDrinkAction(){
+        double[] userCoordinates = getIntent().getDoubleArrayExtra("user_location");
+        String rawBarcodeData = getIntent().getStringExtra("raw_barcode");
+
+        NewDrinkAction newDrinkAction = new NewDrinkAction(rawBarcodeData, userCoordinates, this);
+    }
+
+    //This method is called by the backend:
     public void loadImageFromURL(String url){
 
         ImageView imageView = (ImageView) findViewById(R.id.beerImageView);
@@ -82,42 +81,26 @@ public class DisplayScannedBeerActivity extends AppCompatActivity {
                 R.drawable.beer_example_image,
                 null //no callback
         );
-
-
-        /*
-        loadImage(this, url, imageView, targetWidth, targetHeight, () ->{
-            //NO callback action for now
-        }); */
     }
 
-    interface ImageLoadCallback {
-        void onImageLoaded();
-    }
+    public void updateBeerDescription(String productName, String brands, String quantity){
 
-    private void loadImage(Context context, String imageUrl, @NonNull ImageView imageView, int targetWidth, int targetHeight, ImageLoadCallback callback) {
-        Glide.with(context)
-                .load(imageUrl)
-                .fallback(R.drawable.beer_example_image) //If the image loading failed
-                .override(targetWidth, targetHeight)
-                .centerCrop()
-                .listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        callback.onImageLoaded();
-                        return false; //Return false to set the fallback image if the loading fails
-                    }
+        TextView productNameTextView = (TextView) findViewById(R.id.product_name);
+        TextView brandsTextView = (TextView) findViewById(R.id.brands);
+        TextView quantityTextView = (TextView) findViewById(R.id.quantity);
 
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        callback.onImageLoaded();
-                        return false;
-                    }
-                })
-                .into(imageView);
+        productNameTextView.setText(productName);
+        brandsTextView.setText(brands);
+        quantityTextView.setText(quantity);
     }
 
 
+    //Method to get back to the main activity:
     private void goToMainActivity() {
+        //Start new drink action here
+        backendRequestNewDrinkAction();
+
+        //Start main activity here
         Intent intent = new Intent(DisplayScannedBeerActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

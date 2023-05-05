@@ -2,6 +2,7 @@ package com.bierbock;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -42,6 +43,9 @@ public class ChallengeFragment extends Fragment {
     private FragmentChallengeBinding binding;
 
     private FrameLayout progressContainer;
+
+    private List<Challenge> challenges;
+    private ChallengeAdapter challengeAdapter;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -98,7 +102,7 @@ public class ChallengeFragment extends Fragment {
         MaterialTextView statistic2Title = binding.statistic2Title;
         MaterialTextView statistic2Value = binding.statistic2Value;
 
-        List<Challenge> challenges = new ArrayList<>();
+        challenges = new ArrayList<>();
         // Add your challenge data here
         challenges.add(new Challenge("Challenge description", 10, 20, 345));
         challenges.add(new Challenge("Challenge description", 10, 40, 345));
@@ -120,11 +124,11 @@ public class ChallengeFragment extends Fragment {
         //Get current context of the Fragment
         Context currentContext = requireContext();
 
-        ChallengeAdapter adapter = new ChallengeAdapter(currentContext, challenges);
+        challengeAdapter = new ChallengeAdapter(currentContext, challenges);
 
         //Setup recyclerView
         binding.challengeRecyclerView.setLayoutManager(new LinearLayoutManager(currentContext));
-        binding.challengeRecyclerView.setAdapter(adapter);
+        binding.challengeRecyclerView.setAdapter(challengeAdapter);
         binding.challengeRecyclerView.addItemDecoration(new ChallengeItemDecoration(10));
 
         return view;
@@ -134,6 +138,15 @@ public class ChallengeFragment extends Fragment {
     public void onDestroyView(){
         super.onDestroyView();
         binding = null;
+    }
+
+    //Method to update challenges list
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateChallenges(List<Challenge> challenges){
+        this.challenges.clear();
+        this.challenges.addAll(challenges);
+
+        challengeAdapter.notifyDataSetChanged();
     }
 }
 
