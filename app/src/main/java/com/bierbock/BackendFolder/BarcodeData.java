@@ -36,7 +36,7 @@ public class BarcodeData extends BackendRequest{
                     //Update beer description:
                     activity.updateBeerDescription(product_name, brands, quantity);
                 } else {
-                    // TODO: Implement
+                    activity.backendFailMessage();
                 }
             } catch (JSONException e){
                 e.printStackTrace();

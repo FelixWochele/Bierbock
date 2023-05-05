@@ -37,8 +37,7 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     public void moveToRegisterActivity(){
-        startActivity(new Intent(this, DisplayScannedBeerActivity.class));
-        //startActivity(new Intent(this, RegisterActivity.class));
+        startActivity(new Intent(this, RegisterActivity.class));
         finish();
     }
 

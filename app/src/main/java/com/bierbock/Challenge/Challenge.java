@@ -1,10 +1,14 @@
 package com.bierbock.Challenge;
 
+import java.util.List;
+
 public class Challenge {
     private String description;
     private int points;
     private int progress;
     private int maxProgress;
+    private int endDate;
+    private List<String> partialProgresses; //???????????
 
     public Challenge(String description, int points, int progress, int maxProgress) {
         this.description = description;

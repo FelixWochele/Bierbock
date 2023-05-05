@@ -80,48 +80,10 @@ public class BeerHistoryAdapter extends RecyclerView.Adapter<BeerHistoryViewHold
                 R.drawable.beer_example_image,
                 callback
         );
-
-        /*
-        loadImage(imageUrl, holder, () -> {
-
-            //Enable elements after loading of the view
-            ((HomeFragment) fragment).toggleViewElements(true);
-        }); */
-
     }
     @Override
     public int getItemCount() {
         return beerHistoryItems.size();
-    }
-
-
-
-    //interface for the image load callback
-    interface ImageLoadCallback {
-        void onImageLoaded();
-    }
-
-    private void loadImage(String imageUrl, @NonNull BeerHistoryViewHolder holder, BeerHistoryAdapter.ImageLoadCallback callback) {
-
-        Glide.with(fragment)
-                .load(imageUrl)
-                .fallback(R.drawable.beer_example_image) //If the image loading failed
-                .override(targetWidth, targetHeight)
-                .centerCrop()
-                .listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        callback.onImageLoaded();
-                        return false; //Return false to set the fallback image if the loading fails
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        callback.onImageLoaded();
-                        return false;
-                    }
-                })
-                .into(holder.imageView);
     }
 
 }

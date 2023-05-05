@@ -28,7 +28,7 @@ public class NewDrinkAction extends BackendRequest {
                     activity.goToMainActivity(); //Move to main activity after that
 
                 } else {
-                    // TODO: Implement
+                    activity.backendFailMessage();
                 }
 
             } catch (JSONException e){

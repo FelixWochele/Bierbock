@@ -50,7 +50,7 @@ public class OwnDrinkProgress extends BackendRequest {
                     homeFragment.updateBeerHistory(beerHistoryItems);
 
                 } else {
-                    // TODO: Implement
+                    homeFragment.backendErrorMessage();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

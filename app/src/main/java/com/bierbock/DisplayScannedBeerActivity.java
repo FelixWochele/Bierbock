@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -48,6 +49,7 @@ public class DisplayScannedBeerActivity extends AppCompatActivity {
 
     }
 
+    //Calls backend for the barcode scanned previously in the scanActivity
     private void startBackendRequestForBarcode(){
         String rawBarcodeData = getIntent().getStringExtra("raw_barcode");
 
@@ -67,7 +69,7 @@ public class DisplayScannedBeerActivity extends AppCompatActivity {
     //This method is called by the backend when opening the view:
     public void loadImageFromURL(String url){
 
-        ImageView imageView = (ImageView) findViewById(R.id.beerImageView);
+        ImageView imageView = findViewById(R.id.beerImageView);
         int targetWidth = imageView.getWidth();
         int targetHeight = imageView.getHeight();
 
@@ -83,26 +85,29 @@ public class DisplayScannedBeerActivity extends AppCompatActivity {
         );
     }
 
+    //Method to update the text views in displayScannedBeerActivity
     public void updateBeerDescription(String productName, String brands, String quantity){
 
-        TextView productNameTextView = (TextView) findViewById(R.id.product_name);
-        TextView brandsTextView = (TextView) findViewById(R.id.brands);
-        TextView quantityTextView = (TextView) findViewById(R.id.quantity);
+        TextView productNameTextView = findViewById(R.id.product_name);
+        TextView brandsTextView = findViewById(R.id.brands);
+        TextView quantityTextView = findViewById(R.id.quantity);
 
         productNameTextView.setText(productName);
         brandsTextView.setText(brands);
         quantityTextView.setText(quantity);
     }
 
-
     //Method to get back to the main activity (called by backend callback):
     public void goToMainActivity() {
-
         //Start main activity here
         Intent intent = new Intent(DisplayScannedBeerActivity.this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); //Clear both scan and display activities from the stack
         startActivity(intent);
         finish();
+    }
+
+    public void backendFailMessage(){
+        Toast.makeText(this, "There is no beer for that barcode", Toast.LENGTH_SHORT).show();
     }
 
 }

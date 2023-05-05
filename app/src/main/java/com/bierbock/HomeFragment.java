@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 //import com.bierbock.BackendFolder.OwnDrinkProgress;
 import com.bierbock.BackendFolder.OwnDrinkProgress;
@@ -129,7 +130,6 @@ public class HomeFragment extends Fragment {
                                     binding.heading.setText("User Ranking");
                                     homeRecyclerView.setAdapter(userRankingAdapter);
                                     callTopRankedUsers();
-                                    //callOwnScore();
                                 }
 
                             } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
@@ -186,10 +186,6 @@ public class HomeFragment extends Fragment {
         OwnDrinkProgress ownDrinkProgress = new OwnDrinkProgress(this);
     }
 
-    //private void callOwnScore(){
-   //     OwnScore ownScore = new OwnScore(this);
-   // }
-
     private void callTopRankedUsers(){
         TopRankedUsers topRankedUsers = new TopRankedUsers(this);
     }
@@ -203,7 +199,7 @@ public class HomeFragment extends Fragment {
 
     //Method to update the user Ranking list:
     @SuppressLint("NotifyDataSetChanged")
-    public void updateUserRatings(List<UserRanking> userRankings, String ownUserName, int ownRank, int ownPoints){
+    public void updateUserRankings(List<UserRanking> userRankings, String ownUserName, int ownRank, int ownPoints){
 
         boolean ownUserInTop25 = false;
 
@@ -226,7 +222,9 @@ public class HomeFragment extends Fragment {
         userRankingAdapter.notifyDataSetChanged();
     }
 
-
+    public void backendErrorMessage(){
+        Toast.makeText(this.getContext(), "Error loading data", Toast.LENGTH_SHORT).show();
+    }
 
 
 }

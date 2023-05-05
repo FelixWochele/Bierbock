@@ -50,11 +50,10 @@ public class TopRankedUsers extends BackendRequest {
 
                     System.out.println("Own Rank: " + ownRank + ", Own Username: " + ownUserName + ", Own Points: " + ownPoints);
 
-                    homeFragment.updateUserRatings(userRankings, ownUserName, ownRank, ownPoints);
+                    homeFragment.updateUserRankings(userRankings, ownUserName, ownRank, ownPoints);
 
                 } else {
-                    // TODO: Implement ErrorMessage that is going to be used in an interface
-                    // TODO: call fragment.errorMessage
+                    homeFragment.backendErrorMessage();
                 }
             } catch (JSONException e){
                 e.printStackTrace();
