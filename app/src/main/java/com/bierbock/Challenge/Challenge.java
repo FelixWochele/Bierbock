@@ -7,14 +7,16 @@ public class Challenge {
     private int points;
     private int progress;
     private int maxProgress;
-    private int endDate;
-    private List<String> partialProgresses; //???????????
+    private String endDate;
+    private List<String> partialProgresses;
 
-    public Challenge(String description, int points, int progress, int maxProgress) {
+    public Challenge(String description, int points, int progress, int maxProgress, String endDate, List<String> partialProgresses) {
         this.description = description;
         this.points = points;
         this.progress = progress;
         this.maxProgress = maxProgress;
+        this.endDate = endDate;
+        this.partialProgresses = partialProgresses;
     }
 
     // Getters and setters for each property
@@ -49,6 +51,22 @@ public class Challenge {
 
     public void setMaxProgress(int maxProgress) {
         this.maxProgress = maxProgress;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public List<String> getPartialProgresses() {
+        return partialProgresses;
+    }
+
+    public void setPartialProgresses(List<String> partialProgresses) {
+        this.partialProgresses = partialProgresses;
     }
 }
 
