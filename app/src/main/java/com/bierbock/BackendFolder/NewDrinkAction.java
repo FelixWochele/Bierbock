@@ -25,9 +25,7 @@ public class NewDrinkAction extends BackendRequest {
 
                 if ("Successful".equals(obj.getString("statusMessage"))) {
 
-                    JSONObject objectResult = obj.getJSONObject("result");
-
-                    //TODO: Call some callback here? (ScanActivity or DisplayScannedBeerActivity action)
+                    activity.goToMainActivity(); //Move to main activity after that
 
                 } else {
                     // TODO: Implement
@@ -39,7 +37,7 @@ public class NewDrinkAction extends BackendRequest {
         });
 
         //Add parameters to url here:
-        String[] parameterNames = new String[]{"beercode"};
+        String[] parameterNames = new String[]{"beerCode"};
         String[] parameterValues = new String[]{beercode};
 
         //important method for adding the parameters to the url:

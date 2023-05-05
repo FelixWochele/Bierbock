@@ -42,7 +42,7 @@ public class DisplayScannedBeerActivity extends AppCompatActivity {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToMainActivity();
+                backendRequestNewDrinkAction();
             }
         });
 
@@ -64,7 +64,7 @@ public class DisplayScannedBeerActivity extends AppCompatActivity {
         NewDrinkAction newDrinkAction = new NewDrinkAction(rawBarcodeData, userCoordinates, this);
     }
 
-    //This method is called by the backend:
+    //This method is called by the backend when opening the view:
     public void loadImageFromURL(String url){
 
         ImageView imageView = (ImageView) findViewById(R.id.beerImageView);
@@ -95,10 +95,8 @@ public class DisplayScannedBeerActivity extends AppCompatActivity {
     }
 
 
-    //Method to get back to the main activity:
-    private void goToMainActivity() {
-        //Start new drink action here
-        backendRequestNewDrinkAction();
+    //Method to get back to the main activity (called by backend callback):
+    public void goToMainActivity() {
 
         //Start main activity here
         Intent intent = new Intent(DisplayScannedBeerActivity.this, MainActivity.class);

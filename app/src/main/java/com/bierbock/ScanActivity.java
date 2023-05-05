@@ -65,7 +65,15 @@ public class ScanActivity extends AppCompatActivity {
                         mCodeScanner.stopPreview();
                         Intent intent = new Intent(ScanActivity.this, DisplayScannedBeerActivity.class);
                         intent.putExtra("raw_barcode", result.getText());
-                        intent.putExtra("user_location", userCoordinates); //pass user coordinates to the displayScannedBarActivity class
+
+                        if(userCoordinates != null){
+                            intent.putExtra("user_location", userCoordinates); //pass user coordinates to the displayScannedBarActivity class
+                        }
+                        else{
+                            Toast.makeText(ScanActivity.this, "Waiting for location data...", Toast.LENGTH_SHORT).show();
+                            return; // don't start the DisplayScannedBeerActivity if the user location is not available yet
+                        }
+
                         startActivity(intent);
                     }
                 });
@@ -104,6 +112,20 @@ public class ScanActivity extends AppCompatActivity {
             String locationProvider = locationManager.getBestProvider(new Criteria(), true);
             if (locationProvider != null) {
                 locationManager.requestLocationUpdates(locationProvider, 1000, 1, locationListener);
+
+                // Get the last known location
+                Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
+                if (lastKnownLocation != null) {
+                    double latitude = lastKnownLocation.getLatitude();
+                    double longitude = lastKnownLocation.getLongitude();
+                    double altitude = lastKnownLocation.getAltitude();
+
+                    // Save user coordinates here
+                    userCoordinates = new double[3];
+                    userCoordinates[0] = latitude;
+                    userCoordinates[1] = longitude;
+                    userCoordinates[2] = altitude;
+                }
             } else {
                 Toast.makeText(this, "No location provider available", Toast.LENGTH_SHORT).show();
             }
@@ -111,6 +133,7 @@ public class ScanActivity extends AppCompatActivity {
             requestLocationPermissions();
         }
     }
+
 
     //Request user location permissions
     private void requestLocationPermissions(){
@@ -172,7 +195,6 @@ public class ScanActivity extends AppCompatActivity {
     }
 
 
-
     //Location listener for the user location:
     private void initLocationListener() {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -204,7 +226,4 @@ public class ScanActivity extends AppCompatActivity {
             }
         };
     }
-
-
-
 }
