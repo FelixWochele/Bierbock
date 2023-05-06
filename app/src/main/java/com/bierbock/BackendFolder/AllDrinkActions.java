@@ -1,6 +1,7 @@
 package com.bierbock.BackendFolder;
 
 import com.bierbock.MainActivity;
+import com.bierbock.MapsFragment;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -9,36 +10,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 //TODO: maybe implement this for the heat map?
-
-/*public class AllDrinkActions extends BackendRequest{
-
-    public AllDrinkActions(String searchString, String fromTime, String toTime, MainActivity activity) {
-        super(activity.getApplicationContext(),
-                "GET", "https://www.beerbock.de/BierBock/allDrinkActions",
-                result -> {
-            JSONObject obj;
-
-            obj = new JSONObject(result);
-
-            if ("Successful".equals(obj.getString("statusMessage"))) {
-                // TODO: Implement update UI
-            } else {
-                // TODO: Implement
-            }
-        });
-
-        String body = String.format("{\"searchString\": \"%s\", \"fromTime\": \"%s\", \"toTime\": \"%s\"}",
-                searchString, fromTime, toTime);
-
-        execute(body);
-    }
-} */
 public class AllDrinkActions extends BackendRequest {
 
-    public AllDrinkActions(String searchString, String fromTime, String toTime, MainActivity activity) {
-        super(activity.getApplicationContext(),
+    public AllDrinkActions(String searchString, String fromTime, String toTime, MapsFragment fragment) {
+        super(fragment.requireActivity().getApplicationContext(),
                 "GET",
                 "https://www.beerbock.de/BierBock/allDrinkActions");
 
@@ -53,16 +31,16 @@ public class AllDrinkActions extends BackendRequest {
 
                     JSONArray resultArray = obj.getJSONArray("result");
 
-                    List<LatLng> locationList = new ArrayList<>();
+                    ArrayList<LatLng> locationList = new ArrayList<>();
 
                     for(int i = 0; i < resultArray.length(); i++){
 
                         JSONObject locationTime = resultArray.getJSONObject(i);
 
                         JSONObject location = locationTime.getJSONObject("location");
-                        int latitude = location.getInt("latitude");
-                        int longitude = location.getInt("longitude");
-                        int altitude = location.getInt("altitude");
+                        double latitude = location.getDouble("latitude");
+                        double longitude = location.getDouble("longitude");
+                        double altitude = location.getDouble("altitude");
 
                         String time = locationTime.getString("time");
 
@@ -71,7 +49,7 @@ public class AllDrinkActions extends BackendRequest {
 
                     }
 
-                    //TODO: implement activity access
+                    fragment.updateDrinkingCoordinates(locationList);
 
                 } else {
                     // TODO: Implement
@@ -85,12 +63,14 @@ public class AllDrinkActions extends BackendRequest {
 
         });
 
-        //Add parameters to url here:
-        String[] parameterNames = new String[]{"searchString", "fromTime", "toTime"};
-        String[] parameterValues = new String[]{searchString, fromTime, toTime};
+        if(!Objects.equals(searchString, "")){
+            //Add parameters to url here:
+            String[] parameterNames = new String[]{"searchString", "fromTime", "toTime"};
+            String[] parameterValues = new String[]{searchString, fromTime, toTime};
 
-        //important method for adding the parameters to the url:
-        super.addUrlParameters(parameterNames, parameterValues);
+            //important method for adding the parameters to the url:
+            super.addUrlParameters(parameterNames, parameterValues);
+        }
 
         String body = ""; //Empty body
 

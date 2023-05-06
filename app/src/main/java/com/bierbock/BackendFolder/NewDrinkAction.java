@@ -43,11 +43,8 @@ public class NewDrinkAction extends BackendRequest {
         //important method for adding the parameters to the url:
         super.addUrlParameters(parameterNames, parameterValues);
 
-        int latitudeInt = (int) userLocation[0];
-        int longitudeInt = (int) userLocation[1];
-        int altitudeInt = (int) userLocation[2];
-
-        String body = String.format("{\"latitude\": \"%d\", \"longitude\": \"%d\", \"altitude\": \"%d\"}", latitudeInt, longitudeInt, altitudeInt);
+        //Locale.US very important, because of "." for the double values
+        String body = String.format(Locale.US, "{\"latitude\": %.14f, \"longitude\": %.14f, \"altitude\": %.14f}", userLocation[0], userLocation[1], userLocation[2]);
 
         execute(body); // empty body
     }

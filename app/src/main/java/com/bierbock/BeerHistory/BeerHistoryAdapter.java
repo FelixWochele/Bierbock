@@ -54,6 +54,9 @@ public class BeerHistoryAdapter extends RecyclerView.Adapter<BeerHistoryViewHold
         holder.beerBrandTextView.setText(String.valueOf(beerHistoryItem.getBeerBrand()));
         holder.dateOfDrinkingTextView.setText(String.valueOf(beerHistoryItem.getDateTime()));
 
+        //for initial setup
+        holder.imageView.setImageResource(R.drawable.beer_example_image);
+
         //Get image data
         String imageUrl = beerHistoryItem.getBeerImageURL();
         targetWidth = holder.imageView.getWidth();
