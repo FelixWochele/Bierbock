@@ -83,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void replaceFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_content_main, fragment).commit();
     }
