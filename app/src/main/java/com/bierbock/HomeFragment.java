@@ -81,6 +81,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+
         // Sample data for user ratings
         userRankings = new ArrayList<>();
         userRankings.add(new UserRanking("User1", 1000, 10));

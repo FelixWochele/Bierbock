@@ -132,6 +132,10 @@ public class MapsFragment extends Fragment {
 
         ArrayList<WeightedLatLng> arr = new ArrayList<>();
 
+        //two points to init -> otherwise error
+        arr.add(new WeightedLatLng(new LatLng(13.0827, 80.2707),180)); //chennai
+        arr.add(new WeightedLatLng(new LatLng(11.0168, 76.9558),270)); //coimbatore
+
         if(drinkingCoordinates == null) {
             arr.add(new WeightedLatLng(new LatLng(48.0, 8.0), 200));
             arr.add(new WeightedLatLng(new LatLng(48.44543782910548, 8.696831606441847),180)); //madurai
