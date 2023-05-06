@@ -68,6 +68,7 @@ public class MapsFragment extends Fragment {
 
             //Set users location if data available
             if(userCoordinates != null){
+                requestLocationUpdates();
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userCoordinates[0], userCoordinates[1]), 17.0f));
                 System.out.println("USER COORDONATES");
                 System.out.println(userCoordinates[0]);
