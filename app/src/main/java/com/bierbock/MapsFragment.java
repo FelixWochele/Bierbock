@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Criteria;
@@ -30,7 +31,7 @@ import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.google.maps.android.heatmaps.WeightedLatLng;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class MapsFragment extends Fragment {
 
@@ -57,18 +58,15 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            /*LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-             */
-
             ArrayList<WeightedLatLng> weightedCoordinates = addHeatMap(drinkingCoordinates);
 
+            //Try to get user location
+            initLocationListener();
+            requestLocationUpdates();
 
             //Set users location if data available
             if(userCoordinates != null){
-                requestLocationUpdates();
+
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userCoordinates[0], userCoordinates[1]), 17.0f));
                 System.out.println("USER COORDONATES");
                 System.out.println(userCoordinates[0]);
@@ -77,9 +75,6 @@ public class MapsFragment extends Fragment {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(48.44543782910548, 8.696831606441847), 17.0f));
                 System.out.println("CANT GET USER COORDINATES!");
             }
-
-
-
 
             Gradient gradient = new Gradient(colors, startpoints);
             HeatmapTileProvider heatmapTileProvider = new HeatmapTileProvider.Builder()
@@ -224,6 +219,41 @@ public class MapsFragment extends Fragment {
 
         }
     }
+
+    //Location listener for the user location:
+    private void initLocationListener() {
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                double altitude = location.getAltitude();
+
+                //save user coordinated here:
+                userCoordinates = new double[3];
+                userCoordinates[0] = latitude;
+                userCoordinates[1] = longitude;
+                userCoordinates[2] = altitude;
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+            }
+        };
+    }
+
+
+
 /*
 
     //Check the permissions
