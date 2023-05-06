@@ -1,54 +1,55 @@
 package com.bierbock.BackendFolder;
 
+import com.bierbock.Challenge.Challenge;
 import com.bierbock.MainActivity;
+import com.bierbock.UserProfileActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class OwnUserData extends BackendRequest {
 
-    public OwnUserData(MainActivity activity) {
-        super(activity.getApplicationContext(),
+    public OwnUserData(UserProfileActivity activity) {
+
+        super(activity.getApplicationContext(), //For the Auth. Token
                 "GET",
                 "https://www.beerbock.de/BierBock/ownUserData");
 
         setTaskDelegate(result -> {
 
-            try{
-                JSONObject obj;
+            JSONObject obj;
 
+            try{
                 obj = new JSONObject(result);
 
-                if ("Successful".equals(obj.getString("statusMessage"))) {
+                JSONObject res = obj.getJSONObject("result");
 
-                    JSONObject objectResult = obj.getJSONObject("result");
+                String username = res.getString("userName");
+                String firstname = res.getString("vorName");
+                String lastname = res.getString("name");
+                String birthdate = res.getString("birthDate");
+                String email = res.getString("email");
 
-                    String userName = objectResult.getString("userName");
-                    String name = objectResult.getString("name");
-                    String vorName = objectResult.getString("vorName");
-                    String birthDate = objectResult.getString("birthDate");
-                    String email = objectResult.getString("email");
-                    //NOT NEEDED:
-                    //String location = object.getString("location");
-                    //String wohnort = object.getString("wohnort");
-                    //String productName = object.getString("productName");
+                activity.binding.userName.setText(username);
+                activity.binding.firstname.setText(firstname);
+                activity.binding.lastname.setText(lastname);
+                activity.binding.email.setText(email);
+                activity.binding.birthdate.setText(birthdate);
 
-                    //TODO: implement activity access
+                System.out.println(obj.toString());
 
-                } else {
-                    // TODO: Implement
-                }
-
-
-            }catch (JSONException e){
+            } catch (JSONException e){
                 e.printStackTrace();
             }
 
 
         });
 
-        String body = ""; //Empty body
-
-        execute(body);
+        execute("");
     }
 }

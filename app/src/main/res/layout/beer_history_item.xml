@@ -8,7 +8,7 @@
     android:layout_marginTop="2dp"
     android:layout_marginRight="2dp"
     android:layout_marginBottom="2dp"
-    android:background="#666666"
+    android:background="@color/mainColor"
     android:orientation="horizontal"
     app:cardCornerRadius="5dp"
     app:cardElevation="5dp"
@@ -45,13 +45,13 @@
                 android:layout_marginTop="5dp"
                 android:text="17/2/2001"
                 android:textColor="#666666"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/beer_brand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_gravity="bottom"
                 android:text="BeerBrand"
                 android:textColor="#666666"
                 android:textSize="10sp" />
@@ -60,7 +60,8 @@
                 android:id="@+id/beer_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
                 android:text="Beername"
                 android:textColor="#666666"
                 android:textSize="10sp" />

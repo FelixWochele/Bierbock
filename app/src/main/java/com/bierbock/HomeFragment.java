@@ -2,6 +2,7 @@ package com.bierbock;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -101,8 +102,7 @@ public class HomeFragment extends Fragment {
         //setup the initial adapter for the list
         homeRecyclerView.setAdapter(beerHistoryAdapter);
 
-
-        binding.heading.setText("Beer history");
+        binding.beerHistrory.setTypeface(null, Typeface.NORMAL);
 
         //Gesture
         final GestureDetector gesture = new GestureDetector(getActivity(),
@@ -127,7 +127,11 @@ public class HomeFragment extends Fragment {
                                 System.out.println("Right to Left");
 
                                 if(homeRecyclerView.getAdapter() != userRankingAdapter){
-                                    binding.heading.setText("User Ranking");
+
+                                    //Set bold text
+                                    binding.userRanking.setTypeface(null, Typeface.BOLD);
+                                    binding.beerHistrory.setTypeface(null, Typeface.NORMAL);
+
                                     homeRecyclerView.setAdapter(userRankingAdapter);
                                     callTopRankedUsers();
                                 }
@@ -138,7 +142,11 @@ public class HomeFragment extends Fragment {
 
                                 //If statement to not update the view on every button click
                                 if(homeRecyclerView.getAdapter() != beerHistoryAdapter){
-                                    binding.heading.setText("Beer History");
+
+                                    //Set bold Text
+                                    binding.beerHistrory.setTypeface(null, Typeface.BOLD);
+                                    binding.userRanking.setTypeface(null, Typeface.NORMAL);
+
                                     homeRecyclerView.setAdapter(beerHistoryAdapter);
                                     callOwnDrinkProgress();
                                 }

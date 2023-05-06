@@ -3,6 +3,7 @@ package com.bierbock;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
 
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.homeFragment, R.layout.fragment_challenge, R.id.heatMapFragment, R.id.action_settings
+                R.id.homeFragment, R.layout.fragment_challenge, R.id.heatMapFragment, R.id.user_profile
         ).build();
 
         //Make a photo button:
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setSelectedItemId(R.id.homeMenue);
 
         binding.bottomNavigationView.setOnItemSelectedListener(e -> {
-
+            System.out.println("TEEEEEEEEEEEST2");
             switch (e.getItemId()) {
                 case R.id.challanges:
                     System.out.println("Test1");
@@ -68,6 +69,18 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.user_profile:
+                Intent i = new Intent(this,UserProfileActivity.class);
+                this.startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void replaceFragment(Fragment fragment){

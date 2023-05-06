@@ -2,6 +2,7 @@ package com.bierbock;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,19 @@ public class RegisterActivity extends AppCompatActivity {
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+
+
+        binding.username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                binding.username.setHint("");
+            }
+        });
+
+
+
+
 
         binding.signUp.setOnClickListener(e -> {
             String username = binding.username.getText().toString();

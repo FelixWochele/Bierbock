@@ -32,7 +32,9 @@ public class LoginActivity extends AppCompatActivity{
         });
 
         binding.register.setOnClickListener(e -> {
-            moveToRegisterActivity();
+            //moveToRegisterActivity();
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
         });
     }
 
