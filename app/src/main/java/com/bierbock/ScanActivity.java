@@ -64,14 +64,15 @@ public class ScanActivity extends AppCompatActivity {
                         //Toast.makeText(ScanActivity.this, result.getText(), Toast.LENGTH_SHORT).show(); //Used for debugging
                         mCodeScanner.stopPreview();
                         Intent intent = new Intent(ScanActivity.this, DisplayScannedBeerActivity.class);
+
                         intent.putExtra("raw_barcode", result.getText());
 
                         if(userCoordinates != null){
                             intent.putExtra("user_location", userCoordinates); //pass user coordinates to the displayScannedBarActivity class
                         }
                         else{
-                            Toast.makeText(ScanActivity.this, "Waiting for location data...", Toast.LENGTH_SHORT).show();
-                            return; // don't start the DisplayScannedBeerActivity if the user location is not available yet
+                            Toast.makeText(ScanActivity.this, "Can't access location Data!", Toast.LENGTH_SHORT).show();
+                            //return; // don't start the DisplayScannedBeerActivity if the user location is not available yet
                         }
 
                         startActivity(intent);
