@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -23,9 +25,10 @@
         android:theme="@style/Theme.Bierbock"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".UserProfileActivity"
+            android:exported="false" />
         <!--
-
              TODO: Before you run your application, you need a Google Maps API key.
 
              To get one, follow the directions here:
@@ -42,11 +45,10 @@
 
         <activity
             android:name=".DisplayScannedBeerActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".ScanActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="false" />

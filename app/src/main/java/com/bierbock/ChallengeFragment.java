@@ -1,33 +1,26 @@
 package com.bierbock;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.ListView;
 
+import com.bierbock.BackendFolder.OwnChallenges;
 import com.bierbock.Challenge.Challenge;
 import com.bierbock.Challenge.ChallengeAdapter;
 import com.bierbock.Challenge.ChallengeItemDecoration;
 import com.bierbock.databinding.FragmentChallengeBinding;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.material.textview.MaterialTextView;
 
-import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +35,9 @@ public class ChallengeFragment extends Fragment {
     private FragmentChallengeBinding binding;
 
     private FrameLayout progressContainer;
+
+    private List<Challenge> challenges;
+    private ChallengeAdapter challengeAdapter;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -93,43 +89,34 @@ public class ChallengeFragment extends Fragment {
         View view = binding.getRoot();
 
         //Statistics above the challenges:
+        //TODO: maybe call ownRanking/ownUserData here????
         MaterialTextView statistic1Title = binding.statistic1Title;
         MaterialTextView statistic1Value = binding.statistic1Value;
         MaterialTextView statistic2Title = binding.statistic2Title;
         MaterialTextView statistic2Value = binding.statistic2Value;
 
-        List<Challenge> challenges = new ArrayList<>();
+        challenges = new ArrayList<>();
         // Add your challenge data here
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 40, 345));
-        challenges.add(new Challenge("Challenge description", 10, 100, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
-        challenges.add(new Challenge("Challenge description", 10, 20, 345));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345, "", new ArrayList<>()));
+
 
         //Get current context of the Fragment
         Context currentContext = requireContext();
 
-        ChallengeAdapter adapter = new ChallengeAdapter(currentContext, challenges);
+        challengeAdapter = new ChallengeAdapter(currentContext, challenges);
 
         //Setup recyclerView
         binding.challengeRecyclerView.setLayoutManager(new LinearLayoutManager(currentContext));
-        binding.challengeRecyclerView.setAdapter(adapter);
+        binding.challengeRecyclerView.setAdapter(challengeAdapter);
         binding.challengeRecyclerView.addItemDecoration(new ChallengeItemDecoration(10));
 
-
-
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        OwnChallenges ownChallenges = new OwnChallenges(this);
     }
 
     @Override
@@ -137,15 +124,14 @@ public class ChallengeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    //Method to update challenges list
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateChallenges(List<Challenge> challenges){
+        this.challenges.clear();
+        this.challenges.addAll(challenges);
+
+        challengeAdapter.notifyDataSetChanged();
+    }
 }
 
-
-//View view = inflater.inflate(R.layout.fragment_challenge, container, false);
-
-//RecyclerView recyclerView = view.findViewById(R.id.challenge_recycler_view);
-//RecyclerView recyclerView = (RecyclerView) getView().findViewById(R.id.challenge_recycler_view);
-//recyclerView.setLayoutManager(new LinearLayoutManager(currentContext));
-//recyclerView.setAdapter(adapter);
-//recyclerView.addItemDecoration(new ChallengeItemDecoration(10));
-
-//return inflater.inflate(R.layout.fragment_challenge, container, false);

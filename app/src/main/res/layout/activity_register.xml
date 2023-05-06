@@ -30,7 +30,7 @@
         android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Username"
+        android:hint="username"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
@@ -42,7 +42,7 @@
         android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Vorname"
+        android:hint="Vorname"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
@@ -54,7 +54,7 @@
         android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Nachname"
+        android:hint="Nachname"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
@@ -62,12 +62,12 @@
         android:id="@+id/birthdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        android:hint="Geburtsdatum"
-        android:textColor="@color/white"
         android:backgroundTint="@color/white"
-        android:textColorHint="@color/white"/>
+        android:ems="10"
+        android:hint="Geburtsdatum"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
 
     <EditText
         android:id="@+id/emailAdress"

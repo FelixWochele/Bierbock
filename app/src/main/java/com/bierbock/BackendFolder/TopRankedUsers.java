@@ -38,7 +38,7 @@ public class TopRankedUsers extends BackendRequest {
                         String userName = userObject.getString("userName");
                         int points = userObject.getInt("points");
 
-                        userRankings.add(new UserRanking(userName, rank, points)); //TODO: add points to the model class
+                        userRankings.add(new UserRanking(userName, rank, points));
                         System.out.println("Rank: " + rank + ", Username: " + userName + ", Points: " + points);
                     }
 
@@ -50,10 +50,10 @@ public class TopRankedUsers extends BackendRequest {
 
                     System.out.println("Own Rank: " + ownRank + ", Own Username: " + ownUserName + ", Own Points: " + ownPoints);
 
-                    homeFragment.updateUserRatings(userRankings, ownUserName, ownRank, ownPoints);
+                    homeFragment.updateUserRankings(userRankings, ownUserName, ownRank, ownPoints);
 
                 } else {
-                    // TODO: Implement
+                    homeFragment.backendErrorMessage();
                 }
             } catch (JSONException e){
                 e.printStackTrace();

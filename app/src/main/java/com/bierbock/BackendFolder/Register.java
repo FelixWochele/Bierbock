@@ -2,35 +2,37 @@ package com.bierbock.BackendFolder;
 
 import android.os.AsyncTask;
 
-import com.bierbock.MainActivity;
 import com.bierbock.RegisterActivity;
 
 import org.json.JSONObject;
-/*
-public class Register extends BackendRequest{
 
+public class Register{
 
-    //TODO: change so that it doesn't use the backendRequest class, because that class gets a token
+    private String url = "https://www.beerbock.de/security/register";
+
+    private RegisterActivity registerActivity;
 
     public Register(String username, String firstname, String lastname, String birthdate, String email, String password, RegisterActivity registerActivity){
-        super(registerActivity.getApplicationContext(),
-                "POST", "https://www.beerbock.de/security/register",
-                result -> {
+
+        this.registerActivity = registerActivity;
+
+        String body = String.format("{\"userName\": \"%s\", \"vorname\": \"%s\", \"nachname\": \"%s\", \"password\": \"%s\", \"email\": \"%s\", \"birthdate\": \"%s\"}",
+                username, firstname, lastname, password, email, birthdate);
+
+        AsyncTask<String, String, String> be = new Backend("POST", result -> {
 
             JSONObject obj;
 
             obj = new JSONObject(result);
 
             if("Successful".equals(obj.getString("statusMessage"))){
-                registerActivity.nexActivity();
+
+                registerActivity.nextActivity(); // here start the next activity
+
             }else {
                 registerActivity.errorMsg();
             }
-        });
+        }).execute(url, "", body);
 
-        String body = String.format("{\"userName\": \"%s\", \"vorname\": \"%s\", \"nachname\": \"%s\", \"password\": \"%s\", \"email\": \"%s\", \"birthdate\": \"%s\"}",
-            username, firstname, lastname, password, email, birthdate);
-
-        execute(body);
     }
-} */
+}

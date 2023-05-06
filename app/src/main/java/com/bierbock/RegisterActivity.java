@@ -2,11 +2,13 @@ package com.bierbock;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 //import com.bierbock.BackendFolder.Register;
+import com.bierbock.BackendFolder.Register;
 import com.bierbock.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -22,6 +24,19 @@ public class RegisterActivity extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
+
+        binding.username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                binding.username.setHint("");
+            }
+        });
+
+
+
+
+
         binding.signUp.setOnClickListener(e -> {
             String username = binding.username.getText().toString();
             String firstname = binding.firstname.getText().toString();
@@ -30,11 +45,11 @@ public class RegisterActivity extends AppCompatActivity {
             String password = binding.password.getText().toString();
             String birthdate = binding.birthdate.getText().toString();
 
-            //Register r = new Register(username, firstname, lastname, birthdate, email, password, this);
+            //call backend here
+            Register r = new Register(username, firstname, lastname, birthdate, email, password, this);
         });
     }
-    public void nexActivity() throws InterruptedException {
-
+    public void nextActivity() throws InterruptedException {
         Toast.makeText(this, "Erfolgreiche Anmeldung! Check Deine Emails!", Toast.LENGTH_SHORT).show();
         Thread.sleep(2000);
         startActivity(new Intent(this, LoginActivity.class));
@@ -44,6 +59,5 @@ public class RegisterActivity extends AppCompatActivity {
     public void errorMsg(){
         binding.errorMsg.setText("Falsche Anmeldeinformationen!!!");
     }
-
 
 }

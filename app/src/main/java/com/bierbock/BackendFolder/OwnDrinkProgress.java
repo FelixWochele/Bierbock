@@ -40,7 +40,6 @@ public class OwnDrinkProgress extends BackendRequest {
                         String brands = jsonArray.getJSONObject(i).getString("brands");
                         String imageUrl = jsonArray.getJSONObject(i).getString("imageUrl");
 
-
                         BeerHistoryItem item = new BeerHistoryItem(time.substring(0,9), productName, brands, imageUrl);
 
                         beerHistoryItems.add(item);
@@ -50,9 +49,8 @@ public class OwnDrinkProgress extends BackendRequest {
 
                     homeFragment.updateBeerHistory(beerHistoryItems);
 
-
                 } else {
-                    // TODO: Implement
+                    homeFragment.backendErrorMessage();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

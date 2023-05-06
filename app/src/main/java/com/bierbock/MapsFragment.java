@@ -10,12 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bierbock.BackendFolder.AllDrinkActions;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.maps.android.heatmaps.Gradient;
@@ -23,8 +23,12 @@ import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.google.maps.android.heatmaps.WeightedLatLng;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapsFragment extends Fragment {
+
+    private ArrayList<LatLng> drinkingCoordinates = new ArrayList<>();
+
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -45,16 +49,21 @@ public class MapsFragment extends Fragment {
 
              */
 
+            ArrayList<WeightedLatLng> weightedCoordinates = addHeatMap(drinkingCoordinates);
+
+
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(48.44543782910548, 8.696831606441847), 1500));
+
             Gradient gradient = new Gradient(colors, startpoints);
             HeatmapTileProvider heatmapTileProvider = new HeatmapTileProvider.Builder()
-                    .weightedData(addheatmap())
+                    .weightedData(weightedCoordinates)
                     .radius(20)
                     .gradient(gradient)
                     .build();
             TileOverlayOptions tileoverlayoptions = new TileOverlayOptions().tileProvider(heatmapTileProvider);
             TileOverlay tileoverlay = googleMap.addTileOverlay(tileoverlayoptions);
             tileoverlay.clearTileCache();
-        }
+            }
     };
 
     @Nullable
@@ -62,6 +71,9 @@ public class MapsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        //Call all drink actions backend:
+        AllDrinkActions allDrinkActions = new AllDrinkActions("", "", "", this);
+
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 
@@ -75,21 +87,43 @@ public class MapsFragment extends Fragment {
         }
     }
 
+    //Seva:
+    //May create race conditions??
+    public void updateDrinkingCoordinates(ArrayList<LatLng> coordinates){
+        drinkingCoordinates.clear();
+
+        drinkingCoordinates = coordinates;
+
+        // Refresh the map with the new coordinates
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(callback);
+        }
+    }
+
     // Mine
 
-
-    private ArrayList addheatmap() {
+    private ArrayList<WeightedLatLng> addHeatMap(ArrayList<LatLng> drinkingCoordinates) {
         ArrayList<WeightedLatLng> arr = new ArrayList<>();
 
-        arr.add(new WeightedLatLng(new LatLng(9.9252, 78.119),10)); //madurai
-        arr.add(new WeightedLatLng(new LatLng(10.7905, 78.7047),60)); //trichy
-        arr.add(new WeightedLatLng(new LatLng(13.0827, 80.2707),180)); //chennai
-        arr.add(new WeightedLatLng(new LatLng(11.0168, 76.9558),270)); //coimbatore
-        arr.add(new WeightedLatLng(new LatLng(11.7863, 77.8008),380));
-        arr.add(new WeightedLatLng(new LatLng(11.7480, 79.7714),190));
-        arr.add(new WeightedLatLng(new LatLng(8.7642, 78.1348),299));
-        arr.add(new WeightedLatLng(new LatLng(11.6643, 78.1460),398));
+        //arr.add(new WeightedLatLng(new LatLng(48.0, 8.0), 200));
 
+        //arr.add(new WeightedLatLng(new LatLng(48.44543782910548, 8.696831606441847),180)); //madurai
+        //arr.add(new WeightedLatLng(new LatLng(48.446372343732975, 8.698487270888112),70));
+        //arr.add(new WeightedLatLng(new LatLng(13.0827, 80.2707),180)); //chennai
+        //arr.add(new WeightedLatLng(new LatLng(11.0168, 76.9558),270)); //coimbatore
+        //arr.add(new WeightedLatLng(new LatLng(11.7863, 77.8008),380));
+        //arr.add(new WeightedLatLng(new LatLng(11.7480, 79.7714),190));
+        //arr.add(new WeightedLatLng(new LatLng(8.7642, 78.1348),299));
+        //arr.add(new WeightedLatLng(new LatLng(11.6643, 78.1460),398));
+
+        //Add all drinking coordinates:
+        if(drinkingCoordinates.size() > 0){
+           for (LatLng coordinate: drinkingCoordinates) {
+               arr.add(new WeightedLatLng((coordinate), 100));
+            }
+        }
 
         return arr;
     }

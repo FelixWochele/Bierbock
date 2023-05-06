@@ -28,7 +28,10 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="75dp"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        android:contentDescription="Camera"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/highlight_color"
+        app:srcCompat="@drawable/baseline_camera_alt_24_white" />
 
     <include layout="@layout/content_main" />
 

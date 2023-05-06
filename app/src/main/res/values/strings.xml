@@ -54,6 +54,7 @@
     <string name="register">Sign Up</string>
     <string name="beer_history">beer history</string>
     <string name="user_ratings">User Ratings</string>
+    <string name="manual_input">manual input</string>
 
 
 </resources>

@@ -2,6 +2,7 @@ package com.bierbock;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 //import com.bierbock.BackendFolder.OwnDrinkProgress;
 import com.bierbock.BackendFolder.OwnDrinkProgress;
@@ -81,15 +83,10 @@ public class HomeFragment extends Fragment {
         // Sample data for user ratings
         userRankings = new ArrayList<>();
         userRankings.add(new UserRanking("User1", 1000, 10));
-        userRankings.add(new UserRanking("User2", 900, 10));
-        userRankings.add(new UserRanking("User3", 800, 10));
 
         //Sample data for beer history items
         beerHistoryItems = new ArrayList<>();
         beerHistoryItems.add(new BeerHistoryItem("Beer 1", "Beer brand 1","23/01/2016", "https://images.openfoodfacts.org/images/products/311/978/025/9625/front_fr.84.400.jpg"));
-        //beerHistoryItems.add(new BeerHistoryItem("Beer 2", "Beer brand 2", "23/01/2017", "https://images.openfoodfacts.org/images/products/501/437/900/7237/front_fr.4.400.jpg"));
-        //beerHistoryItems.add(new BeerHistoryItem("Beer 3", "Beer brand 3", "23/01/2018", "https://images.openfoodfacts.org/images/products/311/978/025/0110/front_fr.38.400.jpg"));
-        //beerHistoryItems.add(new BeerHistoryItem("Beer 4", "Beer brand 4","23/01/2019", "https://images.openfoodfacts.org/images/products/541/022/814/2218/front_en.67.400.jpg"));
 
         //initialize the recycler view
         homeRecyclerView = binding.homeRecyclerView;
@@ -105,8 +102,7 @@ public class HomeFragment extends Fragment {
         //setup the initial adapter for the list
         homeRecyclerView.setAdapter(beerHistoryAdapter);
 
-
-        binding.heading.setText("Beer history");
+        binding.beerHistrory.setTypeface(null, Typeface.NORMAL);
 
         //Gesture
         final GestureDetector gesture = new GestureDetector(getActivity(),
@@ -131,10 +127,13 @@ public class HomeFragment extends Fragment {
                                 System.out.println("Right to Left");
 
                                 if(homeRecyclerView.getAdapter() != userRankingAdapter){
-                                    binding.heading.setText("User Ranking");
+
+                                    //Set bold text
+                                    binding.userRanking.setTypeface(null, Typeface.BOLD);
+                                    binding.beerHistrory.setTypeface(null, Typeface.NORMAL);
+
                                     homeRecyclerView.setAdapter(userRankingAdapter);
                                     callTopRankedUsers();
-                                    //callOwnScore();
                                 }
 
                             } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
@@ -143,7 +142,11 @@ public class HomeFragment extends Fragment {
 
                                 //If statement to not update the view on every button click
                                 if(homeRecyclerView.getAdapter() != beerHistoryAdapter){
-                                    binding.heading.setText("Beer History");
+
+                                    //Set bold Text
+                                    binding.beerHistrory.setTypeface(null, Typeface.BOLD);
+                                    binding.userRanking.setTypeface(null, Typeface.NORMAL);
+
                                     homeRecyclerView.setAdapter(beerHistoryAdapter);
                                     callOwnDrinkProgress();
                                 }
@@ -183,7 +186,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         callOwnDrinkProgress();
     }
 
@@ -191,10 +193,6 @@ public class HomeFragment extends Fragment {
         //create ownDrinkProgress here and call the updateBeerHistory method:
         OwnDrinkProgress ownDrinkProgress = new OwnDrinkProgress(this);
     }
-
-    //private void callOwnScore(){
-   //     OwnScore ownScore = new OwnScore(this);
-   // }
 
     private void callTopRankedUsers(){
         TopRankedUsers topRankedUsers = new TopRankedUsers(this);
@@ -209,7 +207,7 @@ public class HomeFragment extends Fragment {
 
     //Method to update the user Ranking list:
     @SuppressLint("NotifyDataSetChanged")
-    public void updateUserRatings(List<UserRanking> userRankings, String ownUserName, int ownRank, int ownPoints){
+    public void updateUserRankings(List<UserRanking> userRankings, String ownUserName, int ownRank, int ownPoints){
 
         boolean ownUserInTop25 = false;
 
@@ -230,6 +228,10 @@ public class HomeFragment extends Fragment {
         }
 
         userRankingAdapter.notifyDataSetChanged();
+    }
+
+    public void backendErrorMessage(){
+        Toast.makeText(this.getContext(), "Error loading data", Toast.LENGTH_SHORT).show();
     }
 
 
