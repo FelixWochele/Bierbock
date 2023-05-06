@@ -58,6 +58,7 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
+
             ArrayList<WeightedLatLng> weightedCoordinates = addHeatMap(drinkingCoordinates);
 
             //Try to get user location
@@ -77,6 +78,7 @@ public class MapsFragment extends Fragment {
             }
 
             Gradient gradient = new Gradient(colors, startpoints);
+
             HeatmapTileProvider heatmapTileProvider = new HeatmapTileProvider.Builder()
                     .weightedData(weightedCoordinates)
                     .radius(20)
@@ -127,23 +129,25 @@ public class MapsFragment extends Fragment {
     // Mine
 
     private ArrayList<WeightedLatLng> addHeatMap(ArrayList<LatLng> drinkingCoordinates) {
+
         ArrayList<WeightedLatLng> arr = new ArrayList<>();
 
-        //arr.add(new WeightedLatLng(new LatLng(48.0, 8.0), 200));
-
-        //arr.add(new WeightedLatLng(new LatLng(48.44543782910548, 8.696831606441847),180)); //madurai
-        //arr.add(new WeightedLatLng(new LatLng(48.446372343732975, 8.698487270888112),70));
-        //arr.add(new WeightedLatLng(new LatLng(13.0827, 80.2707),180)); //chennai
-        //arr.add(new WeightedLatLng(new LatLng(11.0168, 76.9558),270)); //coimbatore
-        //arr.add(new WeightedLatLng(new LatLng(11.7863, 77.8008),380));
-        //arr.add(new WeightedLatLng(new LatLng(11.7480, 79.7714),190));
-        //arr.add(new WeightedLatLng(new LatLng(8.7642, 78.1348),299));
-        //arr.add(new WeightedLatLng(new LatLng(11.6643, 78.1460),398));
-
-        //Add all drinking coordinates:
-        if(drinkingCoordinates.size() > 0){
-           for (LatLng coordinate: drinkingCoordinates) {
-               arr.add(new WeightedLatLng((coordinate), 100));
+        if(drinkingCoordinates == null) {
+            arr.add(new WeightedLatLng(new LatLng(48.0, 8.0), 200));
+            arr.add(new WeightedLatLng(new LatLng(48.44543782910548, 8.696831606441847),180)); //madurai
+            arr.add(new WeightedLatLng(new LatLng(48.446372343732975, 8.698487270888112),70));
+            arr.add(new WeightedLatLng(new LatLng(13.0827, 80.2707),180)); //chennai
+            arr.add(new WeightedLatLng(new LatLng(11.0168, 76.9558),270)); //coimbatore
+            arr.add(new WeightedLatLng(new LatLng(11.7863, 77.8008),380));
+            arr.add(new WeightedLatLng(new LatLng(11.7480, 79.7714),190));
+            arr.add(new WeightedLatLng(new LatLng(8.7642, 78.1348),299));
+            arr.add(new WeightedLatLng(new LatLng(11.6643, 78.1460),398));
+        }else {
+            //Add all drinking coordinates:
+            if (drinkingCoordinates.size() > 0) {
+                for (LatLng coordinate : drinkingCoordinates) {
+                    arr.add(new WeightedLatLng((coordinate), 100));
+                }
             }
         }
 
