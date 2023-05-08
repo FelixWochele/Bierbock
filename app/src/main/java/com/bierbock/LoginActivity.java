@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.bierbock.BackendFolder.AutomaticLogin;
 import com.bierbock.BackendFolder.Login;
 import com.bierbock.databinding.ActivityLoginBinding;
 
@@ -22,6 +23,8 @@ public class LoginActivity extends AppCompatActivity{
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        AutomaticLogin autoLogin = new AutomaticLogin(this);
 
         binding.login.setOnClickListener(e -> {
 
