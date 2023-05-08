@@ -24,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
+        getSupportActionBar().hide();
 
         binding.username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -33,7 +34,10 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-
+        binding.registerBack.setOnClickListener(e -> {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        });
 
 
 

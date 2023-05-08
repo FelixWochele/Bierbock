@@ -1,24 +1,17 @@
 package com.bierbock.BeerHistory;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bierbock.BackendFolder.ImageLoader;
 import com.bierbock.HomeFragment;
 import com.bierbock.R;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
@@ -52,7 +45,9 @@ public class BeerHistoryAdapter extends RecyclerView.Adapter<BeerHistoryViewHold
         //Get beer Name, Brand and dateOfDrinking:
         holder.beerNameTextView.setText(String.valueOf(beerHistoryItem.getBeerName()));
         holder.beerBrandTextView.setText(String.valueOf(beerHistoryItem.getBeerBrand()));
-        holder.dateOfDrinkingTextView.setText(String.valueOf(beerHistoryItem.getDateTime()));
+        holder.dateOfDrinkingTextView.setText(String.valueOf(beerHistoryItem.getDate()));
+        holder.timeTextView.setText(String.valueOf(beerHistoryItem.getTime()));
+        holder.locationView.setText(String.valueOf(beerHistoryItem.getLocation()));
 
         //for initial setup
         holder.imageView.setImageResource(R.drawable.beer_example_image);

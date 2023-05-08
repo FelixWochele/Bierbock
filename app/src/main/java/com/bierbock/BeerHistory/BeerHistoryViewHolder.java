@@ -16,11 +16,17 @@ public class BeerHistoryViewHolder extends RecyclerView.ViewHolder {
     TextView beerBrandTextView;
     TextView dateOfDrinkingTextView;
 
+    TextView locationView;
+
+    TextView timeTextView;
+
     public BeerHistoryViewHolder(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.drank_beer_image);
         beerNameTextView = itemView.findViewById(R.id.beer_name);
         beerBrandTextView = itemView.findViewById(R.id.beer_brand);
         dateOfDrinkingTextView = itemView.findViewById(R.id.date_of_drinking);
+        timeTextView = itemView.findViewById(R.id.history_time);
+        locationView = itemView.findViewById(R.id.location);
     }
 }

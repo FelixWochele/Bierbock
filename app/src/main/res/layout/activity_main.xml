@@ -4,20 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#666666">
+    android:layout_gravity="left"
+    android:background="#666666"
+    app:layout_anchorGravity="left"
+    tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.Bierbock.AppBarOverlay">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#666666"
-            app:popupTheme="@style/Theme.Bierbock.PopupOverlay" />
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#6d6d6d"
+                app:popupTheme="@style/Theme.Bierbock.PopupOverlay" />
+<!--
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="180dp"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/bierbock_logo" />
+-->
+        </FrameLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -12,22 +12,31 @@
         android:id="@+id/heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:text="User Profile"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/ic_user" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
         <!-- Username -->
+
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"

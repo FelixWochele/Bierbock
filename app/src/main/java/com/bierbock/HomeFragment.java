@@ -2,6 +2,7 @@ package com.bierbock;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -80,13 +81,14 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+
         // Sample data for user ratings
         userRankings = new ArrayList<>();
         userRankings.add(new UserRanking("User1", 1000, 10));
 
         //Sample data for beer history items
         beerHistoryItems = new ArrayList<>();
-        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "Beer brand 1","23/01/2016", "https://images.openfoodfacts.org/images/products/311/978/025/9625/front_fr.84.400.jpg"));
+        beerHistoryItems.add(new BeerHistoryItem("Beer 1", "Beer brand 1","23/01/2016", "13:31", "Horb am Neckar", "https://images.openfoodfacts.org/images/products/311/978/025/9625/front_fr.84.400.jpg"));
 
         //initialize the recycler view
         homeRecyclerView = binding.homeRecyclerView;
@@ -102,7 +104,12 @@ public class HomeFragment extends Fragment {
         //setup the initial adapter for the list
         homeRecyclerView.setAdapter(beerHistoryAdapter);
 
-        binding.beerHistrory.setTypeface(null, Typeface.NORMAL);
+        //Set bold Text
+        binding.beerHistrory.setTypeface(null, Typeface.BOLD);
+        binding.beerHistrory.setTextColor(Color.parseColor("#FF9800"));
+        binding.userRanking.setTypeface(null, Typeface.NORMAL);
+        binding.userRanking.setTextColor(Color.parseColor("#666666"));
+
 
         //Gesture
         final GestureDetector gesture = new GestureDetector(getActivity(),
@@ -128,9 +135,12 @@ public class HomeFragment extends Fragment {
 
                                 if(homeRecyclerView.getAdapter() != userRankingAdapter){
 
-                                    //Set bold text
+                                    //Set bold Text
                                     binding.userRanking.setTypeface(null, Typeface.BOLD);
+                                    binding.userRanking.setTextColor(Color.parseColor("#FF9800"));
                                     binding.beerHistrory.setTypeface(null, Typeface.NORMAL);
+                                    binding.beerHistrory.setTextColor(Color.parseColor("#666666"));
+
 
                                     homeRecyclerView.setAdapter(userRankingAdapter);
                                     callTopRankedUsers();
@@ -143,9 +153,11 @@ public class HomeFragment extends Fragment {
                                 //If statement to not update the view on every button click
                                 if(homeRecyclerView.getAdapter() != beerHistoryAdapter){
 
-                                    //Set bold Text
+                                    ///Set bold Text
                                     binding.beerHistrory.setTypeface(null, Typeface.BOLD);
+                                    binding.beerHistrory.setTextColor(Color.parseColor("#FF9800"));
                                     binding.userRanking.setTypeface(null, Typeface.NORMAL);
+                                    binding.userRanking.setTextColor(Color.parseColor("#666666"));
 
                                     homeRecyclerView.setAdapter(beerHistoryAdapter);
                                     callOwnDrinkProgress();
