@@ -43,7 +43,7 @@ public class AutomaticLogin extends BackendRequest {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            loginActivity.toggleViewElements(false);
         });
 
         String body = ""; //Empty body
