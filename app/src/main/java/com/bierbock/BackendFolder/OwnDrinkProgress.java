@@ -26,9 +26,7 @@ public class OwnDrinkProgress extends BackendRequest {
 
     public OwnDrinkProgress(HomeFragment homeFragment) {
         //Fill the variables in the BackendRequest
-        super(homeFragment.requireActivity().getApplicationContext(), //For the Auth. Token
-                "GET",
-                "https://www.beerbock.de/BierBock/ownDrinkProgress");
+        super(homeFragment, "GET","ownDrinkProgress");
 
         setTaskDelegate(result -> {
             JSONObject obj;

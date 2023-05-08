@@ -5,8 +5,9 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+//This class is only used to change the space of items in the recycler view
 public class ChallengeItemDecoration extends RecyclerView.ItemDecoration {
-    private int space;
+    private final int space;
 
     public ChallengeItemDecoration(int space) {
         this.space = space;

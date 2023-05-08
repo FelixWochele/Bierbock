@@ -22,6 +22,8 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
+import java.util.Objects;
+
 public class ScanActivity extends AppCompatActivity {
 
     //Variables for the location management:
@@ -45,13 +47,12 @@ public class ScanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Request user location and save user coordinates:
-        initLocationListener();
-        requestLocationUpdates();
-        //////
-
         binding = ActivityScanBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
@@ -61,17 +62,15 @@ public class ScanActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //Toast.makeText(ScanActivity.this, result.getText(), Toast.LENGTH_SHORT).show(); //Used for debugging
                         mCodeScanner.stopPreview();
                         Intent intent = new Intent(ScanActivity.this, DisplayScannedBeerActivity.class);
 
                         intent.putExtra("raw_barcode", result.getText());
 
-                        if(userCoordinates != null){
+                        if (userCoordinates != null) {
                             intent.putExtra("user_location", userCoordinates); //pass user coordinates to the displayScannedBarActivity class
-                        }
-                        else{
-                            Toast.makeText(ScanActivity.this, "Can't access location Data!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ScanActivity.this, "Can't access user location, using default data!", Toast.LENGTH_SHORT).show();
                             //return; // don't start the DisplayScannedBeerActivity if the user location is not available yet
                         }
 
@@ -88,8 +87,14 @@ public class ScanActivity extends AppCompatActivity {
             }
         });
 
+        //First: check the camera, then gps
         //Request camera permission:
-       requestCameraPermission();
+        requestCameraPermission();
+
+        //Request user location and save user coordinates:
+        initLocationListener(); //Init location listener that updates userCoordinates
+        requestLocationUpdates(); //request location updates
+        //////
     }
 
 
@@ -98,9 +103,20 @@ public class ScanActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
+        } //else {
+            //requestLocationPermissions(); //Check location permissions status
+        //}
+    }
+
+    //Request user location permissions
+    private void requestLocationPermissions() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         } else {
-            //Check location permission too:
-            requestLocationPermissions();
+            //If both the camera permission and location permissions are checked:
+            mCodeScanner.startPreview();
         }
     }
 
@@ -135,31 +151,19 @@ public class ScanActivity extends AppCompatActivity {
         }
     }
 
-
-    //Request user location permissions
-    private void requestLocationPermissions(){
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
-        } else {
-            //If both the camera permission and location permissions are checked:
-            mCodeScanner.startPreview();
-        }
-    }
-
-
     //Check the permissions
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        //Handle camera request code user click:
         if (requestCode == CAMERA_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mCodeScanner.startPreview();
             } else {
                 Toast.makeText(this, "Camera permission is required to use the scanner.", Toast.LENGTH_SHORT).show();
                 mCodeScanner.stopPreview();
-                //finish();
+                finish(); //TODO: check if needed to finish, maybe call requestCameraPermissions again?
             }
         }
 
@@ -170,7 +174,15 @@ public class ScanActivity extends AppCompatActivity {
                 requestLocationUpdates();
             } else {
                 Toast.makeText(this, "Location permissions are required to get the user's GPS position.", Toast.LENGTH_SHORT).show();
-                finish(); //For now, just finish the activity
+                if(locationManager != null){
+                    locationManager.removeUpdates(locationListener);
+                }
+                //Create default coordinates here:
+                userCoordinates = new double[3];
+                userCoordinates[0] = 10.0;
+                userCoordinates[1] = 10.0;
+                userCoordinates[2] = 10.0;
+                //finish(); //For now, just finish the activity
                 // You may decide to finish the activity or disable location-based features
             }
         }
@@ -226,6 +238,14 @@ public class ScanActivity extends AppCompatActivity {
             public void onProviderDisabled(String provider) {
             }
         };
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
+        return true;
     }
 
 }

@@ -1,7 +1,6 @@
 package com.bierbock.Challenge;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -15,8 +14,6 @@ public class ChallengeViewHolder extends RecyclerView.ViewHolder {
     TextView points;
     ProgressBar progressBar;
     TextView endDate;
-
-    //TODO: maybe change the button to a downwards error or "More" button that shows a list of partial progresses
 
     public ChallengeViewHolder(@NonNull View itemView) {
         super(itemView);

@@ -16,10 +16,4 @@
         android:label=""
         tools:layout="@layout/fragment_home" >
     </fragment>
-    <fragment
-        android:id="@+id/heatMapFragment"
-        android:name="com.bierbock.HeatMapFragment"
-        android:label=""
-        tools:layout="@layout/fragment_heat_map" >
-    </fragment>
 </navigation>

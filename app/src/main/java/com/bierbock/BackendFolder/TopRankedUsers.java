@@ -15,9 +15,7 @@ public class TopRankedUsers extends BackendRequest {
 
     public TopRankedUsers(HomeFragment homeFragment) {
 
-        super(homeFragment.requireActivity().getApplicationContext(),
-                "GET",
-                "https://www.beerbock.de/BierBock/topRankedUsers");
+        super(homeFragment, "GET", "topRankedUsers");
 
         setTaskDelegate(result -> {
             JSONObject obj;

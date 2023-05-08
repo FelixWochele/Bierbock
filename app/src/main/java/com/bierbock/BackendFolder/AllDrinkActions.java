@@ -1,6 +1,5 @@
 package com.bierbock.BackendFolder;
 
-import com.bierbock.MainActivity;
 import com.bierbock.MapsFragment;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -9,16 +8,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-//TODO: maybe implement this for the heat map?
+
 public class AllDrinkActions extends BackendRequest {
 
     public AllDrinkActions(String searchString, String fromTime, String toTime, MapsFragment fragment) {
-        super(fragment.requireActivity().getApplicationContext(),
-                "GET",
-                "https://www.beerbock.de/BierBock/allDrinkActions");
+        super(fragment, "GET", "allDrinkActions");
 
         setTaskDelegate(result -> {
 
@@ -44,9 +40,8 @@ public class AllDrinkActions extends BackendRequest {
 
                         String time = locationTime.getString("time");
 
-                        //TODO: look if altitude is needed or not
-                        locationList.add(new LatLng(latitude, longitude));
 
+                        locationList.add(new LatLng(latitude, longitude));
                     }
 
                     fragment.updateDrinkingCoordinates(locationList);

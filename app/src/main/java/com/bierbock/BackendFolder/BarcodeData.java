@@ -12,9 +12,7 @@ import java.util.LinkedHashMap;
 public class BarcodeData extends BackendRequest{
 
     public BarcodeData(String barcode, DisplayScannedBeerActivity activity) {
-        super(activity.getApplicationContext(), //For the Auth. Token
-                "GET",
-                "https://www.beerbock.de/BierBock/barcodeData");
+        super(activity, "GET", "barcodeData");
 
         setTaskDelegate(result -> {
 

@@ -55,6 +55,8 @@
     <string name="beer_history">beer history</string>
     <string name="user_ratings">User Ratings</string>
     <string name="manual_input">manual input</string>
+    <string name="current_score">Current Score</string>
+    <string name="current_ranking">Current Ranking</string>
 
 
 </resources>

@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 
+import com.bierbock.BackendFolder.AutomaticLogin;
 import com.bierbock.BackendFolder.Login;
 import com.bierbock.databinding.ActivityLoginBinding;
 
@@ -22,6 +25,10 @@ public class LoginActivity extends AppCompatActivity{
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        toggleViewElements(true);
+
+        AutomaticLogin autoLogin = new AutomaticLogin(this);
 
         binding.login.setOnClickListener(e -> {
 
@@ -50,5 +57,16 @@ public class LoginActivity extends AppCompatActivity{
 
     public void errorMsg(){
         binding.errorMsg.setText("Falsche Anmeldeinformationen!!!");
+    }
+
+
+    //Toggle the state of View Elements on the home view:
+    public void toggleViewElements(boolean state){
+
+        ProgressBar progressBar = binding.loginProgressBar;
+
+        int visibility = state ? View.VISIBLE : View.INVISIBLE;
+
+        progressBar.setVisibility(visibility);
     }
 }

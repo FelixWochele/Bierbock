@@ -1,5 +1,6 @@
 package com.bierbock.BackendFolder;
 
+import com.bierbock.ChallengeFragment;
 import com.bierbock.MainActivity;
 
 import org.json.JSONException;
@@ -8,10 +9,8 @@ import org.json.JSONObject;
 
 public class OwnRanking extends BackendRequest {
 
-    public OwnRanking(MainActivity activity) {
-        super(activity.getApplicationContext(),
-                "GET",
-                "https://www.beerbock.de/BierBock/ownRanking");
+    public OwnRanking(ChallengeFragment fragment) {
+        super(fragment, "GET","ownRanking");
 
         setTaskDelegate(result -> {
 
@@ -24,10 +23,10 @@ public class OwnRanking extends BackendRequest {
 
                     JSONObject objectResult = obj.getJSONObject("result");
 
-                    String rank = objectResult.getString("rank");
-                    String userCount = objectResult.getString("userCount");
+                    int rank = objectResult.getInt("rank");
+                    int userCount = objectResult.getInt("userCount");
 
-                    //TODO: implement activity access
+                    fragment.updateOwnRanking(rank, userCount);
 
                 } else {
                     // TODO: Implement

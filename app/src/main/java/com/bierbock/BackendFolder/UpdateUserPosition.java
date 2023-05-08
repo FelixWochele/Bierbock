@@ -10,9 +10,7 @@ public class UpdateUserPosition extends BackendRequest {
 
     public UpdateUserPosition(UserProfileActivity activity) {
 
-        super(activity.getApplicationContext(), //For the Auth. Token
-                "POST",
-                "https://www.beerbock.de/BierBock/actualisateUserBasicData");
+        super(activity, "POST", "actualisateUserBasicData");
 
 
         setTaskDelegate(result -> {
