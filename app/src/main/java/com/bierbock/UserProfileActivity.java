@@ -36,10 +36,22 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+        binding.userProfileBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backToMain();
+            }
+        });
     }
 
 
     private void updateUserPositionBackend(){
         UpdateUserPosition updateUserPosition = new UpdateUserPosition(this);
     }
+
+    private void backToMain(){
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
+
 }

@@ -32,8 +32,8 @@ public class LoginActivity extends AppCompatActivity{
         });
 
         binding.register.setOnClickListener(e -> {
-            //moveToRegisterActivity();
-            startActivity(new Intent(this, MainActivity.class));
+            moveToRegisterActivity();
+            //startActivity(new Intent(this, MainActivity.class));
             finish();
         });
     }

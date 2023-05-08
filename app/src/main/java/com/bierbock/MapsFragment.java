@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Criteria;
@@ -30,7 +31,7 @@ import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.google.maps.android.heatmaps.WeightedLatLng;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class MapsFragment extends Fragment {
 
@@ -57,17 +58,16 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            /*LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-             */
 
             ArrayList<WeightedLatLng> weightedCoordinates = addHeatMap(drinkingCoordinates);
 
+            //Try to get user location
+            initLocationListener();
+            requestLocationUpdates();
 
             //Set users location if data available
             if(userCoordinates != null){
+
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(userCoordinates[0], userCoordinates[1]), 17.0f));
                 System.out.println("USER COORDONATES");
                 System.out.println(userCoordinates[0]);
@@ -77,10 +77,8 @@ public class MapsFragment extends Fragment {
                 System.out.println("CANT GET USER COORDINATES!");
             }
 
-
-
-
             Gradient gradient = new Gradient(colors, startpoints);
+
             HeatmapTileProvider heatmapTileProvider = new HeatmapTileProvider.Builder()
                     .weightedData(weightedCoordinates)
                     .radius(20)
@@ -131,23 +129,29 @@ public class MapsFragment extends Fragment {
     // Mine
 
     private ArrayList<WeightedLatLng> addHeatMap(ArrayList<LatLng> drinkingCoordinates) {
+
         ArrayList<WeightedLatLng> arr = new ArrayList<>();
 
-        //arr.add(new WeightedLatLng(new LatLng(48.0, 8.0), 200));
+        //two points to init -> otherwise error
+        arr.add(new WeightedLatLng(new LatLng(13.0827, 80.2707),180)); //chennai
+        arr.add(new WeightedLatLng(new LatLng(11.0168, 76.9558),270)); //coimbatore
 
-        //arr.add(new WeightedLatLng(new LatLng(48.44543782910548, 8.696831606441847),180)); //madurai
-        //arr.add(new WeightedLatLng(new LatLng(48.446372343732975, 8.698487270888112),70));
-        //arr.add(new WeightedLatLng(new LatLng(13.0827, 80.2707),180)); //chennai
-        //arr.add(new WeightedLatLng(new LatLng(11.0168, 76.9558),270)); //coimbatore
-        //arr.add(new WeightedLatLng(new LatLng(11.7863, 77.8008),380));
-        //arr.add(new WeightedLatLng(new LatLng(11.7480, 79.7714),190));
-        //arr.add(new WeightedLatLng(new LatLng(8.7642, 78.1348),299));
-        //arr.add(new WeightedLatLng(new LatLng(11.6643, 78.1460),398));
-
-        //Add all drinking coordinates:
-        if(drinkingCoordinates.size() > 0){
-           for (LatLng coordinate: drinkingCoordinates) {
-               arr.add(new WeightedLatLng((coordinate), 100));
+        if(drinkingCoordinates == null) {
+            arr.add(new WeightedLatLng(new LatLng(48.0, 8.0), 200));
+            arr.add(new WeightedLatLng(new LatLng(48.44543782910548, 8.696831606441847),180)); //madurai
+            arr.add(new WeightedLatLng(new LatLng(48.446372343732975, 8.698487270888112),70));
+            arr.add(new WeightedLatLng(new LatLng(13.0827, 80.2707),180)); //chennai
+            arr.add(new WeightedLatLng(new LatLng(11.0168, 76.9558),270)); //coimbatore
+            arr.add(new WeightedLatLng(new LatLng(11.7863, 77.8008),380));
+            arr.add(new WeightedLatLng(new LatLng(11.7480, 79.7714),190));
+            arr.add(new WeightedLatLng(new LatLng(8.7642, 78.1348),299));
+            arr.add(new WeightedLatLng(new LatLng(11.6643, 78.1460),398));
+        }else {
+            //Add all drinking coordinates:
+            if (drinkingCoordinates.size() > 0) {
+                for (LatLng coordinate : drinkingCoordinates) {
+                    arr.add(new WeightedLatLng((coordinate), 100));
+                }
             }
         }
 
@@ -223,6 +227,41 @@ public class MapsFragment extends Fragment {
 
         }
     }
+
+    //Location listener for the user location:
+    private void initLocationListener() {
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                double altitude = location.getAltitude();
+
+                //save user coordinated here:
+                userCoordinates = new double[3];
+                userCoordinates[0] = latitude;
+                userCoordinates[1] = longitude;
+                userCoordinates[2] = altitude;
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+            }
+        };
+    }
+
+
+
 /*
 
     //Check the permissions
