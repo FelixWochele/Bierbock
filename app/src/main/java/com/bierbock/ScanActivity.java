@@ -22,6 +22,8 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
+import java.util.Objects;
+
 public class ScanActivity extends AppCompatActivity {
 
     //Variables for the location management:
@@ -47,6 +49,10 @@ public class ScanActivity extends AppCompatActivity {
 
         binding = ActivityScanBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
@@ -232,6 +238,14 @@ public class ScanActivity extends AppCompatActivity {
             public void onProviderDisabled(String provider) {
             }
         };
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
+        return true;
     }
 
 }

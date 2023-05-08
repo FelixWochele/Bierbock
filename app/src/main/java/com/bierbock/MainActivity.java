@@ -16,6 +16,7 @@ import com.bierbock.databinding.ActivityMainBinding;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
+
+        //Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.homeFragment, R.layout.fragment_challenge, R.id.heatmap, R.id.user_profile

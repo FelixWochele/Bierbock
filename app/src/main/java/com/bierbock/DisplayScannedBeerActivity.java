@@ -108,6 +108,11 @@ public class DisplayScannedBeerActivity extends AppCompatActivity {
 
     public void backendFailMessage(){
         Toast.makeText(this, "There is no beer for that barcode", Toast.LENGTH_SHORT).show();
+
+        //got back to scan activity
+        Intent intent = new Intent(DisplayScannedBeerActivity.this, ScanActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }
