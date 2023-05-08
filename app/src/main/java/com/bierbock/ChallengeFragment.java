@@ -1,6 +1,7 @@
 package com.bierbock;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -15,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.bierbock.BackendFolder.OwnChallenges;
+import com.bierbock.BackendFolder.OwnRanking;
+import com.bierbock.BackendFolder.OwnScore;
 import com.bierbock.Challenge.Challenge;
 import com.bierbock.Challenge.ChallengeAdapter;
 import com.bierbock.Challenge.ChallengeItemDecoration;
@@ -24,61 +27,27 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ChallengeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ChallengeFragment extends Fragment {
 
     //bindings for properties of fragment_challenge (maybe Challenges, but mostly different statistics):
     private FragmentChallengeBinding binding;
 
-    private FrameLayout progressContainer;
-
-    private List<Challenge> challenges;
     private ChallengeAdapter challengeAdapter;
 
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    //Values that are going to be changed by the backend:
+    private List<Challenge> challenges;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
 
     public ChallengeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChallangeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ChallengeFragment newInstance(String param1, String param2) {
-        ChallengeFragment fragment = new ChallengeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
     }
 
     @Override
@@ -89,15 +58,10 @@ public class ChallengeFragment extends Fragment {
         View view = binding.getRoot();
 
         //Statistics above the challenges:
-        //TODO: maybe call ownRanking/ownUserData here????
-        MaterialTextView statistic1Title = binding.statistic1Title;
-        MaterialTextView statistic1Value = binding.statistic1Value;
-        MaterialTextView statistic2Title = binding.statistic2Title;
-        MaterialTextView statistic2Value = binding.statistic2Value;
 
         challenges = new ArrayList<>();
         // Add your challenge data here
-        challenges.add(new Challenge("Challenge description", 10, 20, 345, "", new ArrayList<>()));
+        challenges.add(new Challenge("Challenge description", 10, 20, 345, ""));
 
 
         //Get current context of the Fragment
@@ -116,7 +80,10 @@ public class ChallengeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //Call backend classes
         OwnChallenges ownChallenges = new OwnChallenges(this);
+        OwnRanking ownRanking = new OwnRanking(this);
+        OwnScore ownScore = new OwnScore(this);
     }
 
     @Override
@@ -133,5 +100,30 @@ public class ChallengeFragment extends Fragment {
 
         challengeAdapter.notifyDataSetChanged();
     }
+
+    //TODO: Check if working correctly
+
+    public void updateOwnRanking(final int rank, final int userCount) {
+        Activity activity = requireActivity();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String tempString = rank + "/" + userCount;
+                binding.currentRankingValue.setText(tempString);
+            }
+        });
+    }
+
+    // Method to update currentScore
+    public void updateOwnScore(final int points) {
+        Activity activity = requireActivity();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                binding.currentScoreValue.setText(String.valueOf(points));
+            }
+        });
+    }
+
 }
 

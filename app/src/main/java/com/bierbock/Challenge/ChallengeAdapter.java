@@ -51,8 +51,6 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeViewHolder> 
         holder.progressBar.setProgress(challenge.getProgress());
 
         holder.endDate.setText(challenge.getEndDate());
-
-        //TODO: implement logic here
     }
 
     @Override

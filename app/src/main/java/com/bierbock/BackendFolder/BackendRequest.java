@@ -2,7 +2,10 @@ package com.bierbock.BackendFolder;
 
 import static com.bierbock.BackendFolder.Backend.getToken;
 
+import android.app.Activity;
 import android.content.Context;
+
+import androidx.fragment.app.Fragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,18 +17,32 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class BackendRequest {
+public class BackendRequest {
 
     protected Context applicationContext;
     protected String requestType;
     protected String url;
     protected TaskDelegate taskDelegate;
 
-    public BackendRequest(Context context, String requestType, String url) {
-        this.applicationContext = context;
+    public BackendRequest(Activity activity, String requestType, String urlShortcut){
+        this.applicationContext = activity.getApplicationContext();
         this.requestType = requestType;
-        this.url = url;
+        this.url = initializeUrl(urlShortcut);
     }
+
+    public BackendRequest(Fragment fragment, String requestType, String urlShortcut){
+        this.applicationContext = fragment.requireActivity().getApplicationContext();
+        this.requestType = requestType;
+        this.url = initializeUrl(urlShortcut);
+    }
+
+    private String initializeUrl(String urlShortcut){
+        if(!urlShortcut.contains("/")){
+            return "https://www.beerbock.de/BierBock/" + urlShortcut;
+        }
+        return "https://www.beerbock.de/" + urlShortcut;
+    }
+
     public void addUrlParameters(String[] parameterNames, String[] parameterValues) {
         if (parameterNames == null || parameterValues == null || parameterNames.length != parameterValues.length) {
             throw new IllegalArgumentException("Invalid parameter names or values");

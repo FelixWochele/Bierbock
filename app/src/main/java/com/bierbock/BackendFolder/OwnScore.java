@@ -1,5 +1,6 @@
 package com.bierbock.BackendFolder;
 
+import com.bierbock.ChallengeFragment;
 import com.bierbock.HomeFragment;
 import com.bierbock.MainActivity;
 
@@ -9,11 +10,9 @@ import org.json.JSONObject;
 
 public class OwnScore extends BackendRequest {
 
-    public OwnScore(HomeFragment homeFragment) {
+    public OwnScore(ChallengeFragment challengeFragment) {
         //Fill the variables in the BackendRequest
-        super(homeFragment.requireActivity().getApplicationContext(), //For the Auth. Token
-                "GET",
-                "https://www.beerbock.de/BierBock/ownScore");
+        super(challengeFragment, "GET", "ownScore");
 
         setTaskDelegate(result -> {
             JSONObject obj;
@@ -25,7 +24,7 @@ public class OwnScore extends BackendRequest {
 
                     int score = obj.getInt("result");
 
-                    //homeFragment.updateUserRatings(null);
+                    challengeFragment.updateOwnScore(score);
 
                 } else {
                     // TODO: Implement

@@ -16,9 +16,7 @@ public class OwnUserData extends BackendRequest {
 
     public OwnUserData(UserProfileActivity activity) {
 
-        super(activity.getApplicationContext(), //For the Auth. Token
-                "GET",
-                "https://www.beerbock.de/BierBock/ownUserData");
+        super(activity, "GET","ownUserData");
 
         setTaskDelegate(result -> {
 

@@ -13,7 +13,6 @@ import com.bierbock.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
     @Override
@@ -25,10 +24,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-
-        appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.homeFragment, R.layout.fragment_challenge, R.id.heatMapFragment, R.id.user_profile
-        ).build();
 
         //Make a photo button:
         binding.fab.setOnClickListener(e -> {
@@ -73,14 +68,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.user_profile:
-                Intent i = new Intent(this,UserProfileActivity.class);
-                this.startActivity(i);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.user_profile) {
+            Intent i = new Intent(this, UserProfileActivity.class);
+            this.startActivity(i);
+            return true;
         }
+        return super.onOptionsItemSelected(item); //Else
     }
 
     private void replaceFragment(Fragment fragment){
@@ -88,3 +81,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+
+
+// private AppBarConfiguration appBarConfiguration;
+//ppBarConfiguration = new AppBarConfiguration.Builder(
+//          R.id.homeFragment, R.layout.fragment_challenge, R.id.fragment, R.id.user_profile
+// ).build();

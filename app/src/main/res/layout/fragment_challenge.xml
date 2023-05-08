@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/statistic_1_card"
+            android:id="@+id/current_score_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -37,15 +37,15 @@
                 android:padding="8dp">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/statistic_1_title"
+                    android:id="@+id/current_score_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Statistic 1"
+                    android:text="@string/current_score"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="16sp" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/statistic_1_value"
+                    android:id="@+id/current_score_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="100"
@@ -58,7 +58,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/statistic_2_card"
+            android:id="@+id/current_ranking_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -74,15 +74,15 @@
                 android:padding="8dp">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/statistic_2_title"
+                    android:id="@+id/current_ranking_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Statistic 2"
+                    android:text="@string/current_ranking"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="16sp" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/statistic_2_value"
+                    android:id="@+id/current_ranking_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="100"

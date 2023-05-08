@@ -20,9 +20,7 @@ import java.util.Locale;
 public class OwnChallenges extends BackendRequest{
 
     public OwnChallenges(ChallengeFragment challengeFragment) {
-        super(challengeFragment.requireActivity().getApplicationContext(),
-                "GET",
-                "https://www.beerbock.de/BierBock/ownChallenges");
+        super(challengeFragment, "GET","ownChallenges");
 
         setTaskDelegate(result -> {
 
@@ -57,22 +55,13 @@ public class OwnChallenges extends BackendRequest{
                         int total = progress.getInt("total");
                         boolean success = progress.getBoolean("success");
 
-                        //Partial progresses array:
-                        JSONArray allPartialProgresses = progress.getJSONArray("allPartialProgresses");
-                        List<String> partialProgresses = new ArrayList<>();
-                        for (int j = 0; j < allPartialProgresses.length(); j++) {
-                            partialProgresses.add(allPartialProgresses.getString(j));
-                        }
-
                         //TODO: look into implementing this method, right now it doesn't work, because different date lengths
-                        boolean isAvailableDate = checkIfAvailableDate(startDate, endDate);
-
-                        //boolean isAvailableDate = true; //Hardcoded here for testing...
+                        //boolean isAvailableDate = checkIfAvailableDate(startDate, endDate);
 
                         //Only add challenges that are still active and not overdue:
-                        if(isActive && isAvailableDate){
+                        if(isActive){
 
-                            Challenge challengeObject = new Challenge(description, possiblePoints, done, total, endDate, partialProgresses);
+                            Challenge challengeObject = new Challenge(description, possiblePoints, done, total, endDate);
                             challenges.add(challengeObject);
 
                             challengeFragment.updateChallenges(challenges);
