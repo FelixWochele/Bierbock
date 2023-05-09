@@ -23,13 +23,17 @@ public class AutomaticLogin extends BackendRequest {
 
         setTaskDelegate(result -> {
 
+            JSONObject resultObj = new JSONObject(result);
+            int responseCode = resultObj.getInt("responseCode");
+            String response = resultObj.getString("response");
+
             JSONObject obj;
 
             System.out.println("------------------TEST----------------");
             System.out.println(result);
 
             try {
-                obj = new JSONObject(result);
+                obj = new JSONObject(response);
 
                 if ("Successful".equals(obj.getString("statusMessage"))) {
                     loginActivity.moveToMainActivity();
@@ -49,4 +53,14 @@ public class AutomaticLogin extends BackendRequest {
         String body = ""; //Empty body
         execute(body);
     };
+
+    @Override
+    protected void onRequestSuccessful() throws JSONException, IOException {
+
+    }
+
+    @Override
+    protected void onRequestFailed() throws JSONException, IOException {
+
+    }
 }

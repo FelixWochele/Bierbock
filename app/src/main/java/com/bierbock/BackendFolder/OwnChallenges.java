@@ -64,13 +64,13 @@ public class OwnChallenges extends BackendRequest{
             //boolean isAvailableDate = checkIfAvailableDate(startDate, endDate);
 
             //Only add challenges that are still active and not overdue:
-            if (isActive) {
+            //if (isActive) {
 
                 Challenge challengeObject = new Challenge(description, possiblePoints, done, total, endDate);
                 challenges.add(challengeObject);
 
                 challengeFragment.updateChallenges(challenges);
-            }
+            //}
         }
     }
 

@@ -20,7 +20,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
+    //private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
     @Override
@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
-        appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.homeFragment, R.layout.fragment_challenge, R.id.heatmap, R.id.user_profile
-        ).build();
+        //appBarConfiguration = new AppBarConfiguration.Builder(
+         //       R.id.homeFragment, R.layout.fragment_challenge, R.id.heatmap, R.id.user_profile
+        //).build();
 
         //Make a photo button:
         binding.fab.setOnClickListener(e -> {

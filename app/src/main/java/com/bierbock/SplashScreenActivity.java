@@ -29,7 +29,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void startNextActivity() {
         if (isFinishing())
             return;
-        //TODO: Check the token here, if valid -> move to the MainActivity directly
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
