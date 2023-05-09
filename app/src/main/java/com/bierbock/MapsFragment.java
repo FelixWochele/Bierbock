@@ -2,6 +2,7 @@ package com.bierbock;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -31,6 +32,7 @@ import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.google.maps.android.heatmaps.WeightedLatLng;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class MapsFragment extends Fragment {
@@ -97,7 +99,6 @@ public class MapsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         //Call all drink actions backend:
         AllDrinkActions allDrinkActions = new AllDrinkActions("", "", "", this);
-
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 
