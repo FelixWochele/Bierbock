@@ -145,6 +145,7 @@ public class HomeFragment extends Fragment {
                                     binding.beerHistrory.setTypeface(null, Typeface.NORMAL);
                                     binding.beerHistrory.setTextColor(Color.parseColor("#666666"));
                                     binding.nameOfValues.setVisibility(View.VISIBLE);
+                                    binding.BeerCountAll.setVisibility(View.INVISIBLE);
 
 
                                     homeRecyclerView.setAdapter(userRankingAdapter);
@@ -164,6 +165,7 @@ public class HomeFragment extends Fragment {
                                     binding.userRanking.setTypeface(null, Typeface.NORMAL);
                                     binding.userRanking.setTextColor(Color.parseColor("#666666"));
                                     binding.nameOfValues.setVisibility(View.INVISIBLE);
+                                    binding.BeerCountAll.setVisibility(View.VISIBLE);
 
                                     homeRecyclerView.setAdapter(beerHistoryAdapter);
                                     callOwnDrinkProgress();
@@ -212,6 +214,10 @@ public class HomeFragment extends Fragment {
     public void updateBeerHistory(List<BeerHistoryItem> beerHistoryItems){
         this.beerHistoryItems.clear();
         this.beerHistoryItems.addAll(beerHistoryItems);
+
+        String beerCountAll = "Beer Count: " + beerHistoryItems.size();
+
+        binding.BeerCountAll.setText(beerCountAll);
 
         beerHistoryAdapter.notifyDataSetChanged();
 
