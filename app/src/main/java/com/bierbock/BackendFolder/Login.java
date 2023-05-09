@@ -1,8 +1,6 @@
 package com.bierbock.BackendFolder;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
@@ -10,7 +8,6 @@ import androidx.security.crypto.MasterKeys;
 import com.bierbock.LoginActivity;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;

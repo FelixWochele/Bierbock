@@ -8,6 +8,7 @@ import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKeys;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -107,8 +108,16 @@ public class Backend extends AsyncTask<String,String,String> {
             // Print out the response
             System.out.println(response);
 
+            //TODO: NEW...
+            //Create a JSON object to store the response code and response
+            JSONObject responseObj = new JSONObject();
+            responseObj.put("responseCode", responseCode);
+            responseObj.put("response", response.toString());
+
+            return responseObj.toString();
+
             //Return the response to work with later
-            return response.toString();
+            //return response.toString();
         }
         catch(Exception e){
             System.out.println(e);
