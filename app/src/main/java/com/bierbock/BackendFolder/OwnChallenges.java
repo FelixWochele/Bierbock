@@ -60,17 +60,18 @@ public class OwnChallenges extends BackendRequest{
             int total = progress.getInt("total");
             boolean success = progress.getBoolean("success");
 
+            //Parde Date
+            String date = startDate.substring(0, 10).replace("-", "/") +
+                    " - " +
+                    endDate.substring(0, 10).replace("-", "/");
+
             //TODO: look into implementing this method, right now it doesn't work, because different date lengths
             //boolean isAvailableDate = checkIfAvailableDate(startDate, endDate);
 
-            //Only add challenges that are still active and not overdue:
-            //if (isActive) {
+            Challenge challengeObject = new Challenge(description, possiblePoints, done, total, date);
+            challenges.add(challengeObject);
 
-                Challenge challengeObject = new Challenge(description, possiblePoints, done, total, endDate);
-                challenges.add(challengeObject);
-
-                challengeFragment.updateChallenges(challenges);
-            //}
+            challengeFragment.updateChallenges(challenges);
         }
     }
 
