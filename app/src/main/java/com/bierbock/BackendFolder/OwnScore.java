@@ -10,31 +10,28 @@ import org.json.JSONObject;
 
 public class OwnScore extends BackendRequest {
 
+    private final ChallengeFragment challengeFragment;
+
     public OwnScore(ChallengeFragment challengeFragment) {
         //Fill the variables in the BackendRequest
         super(challengeFragment, "GET", "ownScore");
 
-        setTaskDelegate(result -> {
-            JSONObject obj;
+        this.challengeFragment = challengeFragment;
 
-            try{
-                obj = new JSONObject(result);
-
-                if ("Successful".equals(obj.getString("statusMessage"))) {
-
-                    int score = obj.getInt("result");
-
-                    challengeFragment.updateOwnScore(score);
-
-                } else {
-                    // TODO: Implement
-                }
-            } catch (JSONException e){
-                e.printStackTrace();
-            }
-        });
 
         String body = ""; //Empty body
         execute(body);
+    }
+
+    @Override
+    protected void onRequestSuccessful() throws JSONException {
+        int score = obj.getInt("result");
+
+        challengeFragment.updateOwnScore(score);
+    }
+
+    @Override
+    protected void onRequestFailed() {
+
     }
 }

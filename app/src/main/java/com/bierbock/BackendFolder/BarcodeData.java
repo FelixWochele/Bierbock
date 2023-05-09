@@ -11,35 +11,13 @@ import java.util.LinkedHashMap;
 
 public class BarcodeData extends BackendRequest{
 
+    private final DisplayScannedBeerActivity activity;
+
     public BarcodeData(String barcode, DisplayScannedBeerActivity activity) {
         super(activity, "GET", "barcodeData");
 
-        setTaskDelegate(result -> {
+        this.activity = activity;
 
-            JSONObject obj;
-
-            try{
-                obj = new JSONObject(result);
-
-                if ("Successful".equals(obj.getString("statusMessage"))) {
-                    JSONObject objectResult = obj.getJSONObject("result");
-
-                    String product_name = objectResult.getString("product_name");
-                    String brands = objectResult.getString("brands");
-                    String imageUrl = objectResult.getString("image_url");
-                    String quantity = objectResult.getString("quantity");
-
-                    //load the image
-                    activity.loadImageFromURL(imageUrl);
-                    //Update beer description:
-                    activity.updateBeerDescription(product_name, brands, quantity);
-                } else {
-                    activity.backendFailMessage();
-                }
-            } catch (JSONException e){
-                e.printStackTrace();
-            }
-        });
 
         //Add parameters to url here:
         String[] parameterNames = new String[]{"barcode"};
@@ -49,5 +27,26 @@ public class BarcodeData extends BackendRequest{
         super.addUrlParameters(parameterNames, parameterValues);
 
         execute(""); // empty body
+    }
+
+    @Override
+    protected void onRequestSuccessful() throws JSONException{
+
+        JSONObject objectResult = obj.getJSONObject("result");
+
+        String product_name = objectResult.getString("product_name");
+        String brands = objectResult.getString("brands");
+        String imageUrl = objectResult.getString("image_url");
+        String quantity = objectResult.getString("quantity");
+
+        //load the image
+        activity.loadImageFromURL(imageUrl);
+        //Update beer description:
+        activity.updateBeerDescription(product_name, brands, quantity);
+    }
+
+    @Override
+    protected void onRequestFailed() {
+        activity.backendFailMessage();
     }
 }

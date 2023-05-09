@@ -8,46 +8,46 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class OwnUserData extends BackendRequest {
 
-    public OwnUserData(UserProfileActivity activity) {
+    private final UserProfileActivity activity;
 
+    public OwnUserData(UserProfileActivity activity) {
         super(activity, "GET","ownUserData");
 
-        setTaskDelegate(result -> {
+        this.activity = activity;
 
-            JSONObject obj;
-
-            try{
-                obj = new JSONObject(result);
-
-                JSONObject res = obj.getJSONObject("result");
-
-                String username = res.getString("userName");
-                String firstname = res.getString("vorName");
-                String lastname = res.getString("name");
-                String birthdate = res.getString("birthDate");
-                String email = res.getString("email");
-
-                activity.binding.userName.setText(username);
-                activity.binding.firstname.setText(firstname);
-                activity.binding.lastname.setText(lastname);
-                activity.binding.email.setText(email);
-                activity.binding.birthdate.setText(birthdate);
-
-                System.out.println(obj.toString());
-
-            } catch (JSONException e){
-                e.printStackTrace();
-            }
-
-
-        });
 
         execute("");
+    }
+
+    @Override
+    protected void onRequestSuccessful() throws JSONException, IOException {
+
+        JSONObject res = obj.getJSONObject("result");
+
+        String username = res.getString("userName");
+        String firstname = res.getString("vorName");
+        String lastname = res.getString("name");
+        String birthdate = res.getString("birthDate");
+        String email = res.getString("email");
+
+        activity.binding.userName.setText(username);
+        activity.binding.firstname.setText(firstname);
+        activity.binding.lastname.setText(lastname);
+        activity.binding.email.setText(email);
+        activity.binding.birthdate.setText(birthdate);
+
+        System.out.println(obj.toString());
+    }
+
+    @Override
+    protected void onRequestFailed() throws JSONException, IOException {
+
     }
 }

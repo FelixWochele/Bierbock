@@ -5,25 +5,17 @@ import com.bierbock.UserProfileActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 
 public class UpdateUserPosition extends BackendRequest {
 
-    public UpdateUserPosition(UserProfileActivity activity) {
+    //private final UserProfileActivity activity;
 
+    public UpdateUserPosition(UserProfileActivity activity) {
         super(activity, "POST", "actualisateUserBasicData");
 
-
-        setTaskDelegate(result -> {
-
-            JSONObject obj;
-
-            try{
-               obj = new JSONObject(result);
-
-            } catch (JSONException e){
-                e.printStackTrace();
-            }
-        });
+        //this.activity = activity;
 
         String username = activity.binding.userName.getText().toString();
         String firstname = activity.binding.firstname.getText().toString();
@@ -40,5 +32,15 @@ public class UpdateUserPosition extends BackendRequest {
         System.out.println(super.url);
 
         execute("");
+    }
+
+    @Override
+    protected void onRequestSuccessful() throws JSONException, IOException {
+        //No implementation here...
+    }
+
+    @Override
+    protected void onRequestFailed() throws JSONException, IOException {
+
     }
 }

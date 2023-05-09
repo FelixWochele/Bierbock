@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,69 +20,64 @@ import java.util.Locale;
 
 public class OwnChallenges extends BackendRequest{
 
+    private final ChallengeFragment challengeFragment;
+
     public OwnChallenges(ChallengeFragment challengeFragment) {
         super(challengeFragment, "GET","ownChallenges");
 
-        setTaskDelegate(result -> {
+        this.challengeFragment = challengeFragment;
 
-            JSONObject obj;
-
-            try {
-                obj = new JSONObject(result);
-
-                if ("Successful".equals(obj.getString("statusMessage"))) {
-
-                    JSONArray resultArray = obj.getJSONArray("result");
-
-                    List<Challenge> challenges = new ArrayList<>();
-
-                    for(int i = 0; i < resultArray.length(); i++){
-                        JSONObject challengeProgress = resultArray.getJSONObject(i);
-
-                        //challenge object:
-
-                        JSONObject challenge = challengeProgress.getJSONObject("challenge");
-                        int possiblePoints = challenge.getInt("possiblePoints");
-                        String description = challenge.getString("description");
-                        String startDate = challenge.getString("startDate");
-                        String endDate = challenge.getString("endDate");
-                        boolean isActive = challenge.getBoolean("isActive");
-                        int neededQuantity = challenge.getInt("neededQuantity");
-                        String searchString = challenge.getString("searchString");
-
-                        //progress object:
-                        JSONObject progress = challengeProgress.getJSONObject("progress");
-                        int done = progress.getInt("done");
-                        int total = progress.getInt("total");
-                        boolean success = progress.getBoolean("success");
-
-                        //TODO: look into implementing this method, right now it doesn't work, because different date lengths
-                        //boolean isAvailableDate = checkIfAvailableDate(startDate, endDate);
-
-                        //Only add challenges that are still active and not overdue:
-                        if(isActive){
-
-                            Challenge challengeObject = new Challenge(description, possiblePoints, done, total, endDate);
-                            challenges.add(challengeObject);
-
-                            challengeFragment.updateChallenges(challenges);
-                        }
-
-                    }
-
-                } else {
-                    // TODO: Implement
-                }
-
-            } catch (JSONException e){
-                e.printStackTrace();
-            }
-        });
 
         String body = ""; //empty body
         execute(body);
     }
 
+
+    @Override
+    protected void onRequestSuccessful() throws JSONException, IOException {
+
+        JSONArray resultArray = obj.getJSONArray("result");
+
+        List<Challenge> challenges = new ArrayList<>();
+
+        for(int i = 0; i < resultArray.length(); i++) {
+            JSONObject challengeProgress = resultArray.getJSONObject(i);
+
+            //challenge object:
+
+            JSONObject challenge = challengeProgress.getJSONObject("challenge");
+            int possiblePoints = challenge.getInt("possiblePoints");
+            String description = challenge.getString("description");
+            String startDate = challenge.getString("startDate");
+            String endDate = challenge.getString("endDate");
+            boolean isActive = challenge.getBoolean("isActive");
+            int neededQuantity = challenge.getInt("neededQuantity");
+            String searchString = challenge.getString("searchString");
+
+            //progress object:
+            JSONObject progress = challengeProgress.getJSONObject("progress");
+            int done = progress.getInt("done");
+            int total = progress.getInt("total");
+            boolean success = progress.getBoolean("success");
+
+            //TODO: look into implementing this method, right now it doesn't work, because different date lengths
+            //boolean isAvailableDate = checkIfAvailableDate(startDate, endDate);
+
+            //Only add challenges that are still active and not overdue:
+            if (isActive) {
+
+                Challenge challengeObject = new Challenge(description, possiblePoints, done, total, endDate);
+                challenges.add(challengeObject);
+
+                challengeFragment.updateChallenges(challenges);
+            }
+        }
+    }
+
+    @Override
+    protected void onRequestFailed() throws JSONException, IOException {
+
+    }
 
     private boolean checkIfAvailableDate(String startDate, String endDate){
         // Step 1: Parse the input string into a Date object
@@ -141,4 +137,5 @@ public class OwnChallenges extends BackendRequest{
         }
         return false;
     }
+
 }
