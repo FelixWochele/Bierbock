@@ -83,6 +83,8 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        toggleViewElements(true);
+
         // Sample data for user ratings
         userRankings = new ArrayList<>();
         userRankings.add(new UserRanking("User1", 1000, 10));
@@ -110,7 +112,6 @@ public class HomeFragment extends Fragment {
         binding.beerHistrory.setTextColor(Color.parseColor("#FF9800"));
         binding.userRanking.setTypeface(null, Typeface.NORMAL);
         binding.userRanking.setTextColor(Color.parseColor("#666666"));
-
 
         //Gesture
         final GestureDetector gesture = new GestureDetector(getActivity(),
@@ -185,14 +186,7 @@ public class HomeFragment extends Fragment {
 
         int visibility = state ? View.VISIBLE : View.INVISIBLE;
 
-        binding.homeRecyclerView.setVisibility(visibility);
-
-        if(!state){
-            progressBar.setVisibility(View.VISIBLE);
-        }
-        else{
-            progressBar.setVisibility(View.GONE);
-        }
+        progressBar.setVisibility(visibility);
     }
 
 
@@ -216,6 +210,8 @@ public class HomeFragment extends Fragment {
         this.beerHistoryItems.addAll(beerHistoryItems);
 
         beerHistoryAdapter.notifyDataSetChanged();
+
+        toggleViewElements(false);
     }
 
     //Method to update the user Ranking list:

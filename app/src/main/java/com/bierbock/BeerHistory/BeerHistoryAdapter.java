@@ -59,13 +59,12 @@ public class BeerHistoryAdapter extends RecyclerView.Adapter<BeerHistoryViewHold
 
 
         //Disable elements while loading:
-        ((HomeFragment) fragment).toggleViewElements(false);
+        //((HomeFragment) fragment).toggleViewElements(false);
 
         //Set the callback:
         ImageLoader.ImageLoadCallback callback = () -> {
 
-            //Enable elements after loading of the view
-            ((HomeFragment) fragment).toggleViewElements(true);
+            //Could define callback if images are loaded
         };
 
         //load the image:

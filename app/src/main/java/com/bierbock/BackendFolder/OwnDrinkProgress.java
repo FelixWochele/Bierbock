@@ -32,6 +32,8 @@ public class OwnDrinkProgress extends BackendRequest {
         //Set local fragment variable
         this.homeFragment = homeFragment;
 
+        homeFragment.toggleViewElements(true);
+
         //execute backend request:
         String body = ""; //Empty body
         execute(body);
@@ -66,6 +68,8 @@ public class OwnDrinkProgress extends BackendRequest {
             System.out.println(jsonArray.getJSONObject(i).getString("productName"));
         }
 
+        //homeFragment.toggleViewElements(false);
+
         homeFragment.updateBeerHistory(beerHistoryItems);
     }
 
@@ -87,11 +91,6 @@ public class OwnDrinkProgress extends BackendRequest {
         geocoder = new Geocoder(applicationContext, Locale.getDefault());
 
         addresses = geocoder.getFromLocation(latitude, longitude, 1);
-
-        //System.out.println("-------------TEST---------------");
-        //System.out.println(latitude);
-        //System.out.println(longitude);
-
 
         if(!addresses.isEmpty()){
             return addresses.get(0).getLocality();
