@@ -85,6 +85,8 @@ public class HomeFragment extends Fragment {
 
         toggleViewElements(true);
 
+        binding.nameOfValues.setVisibility(View.INVISIBLE);
+
         // Sample data for user ratings
         userRankings = new ArrayList<>();
         userRankings.add(new UserRanking("User1", 1000, 10));
@@ -142,6 +144,7 @@ public class HomeFragment extends Fragment {
                                     binding.userRanking.setTextColor(Color.parseColor("#FF9800"));
                                     binding.beerHistrory.setTypeface(null, Typeface.NORMAL);
                                     binding.beerHistrory.setTextColor(Color.parseColor("#666666"));
+                                    binding.nameOfValues.setVisibility(View.VISIBLE);
 
 
                                     homeRecyclerView.setAdapter(userRankingAdapter);
@@ -160,6 +163,7 @@ public class HomeFragment extends Fragment {
                                     binding.beerHistrory.setTextColor(Color.parseColor("#FF9800"));
                                     binding.userRanking.setTypeface(null, Typeface.NORMAL);
                                     binding.userRanking.setTextColor(Color.parseColor("#666666"));
+                                    binding.nameOfValues.setVisibility(View.INVISIBLE);
 
                                     homeRecyclerView.setAdapter(beerHistoryAdapter);
                                     callOwnDrinkProgress();
