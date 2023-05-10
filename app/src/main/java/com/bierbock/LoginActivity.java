@@ -2,10 +2,15 @@ package com.bierbock;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.bierbock.BackendFolder.AutomaticLogin;
 import com.bierbock.BackendFolder.Login;
@@ -25,6 +30,17 @@ public class LoginActivity extends AppCompatActivity{
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+
+        boolean connected = (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
+
+        if(!connected){
+            binding.errorMsg.setText("Internet connection needed! Pleas restart!");
+            toggleViewElements(false);
+            return;
+        }
 
         toggleViewElements(true);
 
