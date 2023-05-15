@@ -10,5 +10,3 @@
 + Felix Wochele
 + Vsevolod Pypenko
 
-
-### Work in Progress ... 
